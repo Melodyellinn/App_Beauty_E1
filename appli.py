@@ -2,9 +2,8 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-
 st.set_page_config(layout = "wide")
-data = pd.read_csv("data/data_app.csv")
+data = pd.read_csv("data/bquxjob_4a55ecd5_184c3af4fbe.csv")
 st.header("National Statistics")
 page = st.sidebar.selectbox('Select page',
   ['Country data','Continent data'])
