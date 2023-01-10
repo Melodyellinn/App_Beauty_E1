@@ -1,9 +1,14 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import sqlite3 as sql
 
 st.set_page_config(layout = "wide")
-data = pd.read_csv("data/data_app.csv")
+
+conn = sql.connect('Application_prod.db')
+data = pd.read_sql("""SELECT * 
+                      FROM Raw_data""", conn)
+
 st.header("National Statistics")
 page = st.sidebar.selectbox('Select page',
   ['Country data','Continent data'])
