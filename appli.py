@@ -19,7 +19,14 @@ if page == 'Country data':
                                                         "Canada", "Netherlands", "United Kingdom"])]
     df_pie_country['country'].value_counts(ascending=False)
     fig = px.pie(df_pie_country, values='pageviews', names='country', title='Top 10 Nombre pageviews par pays')
-    fig.show()
     col1.plotly_chart(fig,use_container_width=False)
+
+    df_unique_user_country = data.copy().groupby(['country', 
+    'fullVisitorId']).count().reset_index().groupby("country").count().reset_index()[["country","fullVisitorId"]]
+    df_unique_user_country = df_unique_user_country.sort_values('fullVisitorId', ascending=False).head(10)
+    df_unique_user_country.groupby(['country']).count().reset_index()
+    figure = px.pie(df_unique_user_country, values='fullVisitorId', names='country', title='Top 10 des visiteurs uniques par pays')
+    col2.plotly_chart(figure,use_container_width=False)
+
 else:
   st.write("Hello")
