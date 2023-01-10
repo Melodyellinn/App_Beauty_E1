@@ -20,6 +20,6 @@ if page == 'Country data':
     df_pie_country['country'].value_counts(ascending=False)
     fig = px.pie(df_pie_country, values='pageviews', names='country', title='Top 10 Nombre pageviews par pays')
     fig.show()
-    col1.plotly_chart(fig,use_container_width=True)
+    col1.plotly_chart(fig,use_container_width=False)
 else:
   st.write("Hello")
