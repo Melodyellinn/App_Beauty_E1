@@ -11,6 +11,8 @@ data = pd.read_sql("""SELECT *
 
 st.header("Behavior visitors on Vaccineshoppe website")
 st.markdown('##')
+st.write("Date range between 1er octobre 2022 and 31 octobre 2022")
+st.markdown('##')
 page = st.sidebar.selectbox('Select page',
   ['Country data','Other data'])
 if page == 'Country data':
@@ -22,12 +24,13 @@ if page == 'Country data':
     fig = px.pie(df_pie_country, values='pageviews', names='country', title='Top 10 Nombre pageviews par pays')
     col1.plotly_chart(fig,use_container_width=False)
     st.markdown('##')
+    st.markdown('##')
     df_unique_user_country = data.copy().groupby(['country', 
     'fullVisitorId']).count().reset_index().groupby("country").count().reset_index()[["country","fullVisitorId"]]
     df_unique_user_country = df_unique_user_country.sort_values('fullVisitorId', ascending=False).head(10)
     df_unique_user_country.groupby(['country']).count().reset_index()
     figure = px.pie(df_unique_user_country, values='fullVisitorId', names='country', title='Top 10 des visiteurs uniques par pays')
     col2.plotly_chart(figure,use_container_width=False)
-
+    
 else:
   st.write("Hello")
