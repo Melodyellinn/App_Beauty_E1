@@ -22,7 +22,7 @@ page = st.sidebar.selectbox('Select page',
   ['Country data','Other data'])
 
 if page == 'Country data':
-    col1,col2 = st.columns([2, 2])
+    col1,col2 = st.columns([2, 1])
     df_pie_country = data.copy()[data["country"].isin(["United States", "France", "Russia",
                                                    "India", "China", "Germany", "Finland",
                                                         "Canada", "Netherlands", "United Kingdom"])]
