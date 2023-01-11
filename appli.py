@@ -59,5 +59,4 @@ else:
                                     "Longitude": ['first']})
   
     fig_map = px.scatter_mapbox(lat = data_for_map_grouped["Latitude"]['first'],lon = data_for_map_grouped["Longitude"]['first'],size=data_for_map_grouped["time_on_site"]['mean'],color=data_for_map_grouped["pageviews"]['mean'],color_continuous_scale=px.colors.sequential.Viridis,mapbox_style ='open-street-map',size_max=50,zoom=1)
-    fig_map.show()
-    #col3.plotly_chart(fig_map,use_container_width=False)
+    fig_map.plotly_chart(fig_map,use_container_width=False)
