@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import sqlite3 as sql
+from datetime import timedelta, datetime
+import plotly.graph_objects as go
 
 st.set_page_config(layout = "wide")
 
@@ -36,7 +38,7 @@ if page == 'Country data':
     
 else:
   with st.container():
-    col3, col4 = st.columns(2)
+    col3, col4 = st.columns([4, 1])
     col3.subheader("World Map mean pageviews by country")
     df_pie_us_vs_all = data.copy()[data['country']!="(not set)"]
     df_pie_us_vs_all['country'] = df_pie_us_vs_all["country"].apply(lambda x: "United States" if x == "United States" else "other")
@@ -63,4 +65,27 @@ else:
   
     fig_map = px.scatter_mapbox(lat = data_for_map_grouped["Latitude"]['first'],lon = data_for_map_grouped["Longitude"]['first'],size=data_for_map_grouped["time_on_site"]['mean'],color=data_for_map_grouped["pageviews"]['mean'],color_continuous_scale=px.colors.sequential.Viridis,mapbox_style ='open-street-map',size_max=50,zoom=1)
     col3.plotly_chart(fig_map,use_container_width=False)
-    col4.subheader("Test")
+    
+    col4.subheader("Top predict by week")
+    top_predict_by_week = data.copy()
+    top_predict_by_week["date"] = pd.to_datetime(top_predict_by_week["date"])
+    top_predict_by_week = top_predict_by_week[['date', 'Predict']]
+    date = "20220917"
+    today_date = datetime.strptime(date,"%Y%m%d")
+    last_date = today_date - timedelta(days=7)
+    top_predict_this_week = top_predict_by_week.copy()[top_predict_by_week['date'].between(last_date,today_date)]
+    date = "20220909"
+    today_date = datetime.strptime(date,"%Y%m%d")
+    last_date = today_date - timedelta(days=7)
+    top_predict_last_week = top_predict_by_week.copy()[top_predict_by_week['date'].between(last_date,today_date)]
+    count_predict_this_week = top_predict_this_week.count()[0]
+    count_predict_last_week = top_predict_last_week.count()[0]
+
+    fig_kpi = go.Figure()
+    fig_kpi.add_trace(go.Indicator(mode = "number+delta",
+                                   value = count_predict_this_week,
+                                   domain = {'x': [0, 0], 'y': [0, 0]},
+                                   delta = {'reference': count_predict_last_week,
+                                            'relative': True,
+                                            'position' : "bottom",'valueformat':'.2%'}))
+    col4.plotly_chart(fig_kpi,use_container_width=False)
