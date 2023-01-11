@@ -13,8 +13,10 @@ st.header("Behavior visitors on Vaccineshoppe website")
 st.markdown('##')
 st.write("Date range between 1er octobre 2022 and 31 octobre 2022")
 st.markdown('##')
+
 page = st.sidebar.selectbox('Select page',
   ['Country data','Other data'])
+
 if page == 'Country data':
     col1,col2 = st.columns(2)
     df_pie_country = data.copy()[data["country"].isin(["United States", "France", "Russia",
@@ -34,7 +36,8 @@ if page == 'Country data':
     
 else:
   with st.container():
-    #col3 = st.columns(1)
+    col1, col2 = st.columns(3, 1)
+    col1.subheader("World Map mean pageviews by country")
     df_pie_us_vs_all = data.copy()[data['country']!="(not set)"]
     df_pie_us_vs_all['country'] = df_pie_us_vs_all["country"].apply(lambda x: "United States" if x == "United States" else "other")
     df_pie_undifined_country = data.copy()
@@ -59,5 +62,4 @@ else:
                                     "Longitude": ['first']})
   
     fig_map = px.scatter_mapbox(lat = data_for_map_grouped["Latitude"]['first'],lon = data_for_map_grouped["Longitude"]['first'],size=data_for_map_grouped["time_on_site"]['mean'],color=data_for_map_grouped["pageviews"]['mean'],color_continuous_scale=px.colors.sequential.Viridis,mapbox_style ='open-street-map',size_max=50,zoom=1)
-    #fig_map.show()
-    #col3.plotly_chart(fig_map,use_container_width=False)
+    col2.plotly_chart(fig_map,use_container_width=False)
