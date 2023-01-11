@@ -33,8 +33,7 @@ if page == 'Country data':
     col2.plotly_chart(figure,use_container_width=False)
     
 else:
-    col1,col2 = st.columns(2)
-    st.write("Map World")
+    col1 = st.columns(1)
     df_pie_us_vs_all = data.copy()[data['country']!="(not set)"]
     df_pie_us_vs_all['country'] = df_pie_us_vs_all["country"].apply(lambda x: "United States" if x == "United States" else "other")
     df_pie_undifined_country = data.copy()
@@ -60,4 +59,4 @@ else:
   
     fig_map = px.scatter_mapbox(lat = data_for_map_grouped["Latitude"]['first'],lon = data_for_map_grouped["Longitude"]['first'],size=data_for_map_grouped["time_on_site"]['mean'],color=data_for_map_grouped["pageviews"]['mean'],color_continuous_scale=px.colors.sequential.Viridis,mapbox_style ='open-street-map',size_max=50,zoom=1)
   
-    col2.plotly_chart(fig_map,use_container_width=False)
+    col1.plotly_chart(fig_map,use_container_width=False)
