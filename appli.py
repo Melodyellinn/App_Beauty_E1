@@ -11,6 +11,8 @@ conn = sql.connect('Application_prod.db')
 data = pd.read_sql("""SELECT * 
                       FROM Raw_data""", conn)
 
+df_kpi = pd.read_csv('data/data_app.csv')
+
 st.header("Behavior visitors on Vaccineshoppe website")
 st.markdown('##')
 st.write("Date range between 1er octobre 2022 and 31 octobre 2022")
@@ -67,15 +69,15 @@ else:
     col3.plotly_chart(fig_map,use_container_width=False)
     
     col4.subheader("Top predict by week")
-    top_predict_by_week = data.copy()
+    top_predict_by_week = df_kpi.copy()
     top_predict_by_week["date"] = pd.to_datetime(top_predict_by_week["date"])
     top_predict_by_week = top_predict_by_week[['date', 'Predict']]
-    date = "20220917"
-    today_date = datetime.strptime(date,"%Y%m%d")
+    date1 = "20220917"
+    today_date = datetime.strptime(date1,"%Y%m%d")
     last_date = today_date - timedelta(days=7)
     top_predict_this_week = top_predict_by_week.copy()[top_predict_by_week['date'].between(last_date,today_date)]
-    date = "20220909"
-    today_date = datetime.strptime(date,"%Y%m%d")
+    date2 = "20220909"
+    today_date = datetime.strptime(date2,"%Y%m%d")
     last_date = today_date - timedelta(days=7)
     top_predict_last_week = top_predict_by_week.copy()[top_predict_by_week['date'].between(last_date,today_date)]
     count_predict_this_week = top_predict_this_week.count()[0]
