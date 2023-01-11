@@ -36,7 +36,7 @@ if page == 'Country data':
     
 else:
   with st.container():
-    col1, col2 = st.columns(3, 1)
+    col1, col2 = st.columns(2, 1)
     col1.subheader("World Map mean pageviews by country")
     df_pie_us_vs_all = data.copy()[data['country']!="(not set)"]
     df_pie_us_vs_all['country'] = df_pie_us_vs_all["country"].apply(lambda x: "United States" if x == "United States" else "other")
