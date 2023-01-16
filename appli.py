@@ -14,7 +14,7 @@ data = pd.read_sql("""SELECT *
 df_kpi = pd.read_csv('data/data_app.csv')
 
 ## Header ##
-st.header("Behavior visitors on Vaccineshoppe website")
+st.title("Behavior visitors on Vaccineshoppe website")
 st.markdown("<style>h1{text-align: center;}</style>", unsafe_allow_html=True)
 st.write("Date range between 1er octobre 2022 and 31 octobre 2022")
 
