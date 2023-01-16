@@ -25,9 +25,10 @@ page = st.sidebar.selectbox('Select page',
 ## FIRST PAGE ##
 if page == 'Country data':
     col1,col2 = st.columns([2, 1])
-    # Create a checkbox to toggle the plot visibility
-    show_plot = st.checkbox("Show Plot")
-    if show_plot:
+# Create checkboxes to toggle the plots visibility
+    show_plot1 = st.checkbox("Show : Top 10 des pageviews par Pays")
+    show_plot2 = st.checkbox("Show Top 10 des visiteurs uniques par Pays")
+    if show_plot1:
       df_pie_country = data.copy()[data["country"].isin(["United States", "France", "Russia",
                                                    "India", "China", "Germany", "Finland",
                                                         "Canada", "Netherlands", "United Kingdom"])]
@@ -35,6 +36,9 @@ if page == 'Country data':
       fig = px.pie(df_pie_country, values='pageviews', names='country', title='Top 10 Nombre pageviews par pays')
       col1.plotly_chart(fig,use_container_width=False)
     else:
+      st.empty()
+    
+    if show_plot2:
       show_plot = st.checkbox("Show Second Plot")
       df_unique_user_country = data.copy().groupby(['country', 
       'fullVisitorId']).count().reset_index().groupby("country").count().reset_index()[["country","fullVisitorId"]]
@@ -42,6 +46,8 @@ if page == 'Country data':
       df_unique_user_country.groupby(['country']).count().reset_index()
       figure = px.pie(df_unique_user_country, values='fullVisitorId', names='country', title='Top 10 des visiteurs uniques par pays')
       col2.plotly_chart(figure,use_container_width=False)
+    else:
+      st.empty()
 
 ## SECOND PAGE ##    
 else:
