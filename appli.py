@@ -144,15 +144,24 @@ else:
   #with st.container():
     col4, col5 = st.columns([4, 2])
     col4.subheader("Type de channel")
-    data['rgb_colors'] = data['channelGrouping'].apply(lambda x: 'rgb(255,0,0)' if x == 'value1' else ('rgb(51,138,255)' if x == 'value2' else ('rgb(51,202,255)' if x == 'value3' else 'rgb(51,255,187)')))
-   
+    #data['rgb_colors'] = data['channelGrouping'].apply(lambda x: 'rgb(255,0,0)' if x == 'value1' else ('rgb(51,138,255)' if x == 'value2' else ('rgb(51,202,255)' if x == 'value3' else 'rgb(51,255,187)')))
+    rgb_colors = []
+    for value in data['channelGrouping'].value_counts().index:
+      if value == 'value1':
+        rgb_colors.append('rgb(255,0,0)') # red
+      elif value == 'value2':
+        rgb_colors.append('rgb(0,255,0)') # green
+      elif value == 'value3':
+        rgb_colors.append('rgb(0,0,255)') # blue
+      else:
+        rgb_colors.append('rgb(255,255,255)') # white
+
     data_bar = [go.Bar(
             x=data['channelGrouping'].value_counts().index,
             y=data['channelGrouping'].value_counts().values,
-            marker=dict(color=data['rgb_colors'])
+            marker=dict(color=rgb_colors)
             )]
     layout = go.Layout(title='Countplot of Channels')
-    
     fig_channel = go.Figure(data=data_bar, layout=layout)
     col4.plotly_chart(fig_channel, use_container_width=False)
     
