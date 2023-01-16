@@ -168,26 +168,18 @@ else:
     fig_channel = go.Figure(data=data_bar, layout=layout)
     col4.plotly_chart(fig_channel, use_container_width=False)
     
-    col5.subheader("Top predict by week")
-    top_predict_by_week = df_kpi.copy()
-    top_predict_by_week["date"] = pd.to_datetime(top_predict_by_week["date"])
-    top_predict_by_week = top_predict_by_week[['date', 'Predict']]
-    date1 = "20220917"
-    today_date = datetime.strptime(date1,"%Y%m%d")
-    last_date = today_date - timedelta(days=7)
-    top_predict_this_week = top_predict_by_week.copy()[top_predict_by_week['date'].between(last_date,today_date)]
-    date2 = "20220909"
-    today_date = datetime.strptime(date2,"%Y%m%d")
-    last_date = today_date - timedelta(days=7)
-    top_predict_last_week = top_predict_by_week.copy()[top_predict_by_week['date'].between(last_date,today_date)]
-    count_predict_this_week = top_predict_this_week.count()[0]
-    count_predict_last_week = top_predict_last_week.count()[0]
-
-    fig_kpi = go.Figure()
-    fig_kpi.add_trace(go.Indicator(mode = "number+delta",
-                                   value = count_predict_this_week,
-                                   domain = {'x': [0, 0], 'y': [0, 0]},
-                                   delta = {'reference': count_predict_last_week,
-                                            'relative': True,
-                                            'position' : "bottom",'valueformat':'.2%'}))
-    col5.plotly_chart(fig_kpi,use_container_width=False)
+    col5.subheader("Type of Device")
+    rgb_colors = ['rgb(255,216,51)',
+                  'rgb(255,132,51)',
+                  'rgb(248,18,18)'] 
+    data_bar = [go.Bar(
+            x=data['channelGrouping'].value_counts().index,
+            y=data['channelGrouping'].value_counts().values,
+            text=data['channelGrouping'].value_counts().values,
+            textposition='auto',
+            marker=dict(color=rgb_colors)
+            )]
+    
+    layout = go.Layout(title='Countplot of Device Category')
+    fig_device = go.Figure(data=data_bar, layout=layout)
+    col5.plotly_chart(fig_device,use_container_width=False)
