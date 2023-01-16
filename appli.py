@@ -148,11 +148,21 @@ else:
     rgb_colors = []
     for value in data['channelGrouping'].value_counts().index:
       if value == 'value1':
-        rgb_colors.append('rgb(255,0,0)') # red
+        rgb_colors.append('rgb(51,138,255)')
       elif value == 'value2':
-        rgb_colors.append('rgb(0,255,0)') # green
+        rgb_colors.append('rgb(51,202,255)')
       elif value == 'value3':
-        rgb_colors.append('rgb(0,0,255)') # blue
+        rgb_colors.append('rgb(51,202,255)')
+      elif value == 'value4':
+        rgb_colors.append('rgb(51,255,187)')
+      elif value == 'value5':
+        rgb_colors.append('rgb(224,255,51)')
+      elif value == 'value6':
+        rgb_colors.append('rgb(255,216,51)')
+      elif value == 'value7':
+        rgb_colors.append('rgb(255,132,51)')
+      elif value == 'value8':
+        rgb_colors.append('rgb(é48,18,18)') # red
       else:
         rgb_colors.append('rgb(255,255,255)') # white
 
