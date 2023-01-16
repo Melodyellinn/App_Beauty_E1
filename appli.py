@@ -35,6 +35,7 @@ if page == 'Country data':
       fig = px.pie(df_pie_country, values='pageviews', names='country', title='Top 10 Nombre pageviews par pays')
       col1.plotly_chart(fig,use_container_width=False)
     else:
+      show_plot = st.checkbox("Show Plot")
       df_unique_user_country = data.copy().groupby(['country', 
       'fullVisitorId']).count().reset_index().groupby("country").count().reset_index()[["country","fullVisitorId"]]
       df_unique_user_country = df_unique_user_country.sort_values('fullVisitorId', ascending=False).head(10)
