@@ -120,7 +120,9 @@ if page == 'Country data':
                                                    "India", "China", "Germany", "Finland",
                                                         "Canada", "Netherlands", "United Kingdom"])]
       df_pie_country['country'].value_counts(ascending=False)
-      fig = px.pie(df_pie_country, values='pageviews', names='country', title='Top 10 Nombre pageviews par pays')
+      fig = px.pie(df_pie_country, values='pageviews', names='country',
+                   color="category",
+                   title='Top 10 Nombre pageviews par pays')
       col1.plotly_chart(fig,use_container_width=False)
     else:
       st.empty()
@@ -134,13 +136,6 @@ if page == 'Country data':
       col1.plotly_chart(figure,use_container_width=False)
     else:
       st.empty()
-
-
-
-
-
-
-
 
 
 ## SECOND PAGE ##    
