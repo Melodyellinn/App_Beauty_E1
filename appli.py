@@ -26,7 +26,7 @@ page = st.sidebar.selectbox('Select page',
 
 ## FIRST PAGE ##
 if page == 'Country data':
-    col1, col2 = st.columns([6, 2])
+    col1, col2 = st.columns([1, 0.5])
     
     col1.subheader("Count predict by week")
     top_predict_by_week = df_kpi.copy()
@@ -111,7 +111,7 @@ if page == 'Country data':
                                 mapbox_style ='open-street-map',
                                 size_max=50,
                                 zoom=1)
-    st.plotly_chart(fig_map,use_container_width=False)
+    st.plotly_chart(fig_map,use_container_width=False,)
     
 # Create checkboxes to toggle the plots visibility
     show_plot1 = st.checkbox("Show : Top 10 des pageviews par Pays")
