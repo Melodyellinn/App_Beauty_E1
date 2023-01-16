@@ -123,7 +123,7 @@ if page == 'Country data':
       df_unique_user_country = df_unique_user_country.sort_values('fullVisitorId', ascending=False).head(10)
       df_unique_user_country.groupby(['country']).count().reset_index()
       figure = px.pie(df_unique_user_country, values='fullVisitorId', names='country', title='Top 10 des visiteurs uniques par pays')
-      col2.plotly_chart(figure,use_container_width=False)
+      col1.plotly_chart(figure,use_container_width=False)
     else:
       st.empty()
 
