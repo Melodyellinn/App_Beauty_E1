@@ -151,10 +151,10 @@ else:
                   'rgb(51,147,255)',
                   'rgb(51,166,255)',
                   'rgb(51,170,255)',
-                  'rgb(51,183,255)',
-                  'rgb(51,189,255)',
-                  'rgb(51,195,255)',
-                  'rgb(51,200,255)']
+                  'rgb(24,189,67)', #green
+                  'rgb(57,217,30)',
+                  'rgb(19,124,1)',
+                  'rgb(12,55,4)']
     
     data_bar = [go.Bar(
             x=data['channelGrouping'].value_counts().index,
