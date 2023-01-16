@@ -147,9 +147,9 @@ else:
     col4, col5 = st.columns([4, 2])
     col4.subheader("Type de channel")
     #data['rgb_colors'] = data['channelGrouping'].apply(lambda x: 'rgb(255,0,0)' if x == 'value1' else ('rgb(51,138,255)' if x == 'value2' else ('rgb(51,202,255)' if x == 'value3' else 'rgb(51,255,187)')))
-    rgb_colors = ['rgb(51,138,255)',
-                  'rgb(51,147,255)',
-                  'rgb(51,166,255)',
+    rgb_colors = ['rgb(51,138,255)', #hightblue
+                  'rgb(14,40,185)',
+                  'rgb(52,135,210)',
                   'rgb(51,170,255)',
                   'rgb(24,189,67)', #green
                   'rgb(57,217,30)',
