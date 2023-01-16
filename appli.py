@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-import matplotlib.pyplot as plt
 import sqlite3 as sql
 from datetime import timedelta, datetime
 import plotly.graph_objects as go
@@ -26,25 +25,17 @@ page = st.sidebar.selectbox('Select page',
 ## FIRST PAGE ##
 if page == 'Country data':
     col1,col2 = st.columns([2, 1])
-    
-    
     # Create a checkbox to toggle the plot visibility
     show_plot = st.checkbox("Show Plot")
     if show_plot:
-      x = [1, 2, 3, 4]
-      y = [10, 15, 13, 17]
-      plt.plot(x, y)
-      st.pyplot()
-    
-    
-    
-    df_pie_country = data.copy()[data["country"].isin(["United States", "France", "Russia",
+      df_pie_country = data.copy()[data["country"].isin(["United States", "France", "Russia",
                                                    "India", "China", "Germany", "Finland",
                                                         "Canada", "Netherlands", "United Kingdom"])]
-    df_pie_country['country'].value_counts(ascending=False)
-    fig = px.pie(df_pie_country, values='pageviews', names='country', title='Top 10 Nombre pageviews par pays')
-    col1.plotly_chart(fig,use_container_width=False)
-    
+      df_pie_country['country'].value_counts(ascending=False)
+      fig = px.pie(df_pie_country, values='pageviews', names='country', title='Top 10 Nombre pageviews par pays')
+      col1.plotly_chart(fig,use_container_width=False)
+      st.pyplot()
+
     df_unique_user_country = data.copy().groupby(['country', 
     'fullVisitorId']).count().reset_index().groupby("country").count().reset_index()[["country","fullVisitorId"]]
     df_unique_user_country = df_unique_user_country.sort_values('fullVisitorId', ascending=False).head(10)
