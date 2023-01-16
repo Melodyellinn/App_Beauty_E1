@@ -110,8 +110,10 @@ if page == 'Country data':
                                 lon = data_for_map_grouped["Longitude"]['first'],
                                 size=data_for_map_grouped["time_on_site"]['mean'],
                                 color=data_for_map_grouped["pageviews"]['mean'],
-                                color_continuous_scale=px.colors.sequential.Viridis,mapbox_style ='open-street-map',
-                                size_max=50,zoom=1)
+                                color_continuous_scale=px.colors.sequential.Viridis,
+                                mapbox_style ='open-street-map',
+                                size_max=50,
+                                zoom=1)
     col1.plotly_chart(fig_map,use_container_width=False)
     
 # Create checkboxes to toggle the plots visibility
@@ -153,13 +155,17 @@ else:
                   'rgb(255,216,51)',
                   'rgb(255,132,51)',
                   'rgb(248,18,18)']
+    
     data_bar = [go.Bar(
             x=data['channelGrouping'].value_counts().index,
             y=data['channelGrouping'].value_counts().values,
             text=data['channelGrouping'].value_counts().values,
             textposition='auto',
+            size_max=50,
+            zoom=1
             marker=dict(color=rgb_colors)
             )]
+    
     layout = go.Layout(title='Countplot of Channels')
     fig_channel = go.Figure(data=data_bar, layout=layout)
     col4.plotly_chart(fig_channel, use_container_width=False)
