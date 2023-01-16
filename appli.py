@@ -24,8 +24,8 @@ page = st.sidebar.selectbox('Select page',
 
 ## FIRST PAGE ##
 if page == 'Country data':
-    col1, col2 = st.columns([6, 2])
-    
+    col1, col2 = st.columns([6, 2], column_width=1)
+       
     col1.subheader("Top predict by week")
     top_predict_by_week = df_kpi.copy()
     top_predict_by_week["date"] = pd.to_datetime(top_predict_by_week["date"])
