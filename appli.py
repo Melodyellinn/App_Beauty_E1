@@ -162,7 +162,7 @@ else:
       elif value == 'value7':
         rgb_colors.append('rgb(255,132,51)')
       elif value == 'value8':
-        rgb_colors.append('rgb(é48,18,18)') # red
+        rgb_colors.append('rgb(248,18,18)') # red
       else:
         rgb_colors.append('rgb(255,255,255)') # white
 
