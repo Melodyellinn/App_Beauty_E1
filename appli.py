@@ -144,11 +144,12 @@ else:
   #with st.container():
     col4, col5 = st.columns([4, 2])
     col4.subheader("Type de channel")
-    #colors = ['red','green','blue','purple','pink','yellow','brown','cyan']
+    data['rgb_colors'] = data['channelGrouping'].apply(lambda x: 'rgb(255,0,0)' if x == 'value1' else ('rgb(51,138,255)' if x == 'value2' else ('rgb(51,202,255)' if x == 'value3' else 'rgb(51,255,187)')))
+   
     data_bar = [go.Bar(
             x=data['channelGrouping'].value_counts().index,
             y=data['channelGrouping'].value_counts().values,
-            marker=dict(colorscale='Viridis')
+            marker=dict(color=data['rgb_colors'])
             )]
     layout = go.Layout(title='Countplot of Channels')
     
