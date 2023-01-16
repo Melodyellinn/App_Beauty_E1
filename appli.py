@@ -153,10 +153,11 @@ else:
                   'rgb(255,216,51)',
                   'rgb(255,132,51)',
                   'rgb(248,18,18)']
-
     data_bar = [go.Bar(
             x=data['channelGrouping'].value_counts().index,
             y=data['channelGrouping'].value_counts().values,
+            text=data['channelGrouping'].value_counts().values,
+            textposition='auto',
             marker=dict(color=rgb_colors)
             )]
     layout = go.Layout(title='Countplot of Channels')
