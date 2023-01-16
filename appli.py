@@ -146,9 +146,10 @@ else:
     col4.subheader("Type de channel")
     
     plt.figure(figsize=(15,8))
-    plot = sns.countplot(data["channelGrouping"])
+    sns.countplot(data["channelGrouping"])
     plt.title(label='Type de canal')
-    col4.plotly_chart(plot, use_container_width=False)
+    plt.show()
+    #col4.plotly_chart(plot, use_container_width=False)
     
     col5.subheader("Top predict by week")
     top_predict_by_week = df_kpi.copy()
