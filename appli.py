@@ -26,6 +26,30 @@ page = st.sidebar.selectbox('Select page',
 if page == 'Country data':
     col1, col2 = st.columns([6, 2])
     
+    col1.subheader("Top predict by week")
+    top_predict_by_week = df_kpi.copy()
+    top_predict_by_week["date"] = pd.to_datetime(top_predict_by_week["date"])
+    top_predict_by_week = top_predict_by_week[['date', 'Predict']]
+    date1 = "20220917"
+    today_date = datetime.strptime(date1,"%Y%m%d")
+    last_date = today_date - timedelta(days=7)
+    top_predict_this_week = top_predict_by_week.copy()[top_predict_by_week['date'].between(last_date,today_date)]
+    date2 = "20220909"
+    today_date = datetime.strptime(date2,"%Y%m%d")
+    last_date = today_date - timedelta(days=7)
+    top_predict_last_week = top_predict_by_week.copy()[top_predict_by_week['date'].between(last_date,today_date)]
+    count_predict_this_week = top_predict_this_week.count()[0]
+    count_predict_last_week = top_predict_last_week.count()[0]
+
+    fig_kpi = go.Figure()
+    fig_kpi.add_trace(go.Indicator(mode = "number+delta",
+                                   value = count_predict_this_week,
+                                   domain = {'x': [0, 0], 'y': [0, 0]},
+                                   delta = {'reference': count_predict_last_week,
+                                            'relative': True,
+                                            'position' : "bottom",'valueformat':'.2%'}))
+    col1.plotly_chart(fig_kpi,use_container_width=False)
+    
     col1.subheader("World Map mean pageviews by country")
     df_pie_us_vs_all = data.copy()[data['country']!="(not set)"]
     df_pie_us_vs_all['country'] = df_pie_us_vs_all["country"].apply(lambda x: "United States" if x == "United States" else "other")
@@ -52,31 +76,7 @@ if page == 'Country data':
   
     fig_map = px.scatter_mapbox(lat = data_for_map_grouped["Latitude"]['first'],lon = data_for_map_grouped["Longitude"]['first'],size=data_for_map_grouped["time_on_site"]['mean'],color=data_for_map_grouped["pageviews"]['mean'],color_continuous_scale=px.colors.sequential.Viridis,mapbox_style ='open-street-map',size_max=50,zoom=1)
     col1.plotly_chart(fig_map,use_container_width=False)
-    
-    col2.subheader("Top predict by week")
-    top_predict_by_week = df_kpi.copy()
-    top_predict_by_week["date"] = pd.to_datetime(top_predict_by_week["date"])
-    top_predict_by_week = top_predict_by_week[['date', 'Predict']]
-    date1 = "20220917"
-    today_date = datetime.strptime(date1,"%Y%m%d")
-    last_date = today_date - timedelta(days=7)
-    top_predict_this_week = top_predict_by_week.copy()[top_predict_by_week['date'].between(last_date,today_date)]
-    date2 = "20220909"
-    today_date = datetime.strptime(date2,"%Y%m%d")
-    last_date = today_date - timedelta(days=7)
-    top_predict_last_week = top_predict_by_week.copy()[top_predict_by_week['date'].between(last_date,today_date)]
-    count_predict_this_week = top_predict_this_week.count()[0]
-    count_predict_last_week = top_predict_last_week.count()[0]
 
-    fig_kpi = go.Figure()
-    fig_kpi.add_trace(go.Indicator(mode = "number+delta",
-                                   value = count_predict_this_week,
-                                   domain = {'x': [0, 0], 'y': [0, 0]},
-                                   delta = {'reference': count_predict_last_week,
-                                            'relative': True,
-                                            'position' : "bottom",'valueformat':'.2%'}))
-    col2.plotly_chart(fig_kpi,use_container_width=False)
-    
     
 # Create checkboxes to toggle the plots visibility
     show_plot1 = st.checkbox("Show : Top 10 des pageviews par Pays")
@@ -97,7 +97,7 @@ if page == 'Country data':
       df_unique_user_country = df_unique_user_country.sort_values('fullVisitorId', ascending=False).head(10)
       df_unique_user_country.groupby(['country']).count().reset_index()
       figure = px.pie(df_unique_user_country, values='fullVisitorId', names='country', title='Top 10 des visiteurs uniques par pays')
-      col1.plotly_chart(figure,use_container_width=False)
+      col2.plotly_chart(figure,use_container_width=False)
     else:
       st.empty()
 
