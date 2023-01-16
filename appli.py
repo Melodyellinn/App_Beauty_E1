@@ -26,7 +26,7 @@ page = st.sidebar.selectbox('Select page',
 if page == 'Country data':
     col1, col2 = st.columns([6, 2])
     
-    col1.subheader("Top predict by week")
+    col1.subheader("Count predict by week")
     top_predict_by_week = df_kpi.copy()
     top_predict_by_week["date"] = pd.to_datetime(top_predict_by_week["date"])
     top_predict_by_week = top_predict_by_week[['date', 'Predict']]
@@ -50,30 +50,34 @@ if page == 'Country data':
                                             'position' : "bottom",'valueformat':'.2%'}))
     col1.plotly_chart(fig_kpi,use_container_width=False)
     
-        
-    col2.subheader("Top predict by week")
-    top_predict_by_week = df_kpi.copy()
-    top_predict_by_week["date"] = pd.to_datetime(top_predict_by_week["date"])
-    top_predict_by_week = top_predict_by_week[['date', 'Predict']]
-    date1 = "20220917"
-    today_date = datetime.strptime(date1,"%Y%m%d")
+  ## SECOND KPI ##
+    col2.subheader("Mean predict by week")
+    mean_predict_by_week = df_kpi.copy()
+    mean_predict_by_week["date"] = pd.to_datetime(mean_predict_by_week["date"])
+    mean_predict_by_week = mean_predict_by_week[['date', 'Predict']]
+    date = "20220917"
+    today_date = datetime.strptime(date,"%Y%m%d")
     last_date = today_date - timedelta(days=7)
-    top_predict_this_week = top_predict_by_week.copy()[top_predict_by_week['date'].between(last_date,today_date)]
-    date2 = "20220909"
-    today_date = datetime.strptime(date2,"%Y%m%d")
-    last_date = today_date - timedelta(days=7)
-    top_predict_last_week = top_predict_by_week.copy()[top_predict_by_week['date'].between(last_date,today_date)]
-    count_predict_this_week = top_predict_this_week.count()[0]
-    count_predict_last_week = top_predict_last_week.count()[0]
-
-    fig_kpi = go.Figure()
-    fig_kpi.add_trace(go.Indicator(mode = "number+delta",
-                                   value = count_predict_this_week,
-                                   domain = {'x': [0, 0], 'y': [0, 0]},
-                                   delta = {'reference': count_predict_last_week,
-                                            'relative': True,
-                                            'position' : "bottom",'valueformat':'.2%'}))
-    col2.plotly_chart(fig_kpi,use_container_width=False)
+    mean_predict_this_week = mean_predict_by_week.copy()[mean_predict_by_week['date'].between(last_date,
+                                                                                              today_date)]
+    date = "20220909"
+    today_date = datetime.strptime(date,"%Y%m%d")
+    ast_date = today_date - timedelta(days=7)
+    mean_predict_last_week = mean_predict_by_week.copy()[mean_predict_by_week['date'].between(last_date,
+                                                                                              today_date)]
+    mean_predict_this_week = mean_predict_this_week.mean()[0]
+    mean_predict_last_week = mean_predict_last_week.mean()[0]
+    
+    fig_kpi_2 = go.Figure()
+    fig_kpi_2.add_trace(go.Indicator(
+                  mode = "number+delta",
+                  value = mean_predict_this_week,
+                  domain = {'x': [0, 0], 'y': [0, 0]},
+                  delta = {'reference': mean_predict_last_week, 
+                           'relative': True, 
+                           'position' : "bottom",
+                           'valueformat':'.2%'})) 
+    col2.plotly_chart(fig_kpi_2,use_container_width=False)
   
   ## MAPPING ##  
     col1.subheader("World Map mean pageviews by country")
@@ -100,7 +104,12 @@ if page == 'Country data':
                                     "Latitude": ['first'],
                                     "Longitude": ['first']})
   
-    fig_map = px.scatter_mapbox(lat = data_for_map_grouped["Latitude"]['first'],lon = data_for_map_grouped["Longitude"]['first'],size=data_for_map_grouped["time_on_site"]['mean'],color=data_for_map_grouped["pageviews"]['mean'],color_continuous_scale=px.colors.sequential.Viridis,mapbox_style ='open-street-map',size_max=50,zoom=1)
+    fig_map = px.scatter_mapbox(lat = data_for_map_grouped["Latitude"]['first'],
+                                lon = data_for_map_grouped["Longitude"]['first'],
+                                size=data_for_map_grouped["time_on_site"]['mean'],
+                                color=data_for_map_grouped["pageviews"]['mean'],
+                                color_continuous_scale=px.colors.sequential.Viridis,mapbox_style ='open-street-map',
+                                size_max=50,zoom=1)
     col1.plotly_chart(fig_map,use_container_width=False)
     
 # Create checkboxes to toggle the plots visibility
