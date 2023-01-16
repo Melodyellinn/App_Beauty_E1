@@ -148,13 +148,13 @@ else:
     col4.subheader("Type de channel")
     #data['rgb_colors'] = data['channelGrouping'].apply(lambda x: 'rgb(255,0,0)' if x == 'value1' else ('rgb(51,138,255)' if x == 'value2' else ('rgb(51,202,255)' if x == 'value3' else 'rgb(51,255,187)')))
     rgb_colors = ['rgb(51,138,255)',
-                  'rgb(18,248,248)',
-                  'rgb(119,248,18)',
-                  'rgb(51,255,187)',
-                  'rgb(224,255,51)',
-                  'rgb(255,216,51)',
-                  'rgb(255,132,51)',
-                  'rgb(248,18,18)']
+                  'rgb(51,147,255)',
+                  'rgb(51,166,255)',
+                  'rgb(51,170,255)',
+                  'rgb(51,183,255)',
+                  'rgb(51,189,255)',
+                  'rgb(51,195,255)',
+                  'rgb(51,200,255)']
     
     data_bar = [go.Bar(
             x=data['channelGrouping'].value_counts().index,
