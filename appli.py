@@ -144,9 +144,12 @@ else:
   #with st.container():
     col4, col5 = st.columns([4, 2])
     col4.subheader("Type de channel")
+    colors = ['red','green','blue','purple','pink','yellow','brown','cyan']
     data_bar = [go.Bar(
             x=data['channelGrouping'].value_counts().index,
-            y=data['channelGrouping'].value_counts().values)]
+            y=data['channelGrouping'].value_counts().values,
+            marker=dict(color=colors)
+            )]
     layout = go.Layout(title='Countplot of Channels')
     
     fig_channel = go.Figure(data=data_bar, layout=layout)
