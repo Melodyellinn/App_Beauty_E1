@@ -5,27 +5,24 @@ import sqlite3 as sql
 from datetime import timedelta, datetime
 import plotly.graph_objects as go
 
-
-st.title("My Centered Title")
-st.markdown("<div class='center'>My Centered Title</div>", unsafe_allow_html=True)
-
-
 st.set_page_config(layout = "wide")
 
+## Import Data ##
 conn = sql.connect('Application_prod.db')
 data = pd.read_sql("""SELECT * 
                       FROM Raw_data""", conn)
-
 df_kpi = pd.read_csv('data/data_app.csv')
 
+## Header ##
 st.header("Behavior visitors on Vaccineshoppe website")
-st.markdown('##')
+st.markdown("<style>h1{text-align: center;}</style>", unsafe_allow_html=True)
 st.write("Date range between 1er octobre 2022 and 31 octobre 2022")
-st.markdown('##')
 
+## SelectBOX ##
 page = st.sidebar.selectbox('Select page',
   ['Country data','Other data'])
 
+## FIRST PAGE ##
 if page == 'Country data':
     col1,col2 = st.columns([2, 1])
     df_pie_country = data.copy()[data["country"].isin(["United States", "France", "Russia",
@@ -41,7 +38,7 @@ if page == 'Country data':
     df_unique_user_country.groupby(['country']).count().reset_index()
     figure = px.pie(df_unique_user_country, values='fullVisitorId', names='country', title='Top 10 des visiteurs uniques par pays')
     col2.plotly_chart(figure,use_container_width=False)
-    
+## SECOND PAGE ##    
 else:
   with st.container():
     col3, col4 = st.columns([4, 2])
