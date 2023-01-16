@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import matplotlib.pyplot as plt
 import sqlite3 as sql
 from datetime import timedelta, datetime
 import plotly.graph_objects as go
@@ -25,6 +26,18 @@ page = st.sidebar.selectbox('Select page',
 ## FIRST PAGE ##
 if page == 'Country data':
     col1,col2 = st.columns([2, 1])
+    
+    
+    # Create a checkbox to toggle the plot visibility
+    show_plot = st.checkbox("Show Plot")
+    if show_plot:
+      x = [1, 2, 3, 4]
+      y = [10, 15, 13, 17]
+      plt.plot(x, y)
+      st.pyplot()
+    
+    
+    
     df_pie_country = data.copy()[data["country"].isin(["United States", "France", "Russia",
                                                    "India", "China", "Germany", "Finland",
                                                         "Canada", "Netherlands", "United Kingdom"])]
