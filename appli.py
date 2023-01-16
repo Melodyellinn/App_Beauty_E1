@@ -5,6 +5,11 @@ import sqlite3 as sql
 from datetime import timedelta, datetime
 import plotly.graph_objects as go
 
+
+st.title("My Centered Title")
+st.markdown("<div class='center'>My Centered Title</div>", unsafe_allow_html=True)
+
+
 st.set_page_config(layout = "wide")
 
 conn = sql.connect('Application_prod.db')
