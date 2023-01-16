@@ -144,12 +144,13 @@ else:
   #with st.container():
     col4, col5 = st.columns([4, 2])
     col4.subheader("Type de channel")
+    data_bar = [go.Bar(
+            x=data['channelGrouping'].value_counts().index,
+            y=data['channelGrouping'].value_counts().values)]
+    layout = go.Layout(title='Countplot of Channels')
     
-    plt.figure(figsize=(15,8))
-    sns.countplot(data["channelGrouping"])
-    plt.title(label='Type de canal')
-    plt.show()
-    #col4.plotly_chart(plot, use_container_width=False)
+    fig_channel = go.Figure(data=data_bar, layout=layout)
+    col4.plotly_chart(fig_channel, use_container_width=False)
     
     col5.subheader("Top predict by week")
     top_predict_by_week = df_kpi.copy()
