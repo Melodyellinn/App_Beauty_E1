@@ -148,8 +148,7 @@ else:
     data_bar = [go.Bar(
             x=data['channelGrouping'].value_counts().index,
             y=data['channelGrouping'].value_counts().values,
-            marker=dict(colorscale='Viridis',
-            color=data['column_name'].value_counts().values)
+            marker=dict(colorscale='Viridis')
             )]
     layout = go.Layout(title='Countplot of Channels')
     
