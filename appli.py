@@ -24,7 +24,7 @@ page = st.sidebar.selectbox('Select page',
 
 ## FIRST PAGE ##
 if page == 'Country data':
-    col1, col2, col3 = st.columns([6, 2])
+    col1, col2, col3 = st.columns([6, 3])
     
     col1.subheader("World Map mean pageviews by country")
     df_pie_us_vs_all = data.copy()[data['country']!="(not set)"]
