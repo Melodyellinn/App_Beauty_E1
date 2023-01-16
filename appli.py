@@ -162,7 +162,7 @@ else:
             text=data['channelGrouping'].value_counts().values,
             textposition='auto',
             size_max=50,
-            zoom=1
+            zoom=1,
             marker=dict(color=rgb_colors)
             )]
     
