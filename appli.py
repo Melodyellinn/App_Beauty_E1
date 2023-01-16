@@ -83,10 +83,7 @@ if page == 'Country data':
   
   ## MAPPING ##  
     col1.subheader("World Map mean pageviews by country")
-    df_pie_us_vs_all = data.copy()[data['country']!="(not set)"]
-    df_pie_us_vs_all['country'] = df_pie_us_vs_all["country"].apply(lambda x: "United States" if x == "United States" else "other")
-    df_pie_undifined_country = data.copy()
-    df_pie_undifined_country['country'] = df_pie_undifined_country["country"].apply(lambda x: "Non-définie" if x == "(not set)" else "Définie")
+    
     list_of_country = [[37.09024,-95.712891,"United States"],
                     [20.593684,78.96288,"India"],
                     [46.227638,2.213749,"France"],
@@ -114,18 +111,18 @@ if page == 'Country data':
                                 mapbox_style ='open-street-map',
                                 size_max=50,
                                 zoom=1)
-    col1.plotly_chart(fig_map,use_container_width=False)
+    st.plotly_chart(fig_map,use_container_width=False)
     
 # Create checkboxes to toggle the plots visibility
     show_plot1 = st.checkbox("Show : Top 10 des pageviews par Pays")
     show_plot2 = st.checkbox("Show Top 10 des visiteurs uniques par Pays")
     if show_plot1:
-      df_pie_country = data.copy()[data["country"].isin(["United States", "France", "Russia",
-                                                   "India", "China", "Germany", "Finland",
-                                                        "Canada", "Netherlands", "United Kingdom"])]
-      df_pie_country['country'].value_counts(ascending=False)
+      df_pie_us_vs_all = data.copy()[data['country']!="(not set)"]
+      df_pie_us_vs_all['country'] = df_pie_us_vs_all["country"].apply(lambda x: "United States" if x == "United States" else "other")
+      df_pie_undifined_country = data.copy()
+      df_pie_undifined_country['country'] = df_pie_undifined_country["country"].apply(lambda x: "Non-définie" if x == "(not set)" else "Définie")
       
-      fig = px.pie(df_pie_country, 
+      fig = px.pie(df_pie_undifined_country, 
                    values='pageviews', 
                    names='country',
                    title='Top 10 Nombre pageviews par pays',
