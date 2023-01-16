@@ -24,8 +24,8 @@ page = st.sidebar.selectbox('Select page',
 
 ## FIRST PAGE ##
 if page == 'Country data':
-    col1, col2 = st.columns([6, 2], column_width=1)
-       
+    col1, col2 = st.columns([6, 2])
+    
     col1.subheader("Top predict by week")
     top_predict_by_week = df_kpi.copy()
     top_predict_by_week["date"] = pd.to_datetime(top_predict_by_week["date"])
@@ -102,6 +102,8 @@ if page == 'Country data':
   
     fig_map = px.scatter_mapbox(lat = data_for_map_grouped["Latitude"]['first'],lon = data_for_map_grouped["Longitude"]['first'],size=data_for_map_grouped["time_on_site"]['mean'],color=data_for_map_grouped["pageviews"]['mean'],color_continuous_scale=px.colors.sequential.Viridis,mapbox_style ='open-street-map',size_max=50,zoom=1)
     col1.plotly_chart(fig_map,use_container_width=False)
+    st.write(fig_map.to_html(full_html=False, include_plotlyjs='cdn'), unsafe_allow_html=True)
+    st.markdown("<style> div {text-align: center;} </style>", unsafe_allow_html=True)
 
     
 # Create checkboxes to toggle the plots visibility
