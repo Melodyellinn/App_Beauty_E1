@@ -111,7 +111,11 @@ if page == 'Country data':
                                 mapbox_style ='open-street-map',
                                 size_max=50,
                                 zoom=1)
-    st.plotly_chart(fig_map,use_container_width=True)
+    row_col01,row_col02,row_col03 = st.columns((.1,3.2,.1))
+    
+    with row_col02:
+      
+      st.plotly_chart(fig_map,use_container_width=True)
     
 # Create checkboxes to toggle the plots visibility
     show_plot1 = st.checkbox("Show : Top 10 des pageviews par Pays")
