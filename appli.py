@@ -196,7 +196,7 @@ second_layout = go.Layout(title='Countplot of Device Category')
 st.set_page_config(layout = "wide")
 st.title("Behavior visitors on Vaccineshoppe website")
 st.markdown("<style>h1{text-align: center;}</style>", unsafe_allow_html=True)
-st.write("Date range between 1er octobre 2022 and 31 octobre 2022")
+st.write("Date range between 1er september 2022 and 31 december 2022")
 
 ## SelectBOX ##
 page = st.sidebar.selectbox('Select page',
