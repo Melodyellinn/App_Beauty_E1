@@ -95,7 +95,7 @@ fig_map = px.scatter_mapbox(lat = data_for_map_grouped["Latitude"]['first'],
       #                 names='country', 
       #                 title='Top 10 des visiteurs uniques par pays',
       #                 color_discrete_sequence= px.colors.sequential.Plasma_r)
-      
+## data for pies ##      
 df_us_vs_all = data.copy()
 df_undifined = data.copy()
 df_top_10_country = data.copy()
@@ -110,11 +110,13 @@ df_top_10_country = df_top_10_country[(df_top_10_country['country'] != "(not set
 list_of_top_country = list(df_top_10_country.groupby("country").count().sort_values("bounces",ascending=False).head(10).index)
 df_top_10_country = df_top_10_country[df_top_10_country['country'].isin(list_of_top_country)]
 df_top_10_country = df_top_10_country.groupby("country").count()['bounces']
-      
+## End data for pies ##
+## Figure ##      
 fig1 = go.Figure(data=[go.Pie(labels=list(df_undifined.index),values=df_undifined.values,hole=0.68,legendgroup=1,
-                              color_discrete_sequence= px.colors.sequential.Plasma_r)])
+                              marker=dict(color=px.colors.sequential.Plasma_r))])
 fig1.update_layout(legend=dict(x=-2,y=0.2))
-fig2 =go.Figure(data=[go.Pie(labels=list(df_us_vs_all.index),values=df_us_vs_all.values,hole=0.55,legendgroup=2)])
+fig2 =go.Figure(data=[go.Pie(labels=list(df_us_vs_all.index),values=df_us_vs_all.values,hole=0.55,legendgroup=2,
+                              marker=dict(color=px.colors.sequential.Plasma_r))])
 title_1 = "Nombre d'utilisateur dont le pays n'est pas définie"
 title_2 = "Part de la clientèle Américaine"
 
@@ -124,7 +126,7 @@ double_piechart.update_layout(showlegend=True,legend = dict(y=0.6),legend_traceg
 
 double_piechart.add_trace(fig1['data'][0],row=1,col=1)
 double_piechart.add_trace(fig2['data'][0],row=1,col=2)
-
+## End figure ##
 double_piechart = go.FigureWidget(data=[go.Pie(labels=list(df_top_10_country.index),values=df_top_10_country.values,pull=[0,0,0,0.2])])
 double_piechart.update_traces(textposition='inside',hoverinfo='label+value', textinfo='percent+label',showlegend =False,
                   textfont_size=12, marker=dict(line=dict(color='#000000', width=1)))
