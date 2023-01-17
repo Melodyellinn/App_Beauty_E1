@@ -111,7 +111,8 @@ list_of_top_country = list(df_top_10_country.groupby("country").count().sort_val
 df_top_10_country = df_top_10_country[df_top_10_country['country'].isin(list_of_top_country)]
 df_top_10_country = df_top_10_country.groupby("country").count()['bounces']
       
-fig1 = go.Figure(data=[go.Pie(labels=list(df_undifined.index),values=df_undifined.values,hole=0.68,legendgroup=1)])
+fig1 = go.Figure(data=[go.Pie(labels=list(df_undifined.index),values=df_undifined.values,hole=0.68,legendgroup=1,
+                              color_discrete_sequence= px.colors.sequential.Plasma_r)])
 fig1.update_layout(legend=dict(x=-2,y=0.2))
 fig2 =go.Figure(data=[go.Pie(labels=list(df_us_vs_all.index),values=df_us_vs_all.values,hole=0.55,legendgroup=2)])
 title_1 = "Nombre d'utilisateur dont le pays n'est pas définie"
