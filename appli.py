@@ -180,7 +180,7 @@ page = st.sidebar.selectbox('Select page',
 if page == 'Country data':
   row_col01,row_col02,row_col03 = st.columns((.1,3.2,.1))    
   
-  with row_col01:
+  with row_col02:
     st.subheader("Count predict by week")
     st.plotly_chart(fig_kpi,use_container_width=False)
     
