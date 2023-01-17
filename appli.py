@@ -102,17 +102,17 @@ data_bar = [go.Bar(
 layout = go.Layout(title='Countplot of Channels')
 
 
-rgb_colors = ['rgb(255,216,51)',
+second_rgb_colors = ['rgb(255,216,51)',
                   'rgb(255,132,51)',
                   'rgb(248,18,18)']
-data_bar = [go.Bar(
+second_data_bar = [go.Bar(
             x=data['deviceCategory'].value_counts().index,
             y=data['deviceCategory'].value_counts().values,
             text=data['deviceCategory'].value_counts().values,
             textposition='auto',
-            marker=dict(color=rgb_colors)
+            marker=dict(color=second_rgb_colors)
             )]
-layout = go.Layout(title='Countplot of Device Category')
+second_layout = go.Layout(title='Countplot of Device Category')
 
 ###################################### END CODING ######################################
 
@@ -171,5 +171,5 @@ else:
     
     col5.subheader("Type of Device")
 
-    fig_device = go.Figure(data=data_bar, layout=layout)
+    fig_device = go.Figure(data=second_data_bar, layout=second_layout)
     col5.plotly_chart(fig_device,use_container_width=False)
