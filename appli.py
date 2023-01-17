@@ -95,6 +95,8 @@ fig_map = px.scatter_mapbox(lat = data_for_map_grouped["Latitude"]['first'],
       #                 names='country', 
       #                 title='Top 10 des visiteurs uniques par pays',
       #                 color_discrete_sequence= px.colors.sequential.Plasma_r)
+      
+
 ## data for pies ##      
 df_us_vs_all = data.copy()
 df_undifined = data.copy()
@@ -112,26 +114,25 @@ df_top_10_country = df_top_10_country[df_top_10_country['country'].isin(list_of_
 df_top_10_country = df_top_10_country.groupby("country").count()['bounces']
 ## End data for pies ##
 ## Figure ##      
-fig1 = go.Figure(data=[go.Pie(labels=list(df_undifined.index),values=df_undifined.values,hole=0.68,legendgroup=1,
-                              marker=dict(color=px.colors.sequential.Plasma_r))])
+fig1 = go.Figure(data=[go.Pie(labels=list(df_undifined.index),values=df_undifined.values,hole=0.68,legendgroup=1)])
 fig1.update_layout(legend=dict(x=-2,y=0.2))
-fig2 =go.Figure(data=[go.Pie(labels=list(df_us_vs_all.index),values=df_us_vs_all.values,hole=0.55,legendgroup=2,
-                              marker=dict(color=px.colors.sequential.Plasma_r))])
+fig2 =go.Figure(data=[go.Pie(labels=list(df_us_vs_all.index),values=df_us_vs_all.values,hole=0.55,legendgroup=2)])
 title_1 = "Nombre d'utilisateur dont le pays n'est pas définie"
 title_2 = "Part de la clientèle Américaine"
 
 double_piechart = make_subplots(rows = 1,cols=2,specs=[[{"type":"pie"},{"type":"pie"}]],
                     subplot_titles=[title_1,title_2])
 double_piechart.update_layout(showlegend=True,legend = dict(y=0.6),legend_tracegroupgap= 10)
-
 double_piechart.add_trace(fig1['data'][0],row=1,col=1)
 double_piechart.add_trace(fig2['data'][0],row=1,col=2)
 ## End figure ##
-double_piechart = go.FigureWidget(data=[go.Pie(labels=list(df_top_10_country.index),values=df_top_10_country.values,pull=[0,0,0,0.2])])
-double_piechart.update_traces(textposition='inside',hoverinfo='label+value', textinfo='percent+label',showlegend =False,
-                  textfont_size=12, marker=dict(line=dict(color='#000000', width=1)))
-double_piechart.update_layout(autosize=False,width=800,height=800)
 
+## SECOND FIG PIE ##
+piechart_country = go.FigureWidget(data=[go.Pie(labels=list(df_top_10_country.index),values=df_top_10_country.values,pull=[0,0,0,0.2])])
+piechart_country.update_traces(textposition='inside',hoverinfo='label+value', textinfo='percent+label',showlegend =False,
+                  textfont_size=12, marker=dict(line=dict(color='#000000', width=1)))
+piechart_country.update_layout(autosize=False,width=800,height=800)
+##END##
 
 #### PLOT FOR SECOND PAGE ####
 
@@ -196,9 +197,9 @@ if page == 'Country data':
 #### PIE CHART ####
   row_3_margin_1,row_3_col_1,row_3_col_2,row_3_margin_2 = st.columns((.1,1.5,1.5,.1)) 
   with row_3_col_1:
-    st.plotly_chart(fig1,use_container_width=True)
+    st.plotly_chart(double_piechart,use_container_width=True)
   with row_3_col_2:
-    st.plotly_chart(fig2,use_container_width=True)
+    st.plotly_chart(piechart_country,use_container_width=True)
 
 ############################ SECONDE PAGE ############################   
 else:
