@@ -146,13 +146,13 @@ country_colors = ['rgb(157,212,222)', #Canada
                   'rgb(10,48,79)', # Philippines
                   'rgb(39,118,184)'] # UK
 
-double_piechart = go.FigureWidget(data=[go.Pie(labels=list(df_top_10_country.index),values=df_top_10_country.values,
+piechart_country = go.FigureWidget(data=[go.Pie(labels=list(df_top_10_country.index),values=df_top_10_country.values,
                                                pull=[0,0,0,0.1],
                                               marker_colors=country_colors)])
 
-double_piechart.update_traces(textposition='inside',hoverinfo='label+value', textinfo='percent+label',showlegend =False,
+piechart_country.update_traces(textposition='inside',hoverinfo='label+value', textinfo='percent+label',showlegend =False,
                   textfont_size=12, marker=dict(line=dict(color='#000000', width=1)))
-double_piechart.update_layout(autosize=False,width=800,height=800,
+piechart_country.update_layout(autosize=False,width=800,height=800,
                              title="Nombre de connections sur le site par Pays")
 ##END##
 
