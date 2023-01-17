@@ -123,7 +123,7 @@ fig1 = go.Figure(data=[go.Pie(labels=list(df_undifined.index),values=df_undifine
 fig1.update_layout(legend=dict(x=-2,y=0.2))
 fig2 =go.Figure(data=[go.Pie(labels=list(df_us_vs_all.index),values=df_us_vs_all.values,hole=0.55,legendgroup=2,
                             marker_colors=sun_colors)])
-title_1 = "       Nombre d'utilisateur dont le pays n'est pas définie"
+title_1 = "              Nombre d'utilisateur dont le pays n'est pas définie"
 title_2 = "Part de la clientèle Américaine"
 
 double_piechart = make_subplots(rows = 1,cols=2,specs=[[{"type":"pie"},{"type":"pie"}]],
