@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import sqlite3 as sql
 from datetime import timedelta, datetime
 ## Plotly ##
+import ipywidgets
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import plotly.express as px
