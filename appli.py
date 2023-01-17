@@ -63,21 +63,6 @@ data_for_map_grouped = data_for_map.groupby("country").agg({"fullVisitorId": ["c
 # df_unique_user_country = df_unique_user_country.sort_values('fullVisitorId', ascending=False).head(10)
 # df_unique_user_country.groupby(['country']).count().reset_index()
 
-df_us_vs_all = data.copy()
-df_undifined = data.copy()
-df_top_10_country = data.copy()
-df_us_vs_all["country"] = df_us_vs_all["country"].apply(lambda x : "United States" if x == "United States" else "Other Country or not defined")
-df_us_vs_all = df_us_vs_all.groupby("country").count()['bounces']
-
-df_undifined['country']= df_undifined['country'].apply(lambda x : "No defined" if x == "(not set)" else "Country is defined")
-df_undifined = df_undifined.groupby("country").count()['bounces']
-df_undifined.rename({"bounces":"Nombre de connection"},inplace=True)
-
-df_top_10_country = df_top_10_country[(df_top_10_country['country'] != "(not set)") & (df_top_10_country['country']!= "United States")]
-list_of_top_country = list(df_top_10_country.groupby("country").count().sort_values("bounces",ascending=False).head(10).index)
-df_top_10_country = df_top_10_country[df_top_10_country['country'].isin(list_of_top_country)]
-df_top_10_country = df_top_10_country.groupby("country").count()['bounces']
-
 ############################### END DATA ###############################
 
 ############################ DEFINE ALL PLOT ############################
@@ -111,23 +96,38 @@ fig_map = px.scatter_mapbox(lat = data_for_map_grouped["Latitude"]['first'],
       #                 title='Top 10 des visiteurs uniques par pays',
       #                 color_discrete_sequence= px.colors.sequential.Plasma_r)
       
+df_us_vs_all = data.copy()
+df_undifined = data.copy()
+df_top_10_country = data.copy()
+df_us_vs_all["country"] = df_us_vs_all["country"].apply(lambda x : "United States" if x == "United States" else "Other Country or not defined")
+df_us_vs_all = df_us_vs_all.groupby("country").count()['bounces']
+
+df_undifined['country']= df_undifined['country'].apply(lambda x : "No defined" if x == "(not set)" else "Country is defined")
+df_undifined = df_undifined.groupby("country").count()['bounces']
+df_undifined.rename({"bounces":"Nombre de connection"},inplace=True)
+
+df_top_10_country = df_top_10_country[(df_top_10_country['country'] != "(not set)") & (df_top_10_country['country']!= "United States")]
+list_of_top_country = list(df_top_10_country.groupby("country").count().sort_values("bounces",ascending=False).head(10).index)
+df_top_10_country = df_top_10_country[df_top_10_country['country'].isin(list_of_top_country)]
+df_top_10_country = df_top_10_country.groupby("country").count()['bounces']
+      
 fig1 = go.Figure(data=[go.Pie(labels=list(df_undifined.index),values=df_undifined.values,hole=0.68,legendgroup=1)])
 fig1.update_layout(legend=dict(x=-2,y=0.2))
 fig2 =go.Figure(data=[go.Pie(labels=list(df_us_vs_all.index),values=df_us_vs_all.values,hole=0.55,legendgroup=2)])
 title_1 = "Nombre d'utilisateur dont le pays n'est pas définie"
 title_2 = "Part de la clientèle Américaine"
 
-fig = make_subplots(rows = 1,cols=2,specs=[[{"type":"pie"},{"type":"pie"}]],
+double_piechart = make_subplots(rows = 1,cols=2,specs=[[{"type":"pie"},{"type":"pie"}]],
                     subplot_titles=[title_1,title_2])
-fig.update_layout(showlegend=True,legend = dict(y=0.6),legend_tracegroupgap= 10)
+double_piechart.update_layout(showlegend=True,legend = dict(y=0.6),legend_tracegroupgap= 10)
 
-fig.add_trace(fig1['data'][0],row=1,col=1)
-fig.add_trace(fig2['data'][0],row=1,col=2)
+double_piechart.add_trace(fig1['data'][0],row=1,col=1)
+double_piechart.add_trace(fig2['data'][0],row=1,col=2)
 
-fig = go.FigureWidget(data=[go.Pie(labels=list(df_top_10_country.index),values=df_top_10_country.values,pull=[0,0,0,0.2])])
-fig.update_traces(textposition='inside',hoverinfo='label+value', textinfo='percent+label',showlegend =False,
+double_piechart = go.FigureWidget(data=[go.Pie(labels=list(df_top_10_country.index),values=df_top_10_country.values,pull=[0,0,0,0.2])])
+double_piechart.update_traces(textposition='inside',hoverinfo='label+value', textinfo='percent+label',showlegend =False,
                   textfont_size=12, marker=dict(line=dict(color='#000000', width=1)))
-fig.update_layout(autosize=False,width=800,height=800)
+double_piechart.update_layout(autosize=False,width=800,height=800)
 
 
 #### PLOT FOR SECOND PAGE ####
