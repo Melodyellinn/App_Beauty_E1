@@ -217,10 +217,12 @@ if page == 'Country data':
     st.plotly_chart(fig_map,use_container_width=True)
     
 #### PIE CHART ####
-  row_3_margin_1,row_3_col_1,row_3_col_2,row_3_margin_2 = st.columns((.1,2.5,1.5,.1)) 
+  row_3_margin_1,row_3_col_1,row_3_margin_2 = st.columns((.1,2.5,.1)) 
   with row_3_col_1:
     st.plotly_chart(double_piechart,use_container_width=True)
-  with row_3_col_2:
+    
+  row_4_margin_1,row_4_col_1,row_4_margin_2 = st.columns((.1,2.5,.1))
+  with row_4_col_1:
     st.plotly_chart(piechart_country,use_container_width=True)
 
 ############################ SECONDE PAGE ############################   
