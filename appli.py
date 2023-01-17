@@ -165,7 +165,8 @@ second_layout = go.Layout(title='Countplot of Device Category')
 ###################################### END CODING ######################################
 
 ############################ DASHBOARD APPLICATION STREAMLIT ############################
-#### HEADER ####
+
+############## HEADER ##############
 st.set_page_config(layout = "wide")
 st.title("Behavior visitors on Vaccineshoppe website")
 st.markdown("<style>h1{text-align: center;}</style>", unsafe_allow_html=True)
@@ -177,36 +178,30 @@ page = st.sidebar.selectbox('Select page',
 
 ## FIRST PAGE ##
 if page == 'Country data':
-    col1, col2 = st.columns([1, 0.5])
-    
-    col1.subheader("Count predict by week")
-
-    col1.plotly_chart(fig_kpi,use_container_width=False)
+  row_col01,row_col02,row_col03 = st.columns((.1,3.2,.1))    
   
-  
-    col1.subheader("World Map mean pageviews by country")
-
-    row_col01,row_col02,row_col03 = st.columns((.1,3.2,.1))
+  with row_col01:
+    st.subheader("Count predict by week")
+    st.plotly_chart(fig_kpi,use_container_width=False)
     
-    with row_col02:
  ## PLOT MAP ##     
-      st.plotly_chart(fig_map,use_container_width=True)
+  with row_col02:
+    st.subheader("World Map mean pageviews by country")     
+    st.plotly_chart(fig_map,use_container_width=True)
     
 #### PIE CHART ####
-
-      st.plotly_chart(fig1,use_container_width=False)
-      st.plotly_chart(fig2,use_container_width=False)
+  with row_col02:
+    st.plotly_chart(fig1,use_container_width=False)
+    st.plotly_chart(fig2,use_container_width=False)
 
 ############################ SECONDE PAGE ############################   
 else:
-  #with st.container():
-    col4, col5 = st.columns([4, 2])
-    col4.subheader("Type de channel")
+  col4, col5 = st.columns([4, 2])
+  col4.subheader("Type de channel")
 
-    fig_channel = go.Figure(data=data_bar, layout=layout)
-    col4.plotly_chart(fig_channel, use_container_width=False)
+  fig_channel = go.Figure(data=data_bar, layout=layout)
+  col4.plotly_chart(fig_channel, use_container_width=False)
     
-    col5.subheader("Type of Device")
-
-    fig_device = go.Figure(data=second_data_bar, layout=second_layout)
-    col5.plotly_chart(fig_device,use_container_width=False)
+  col5.subheader("Type of Device")
+  fig_device = go.Figure(data=second_data_bar, layout=second_layout)
+  col5.plotly_chart(fig_device,use_container_width=False)
