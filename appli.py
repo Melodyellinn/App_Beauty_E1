@@ -178,21 +178,23 @@ page = st.sidebar.selectbox('Select page',
 
 ## FIRST PAGE ##
 if page == 'Country data':
-  row_col01,row_col02,row_col03,row_04 = st.columns((.1,3.2,3.2,.1))    
-  
-  with row_col02:
+  #row_col01,row_col02,row_col03,row_col04 = st.columns((.1,3.2,3.2,.1))    
+  row_1_margin_1, row_1_col_1,row_1_margin_2 = st.columns((.1,1,7))
+  with row_1_col_1:
     st.subheader("Count predict by week")
     st.plotly_chart(fig_kpi,use_container_width=False)
     
- ## PLOT MAP ##     
-  with row_col02:
+ ## PLOT MAP ##
+  row_2_margin_1,row_2_col_1,row_2_margin_2 = st.columns((.1,7,.1))     
+  with row_2_col_1:
     st.subheader("World Map mean pageviews by country")     
     st.plotly_chart(fig_map,use_container_width=True)
     
 #### PIE CHART ####
-  with row_col02:
+  row_3_margin_1,row_3_col_1,row_3_col_2,row_3_margin_2 = st.columns((.1,1.5,1.5,.1)) 
+  with row_3_col_1:
     st.plotly_chart(fig1,use_container_width=False)
-  with row_col03:
+  with row_3_col_2:
     st.plotly_chart(fig2,use_container_width=False)
 
 ############################ SECONDE PAGE ############################   
