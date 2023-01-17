@@ -227,12 +227,12 @@ if page == 'Country data':
 
 ############################ SECONDE PAGE ############################   
 else:
-  col4, col5 = st.columns([4, 2])
-  col4.subheader("Type de channel")
-
-  fig_channel = go.Figure(data=data_bar, layout=layout)
-  col4.plotly_chart(fig_channel, use_container_width=False)
+  row_5_margin_1,row_5_col_1,row_5_margin_2 = st.columns((.1,2.5,.1))
+  with row_5_col_1:
+    st.subheader("Type de channel")
+    fig_channel = go.Figure(data=data_bar, layout=layout)
+    st.plotly_chart(fig_channel, use_container_width=False)
     
-  col5.subheader("Type of Device")
-  fig_device = go.Figure(data=second_data_bar, layout=second_layout)
-  col5.plotly_chart(fig_device,use_container_width=False)
+    st.subheader("Type of Device")
+    fig_device = go.Figure(data=second_data_bar, layout=second_layout)
+    st.plotly_chart(fig_device,use_container_width=False)
