@@ -193,9 +193,9 @@ if page == 'Country data':
 #### PIE CHART ####
   row_3_margin_1,row_3_col_1,row_3_col_2,row_3_margin_2 = st.columns((.1,1.5,1.5,.1)) 
   with row_3_col_1:
-    st.plotly_chart(fig1,use_container_width=False)
+    st.plotly_chart(fig1,use_container_width=True)
   with row_3_col_2:
-    st.plotly_chart(fig2,use_container_width=False)
+    st.plotly_chart(fig2,use_container_width=True)
 
 ############################ SECONDE PAGE ############################   
 else:
