@@ -30,6 +30,7 @@ last_date = today_date - timedelta(days=7)
 top_predict_last_week = top_predict_by_week.copy()[top_predict_by_week['date'].between(last_date,today_date)]
 count_predict_this_week = top_predict_this_week.count()[0]
 count_predict_last_week = top_predict_last_week.count()[0]
+
 #### DATA FOR MAP ####
 list_of_country = [[37.09024,-95.712891,"United States"],
                     [20.593684,78.96288,"India"],
@@ -51,20 +52,33 @@ data_for_map_grouped = data_for_map.groupby("country").agg({"fullVisitorId": ["c
                                     "Longitude": ['first']})
 #### DATA FOR PIECHART ####
 
-df_pie_us_vs_all = data.copy()[data['country']!="(not set)"]
-df_pie_us_vs_all['country'] = df_pie_us_vs_all["country"].apply(lambda x: "United States" if x == "United States" else "other")
-df_pie_undifined_country = data.copy()
-df_pie_undifined_country['country'] = df_pie_undifined_country["country"].apply(lambda x: "Non-définie" if x == "(not set)" else "Définie")
+# df_pie_us_vs_all = data.copy()[data['country']!="(not set)"]
+# df_pie_us_vs_all['country'] = df_pie_us_vs_all["country"].apply(lambda x: "United States" if x == "United States" else "other")
+# df_pie_undifined_country = data.copy()
+# df_pie_undifined_country['country'] = df_pie_undifined_country["country"].apply(lambda x: "Non-définie" if x == "(not set)" else "Définie")
 
-df_unique_user_country = data.copy().groupby(['country', 
-      'fullVisitorId']).count().reset_index().groupby("country").count().reset_index()[["country","fullVisitorId"]]
-df_unique_user_country = df_unique_user_country.sort_values('fullVisitorId', ascending=False).head(10)
-df_unique_user_country.groupby(['country']).count().reset_index()
+# df_unique_user_country = data.copy().groupby(['country', 
+#       'fullVisitorId']).count().reset_index().groupby("country").count().reset_index()[["country","fullVisitorId"]]
+# df_unique_user_country = df_unique_user_country.sort_values('fullVisitorId', ascending=False).head(10)
+# df_unique_user_country.groupby(['country']).count().reset_index()
+
+df_us_vs_all, df_undifined, df_top_10_country = data.copy()
+df_us_vs_all["country"] = df_us_vs_all["country"].apply(lambda x : "United States" if x == "United States" else "Other Country or not defined")
+df_us_vs_all = df_us_vs_all.groupby("country").count()['bounces']
+
+df_undifined['country']= df_undifined['country'].apply(lambda x : "No defined" if x == "(not set)" else "Country is defined")
+df_undifined = df_undifined.groupby("country").count()['bounces']
+df_undifined.rename({"bounces":"Nombre de connection"},inplace=True)
+
+df_top_10_country = df_top_10_country[(df_top_10_country['country'] != "(not set)") & (df_top_10_country['country']!= "United States")]
+list_of_top_country = list(df_top_10_country.groupby("country").count().sort_values("bounces",ascending=False).head(10).index)
+df_top_10_country = df_top_10_country[df_top_10_country['country'].isin(list_of_top_country)]
+df_top_10_country = df_top_10_country.groupby("country").count()['bounces']
 
 ############################### END DATA ###############################
 
 ############################ DEFINE ALL PLOT ############################
-
+#### KPI ####
 fig_kpi = go.Figure()
 fig_kpi.add_trace(go.Indicator(mode = "number+delta",
                                    value = count_predict_this_week,
@@ -72,7 +86,7 @@ fig_kpi.add_trace(go.Indicator(mode = "number+delta",
                                    delta = {'reference': count_predict_last_week,
                                             'relative': True,
                                             'position' : "bottom",'valueformat':'.2%'}))
-
+#### MAP ####
 fig_map = px.scatter_mapbox(lat = data_for_map_grouped["Latitude"]['first'],
                                 lon = data_for_map_grouped["Longitude"]['first'],
                                 size=data_for_map_grouped["time_on_site"]['mean'],
@@ -81,6 +95,37 @@ fig_map = px.scatter_mapbox(lat = data_for_map_grouped["Latitude"]['first'],
                                 mapbox_style ='open-street-map',
                                 size_max=50,
                                 zoom=1)
+#### PIE ####
+      # fig = px.pie(df_pie_undifined_country, 
+      #              values='pageviews', 
+      #              names='country',
+      #              title='Top 10 Nombre pageviews par pays',
+      #              color_discrete_sequence=px.colors.sequential.Viridis)
+      
+      # figure = px.pie(df_unique_user_country, 
+      #                 values='fullVisitorId', 
+      #                 names='country', 
+      #                 title='Top 10 des visiteurs uniques par pays',
+      #                 color_discrete_sequence= px.colors.sequential.Plasma_r)
+      
+fig1 = go.Figure(data=[go.Pie(labels=list(df_undifined.index),values=df_undifined.values,hole=0.68,legendgroup=1)])
+fig1.update_layout(legend=dict(x=-2,y=0.2))
+fig2 =go.Figure(data=[go.Pie(labels=list(df_us_vs_all.index),values=df_us_vs_all.values,hole=0.55,legendgroup=2)])
+title_1 = "Nombre d'utilisateur dont le pays n'est pas définie"
+title_2 = "Part de la clientèle Américaine"
+
+fig = make_subplots(rows = 1,cols=2,specs=[[{"type":"pie"},{"type":"pie"}]],
+                    subplot_titles=[title_1,title_2])
+fig.update_layout(showlegend=True,legend = dict(y=0.6),legend_tracegroupgap= 10)
+
+fig.add_trace(fig1['data'][0],row=1,col=1)
+fig.add_trace(fig2['data'][0],row=1,col=2)
+
+fig = go.FigureWidget(data=[go.Pie(labels=list(df_top_10_country.index),values=df_top_10_country.values,pull=[0,0,0,0.2])])
+fig.update_traces(textposition='inside',hoverinfo='label+value', textinfo='percent+label',showlegend =False,
+                  textfont_size=12, marker=dict(line=dict(color='#000000', width=1)))
+fig.update_layout(autosize=False,width=800,height=800)
+
 
 #### PLOT FOR SECOND PAGE ####
 
@@ -135,30 +180,19 @@ if page == 'Country data':
 
     col1.plotly_chart(fig_kpi,use_container_width=False)
   
-  ## MAPPING ##  
+  
     col1.subheader("World Map mean pageviews by country")
 
     row_col01,row_col02,row_col03 = st.columns((.1,3.2,.1))
     
     with row_col02:
-      
+ ## PLOT MAP ##     
       st.plotly_chart(fig_map,use_container_width=True)
     
-# Create checkboxes to toggle the plots visibility
+#### PIE CHART ####
 
-      fig = px.pie(df_pie_undifined_country, 
-                   values='pageviews', 
-                   names='country',
-                   title='Top 10 Nombre pageviews par pays',
-                   color_discrete_sequence=px.colors.sequential.Viridis)
-      col1.plotly_chart(fig,use_container_width=False)
-
-      figure = px.pie(df_unique_user_country, 
-                      values='fullVisitorId', 
-                      names='country', 
-                      title='Top 10 des visiteurs uniques par pays',
-                      color_discrete_sequence= px.colors.sequential.Plasma_r)
-      col1.plotly_chart(figure,use_container_width=False)
+      st.plotly_chart(fig1,use_container_width=False)
+      st.plotly_chart(fig2,use_container_width=False)
 
 ############################ SECONDE PAGE ############################   
 else:
