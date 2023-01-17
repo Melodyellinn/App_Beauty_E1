@@ -113,25 +113,47 @@ list_of_top_country = list(df_top_10_country.groupby("country").count().sort_val
 df_top_10_country = df_top_10_country[df_top_10_country['country'].isin(list_of_top_country)]
 df_top_10_country = df_top_10_country.groupby("country").count()['bounces']
 ## End data for pies ##
+
 ## Figure ##      
-fig1 = go.Figure(data=[go.Pie(labels=list(df_undifined.index),values=df_undifined.values,hole=0.68,legendgroup=1)])
+night_colors = ['rgb(56, 75, 126)', 'rgb(18, 36, 37)']
+sun_colors = ['rgb(255,152,2)', 'rgb(254,244,36)']
+
+fig1 = go.Figure(data=[go.Pie(labels=list(df_undifined.index),values=df_undifined.values,hole=0.68,legendgroup=1,
+                                marker_colors=night_colors)])
 fig1.update_layout(legend=dict(x=-2,y=0.2))
-fig2 =go.Figure(data=[go.Pie(labels=list(df_us_vs_all.index),values=df_us_vs_all.values,hole=0.55,legendgroup=2)])
+fig2 =go.Figure(data=[go.Pie(labels=list(df_us_vs_all.index),values=df_us_vs_all.values,hole=0.55,legendgroup=2,
+                            marker_colors=sun_colors)])
 title_1 = "Nombre d'utilisateur dont le pays n'est pas définie"
 title_2 = "Part de la clientèle Américaine"
 
 double_piechart = make_subplots(rows = 1,cols=2,specs=[[{"type":"pie"},{"type":"pie"}]],
                     subplot_titles=[title_1,title_2])
 double_piechart.update_layout(showlegend=True,legend = dict(y=0.6),legend_tracegroupgap= 10)
+
 double_piechart.add_trace(fig1['data'][0],row=1,col=1)
 double_piechart.add_trace(fig2['data'][0],row=1,col=2)
 ## End figure ##
 
 ## SECOND FIG PIE ##
-piechart_country = go.FigureWidget(data=[go.Pie(labels=list(df_top_10_country.index),values=df_top_10_country.values,pull=[0,0,0,0.2])])
-piechart_country.update_traces(textposition='inside',hoverinfo='label+value', textinfo='percent+label',showlegend =False,
+country_colors = ['rgb(157,212,222)', #Canada
+                  'rgb(111,168,216)', #China
+                  'rgb(46,137,213)', #Finlande
+                  'rgb(254,244,36)', # France
+                  'rgb(113,209,247)', #Germany
+                 'rgb(250,157,22)', # India
+                  'rgb(25,84,133)', # Mexico
+                 'rgb(75,185,230)', # Netherlands
+                  'rgb(10,48,79)', # Philippines
+                  'rgb(39,118,184)'] # UK
+
+double_piechart = go.FigureWidget(data=[go.Pie(labels=list(df_top_10_country.index),values=df_top_10_country.values,
+                                               pull=[0,0,0,0.1],
+                                              marker_colors=country_colors)])
+
+double_piechart.update_traces(textposition='inside',hoverinfo='label+value', textinfo='percent+label',showlegend =False,
                   textfont_size=12, marker=dict(line=dict(color='#000000', width=1)))
-piechart_country.update_layout(autosize=False,width=800,height=800)
+double_piechart.update_layout(autosize=False,width=800,height=800,
+                             title="Nombre de connections sur le site par Pays")
 ##END##
 
 #### PLOT FOR SECOND PAGE ####
@@ -195,7 +217,7 @@ if page == 'Country data':
     st.plotly_chart(fig_map,use_container_width=True)
     
 #### PIE CHART ####
-  row_3_margin_1,row_3_col_1,row_3_col_2,row_3_margin_2 = st.columns((.1,1.5,1.5,.1)) 
+  row_3_margin_1,row_3_col_1,row_3_col_2,row_3_margin_2 = st.columns((.1,2.5,1.5,.1)) 
   with row_3_col_1:
     st.plotly_chart(double_piechart,use_container_width=True)
   with row_3_col_2:
