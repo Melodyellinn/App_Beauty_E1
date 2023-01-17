@@ -123,7 +123,7 @@ fig1 = go.Figure(data=[go.Pie(labels=list(df_undifined.index),values=df_undifine
 fig1.update_layout(legend=dict(x=-2,y=0.2))
 fig2 =go.Figure(data=[go.Pie(labels=list(df_us_vs_all.index),values=df_us_vs_all.values,hole=0.55,legendgroup=2,
                             marker_colors=sun_colors)])
-title_1 = "Nombre d'utilisateur dont le pays n'est pas définie"
+title_1 = "       Nombre d'utilisateur dont le pays n'est pas définie"
 title_2 = "Part de la clientèle Américaine"
 
 double_piechart = make_subplots(rows = 1,cols=2,specs=[[{"type":"pie"},{"type":"pie"}]],
@@ -223,7 +223,7 @@ if page == 'Country data':
     
   row_4_margin_1,row_4_col_1,row_4_margin_2 = st.columns((.1,2.5,.1))
   with row_4_col_1:
-    st.plotly_chart(piechart_country,use_container_width=True)
+    st.plotly_chart(piechart_country,use_container_width=False)
 
 ############################ SECONDE PAGE ############################   
 else:
