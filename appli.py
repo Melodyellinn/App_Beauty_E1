@@ -178,7 +178,7 @@ page = st.sidebar.selectbox('Select page',
 
 ## FIRST PAGE ##
 if page == 'Country data':
-  row_col01,row_col02,row_col03 = st.columns((.1,3.2,.1))    
+  row_col01,row_col02,row_col03,row_04 = st.columns((.1,3.2,3.2,.1))    
   
   with row_col02:
     st.subheader("Count predict by week")
@@ -192,6 +192,7 @@ if page == 'Country data':
 #### PIE CHART ####
   with row_col02:
     st.plotly_chart(fig1,use_container_width=False)
+  with row_col03:
     st.plotly_chart(fig2,use_container_width=False)
 
 ############################ SECONDE PAGE ############################   
