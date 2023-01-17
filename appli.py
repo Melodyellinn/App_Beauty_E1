@@ -62,7 +62,9 @@ data_for_map_grouped = data_for_map.groupby("country").agg({"fullVisitorId": ["c
 # df_unique_user_country = df_unique_user_country.sort_values('fullVisitorId', ascending=False).head(10)
 # df_unique_user_country.groupby(['country']).count().reset_index()
 
-df_us_vs_all, df_undifined, df_top_10_country = data.copy()
+df_us_vs_all = data.copy()
+df_undifined = data.copy()
+df_top_10_country = data.copy()
 df_us_vs_all["country"] = df_us_vs_all["country"].apply(lambda x : "United States" if x == "United States" else "Other Country or not defined")
 df_us_vs_all = df_us_vs_all.groupby("country").count()['bounces']
 
