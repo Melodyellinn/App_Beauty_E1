@@ -182,6 +182,21 @@ piechart_country.update_layout(autosize=False,width=800,height=800,
                              title="Nombre de connections sur le site par Pays")
 ##END##
 
+#### DEFINE BAR PLOT PERCENTAGE MODEL PREDICTIONS ####
+##CHANNEL##
+data_bar_join.columns = ['channelGrouping', 'Predict', 'Counts', 'Percentage']
+bar_channel= px.bar(data_bar_join, x='channelGrouping', y=['Percentage'], 
+       color='Predict',
+       title= "Predictions (Channels)",
+       text=data_bar_join['Percentage'].apply(lambda x: '{0:1.2f}%'.format(x)))
+##DEVICE##
+data_bar_join2.columns = ['deviceCategory', 'Predict', 'Counts', 'Percentage']
+bar_device= px.bar(data_bar_join2, x='deviceCategory', y=['Percentage'], 
+       color='Predict',
+       title= "Predictions (Devices)",
+       text=data_bar_join2['Percentage'].apply(lambda x: '{0:1.2f}%'.format(x)))
+##END##
+
 #### PLOT FOR SECOND PAGE ####
 
 rgb_colors = ['rgb(51,138,255)', #hightblue
@@ -251,22 +266,11 @@ if page == 'Country data':
   with row_4_col_1:
     st.plotly_chart(piechart_country,use_container_width=False)
     
-  row_5_margin_1,row_5_col_1,row_5_margin_2 = st.columns((.1,6.5,.1))  
+ #### BAR PLOT ####   
+  row_5_margin_1,row_5_col_1, row_5_col_2, row_5_margin_2 = st.columns((.1,6.5,6.5,.1))  
   with row_5_col_1:
-    data_bar_join.columns = ['channelGrouping', 'Predict', 'Counts', 'Percentage']
-    bar_channel= px.bar(data_bar_join, x='channelGrouping', y=['Percentage'], 
-       color='Predict',
-       title= "Predictions (channels)",
-       text=data_bar_join['Percentage'].apply(lambda x: '{0:1.2f}%'.format(x)))
-    
     st.plotly_chart(bar_channel, use_container_width=False)
-
-    data_bar_join2.columns = ['deviceCategory', 'Predict', 'Counts', 'Percentage']
-    bar_device= px.bar(data_bar_join2, x='deviceCategory', y=['Percentage'], 
-       color='Predict',
-       title= "Predictions (channels)",
-       text=data_bar_join2['Percentage'].apply(lambda x: '{0:1.2f}%'.format(x)))
-    
+  with row_5_col_2: 
     st.plotly_chart(bar_device, use_container_width=False)
     
 ############################ SECONDE PAGE ############################   
