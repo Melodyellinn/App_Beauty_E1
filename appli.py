@@ -254,17 +254,20 @@ if page == 'Country data':
   row_5_margin_1,row_5_col_1,row_5_margin_2 = st.columns((.1,6.5,.1))  
   with row_5_col_1:
     data_bar_join.columns = ['channelGrouping', 'Predict', 'Counts', 'Percentage']
-    px.bar(data_bar_join, x='channelGrouping', y=['Percentage'], 
+    bar_channel= px.bar(data_bar_join, x='channelGrouping', y=['Percentage'], 
        color='Predict',
        title= "Predictions (channels)",
-       text=data_bar_join['Percentage'].apply(lambda x: '{0:1.2f}%'.format(x))) 
+       text=data_bar_join['Percentage'].apply(lambda x: '{0:1.2f}%'.format(x)))
+    
+    st.plotly_chart(bar_channel, use_container_width=False)
 
     data_bar_join2.columns = ['deviceCategory', 'Predict', 'Counts', 'Percentage']
-    px.bar(data_bar_join2, x='deviceCategory', y=['Percentage'], 
+    bar_device= px.bar(data_bar_join2, x='deviceCategory', y=['Percentage'], 
        color='Predict',
        title= "Predictions (channels)",
        text=data_bar_join2['Percentage'].apply(lambda x: '{0:1.2f}%'.format(x)))
     
+    st.plotly_chart(bar_device, use_container_width=False)
     
 ############################ SECONDE PAGE ############################   
 else:
