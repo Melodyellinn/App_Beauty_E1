@@ -247,8 +247,8 @@ page = st.sidebar.selectbox('Select page',
 if page == 'Prédictions globales':
   #row_col01,row_col02,row_col03,row_col04 = st.columns((.1,3.2,3.2,.1))    
   row_1_margin_1, row_1_col_1,row_1_margin_2 = st.columns((.1,1,7))
+  st.subheader("Prédictions par semaines (Count)")
   with row_1_col_1:
-    st.subheader("Prédictions par semaines (Count)")
     st.plotly_chart(fig_kpi,use_container_width=False)
     
  ## PLOT MAP ##
@@ -258,17 +258,19 @@ if page == 'Prédictions globales':
     st.plotly_chart(fig_map,use_container_width=True)
     
 #### PIE CHART ####
-  row_3_margin_1,row_3_col_1,row_3_margin_2, row_3_col_2,row_3_margin_3 = st.columns((.1,4.5, 1.5, 4.5,.1)) 
+  row_3_margin_1,row_3_col_1,row_3_margin_2 = st.columns((.1,2.5,.1)) 
   with row_3_col_1:
-    st.plotly_chart(double_piechart,use_container_width=False)
-  with row_3_col_2:
-    st.plotly_chart(piechart_country,use_container_width=True)
+    st.plotly_chart(double_piechart,use_container_width=True)
+    
+  row_4_margin_1,row_4_col_1,row_4_margin_2 = st.columns((.1,2.5,.1))
+  with row_4_col_1:
+    st.plotly_chart(piechart_country,use_container_width=False)
     
  #### BAR PLOT ####   
-  row_4_margin_1,row_4_col_1,row_4_margin_2, row_4_col_2, row_4_margin_3 = st.columns((.1,4.5, 1.5, 4.5,.1))  
-  with row_4_col_1:
-    st.plotly_chart(bar_channel, use_container_width=True)
-  with row_4_col_2: 
+  row_5_margin_1,row_5_col_1,row_5_margin_2, row_5_col_2, row_5_margin_3 = st.columns((.1,6.5, 1.5, 4.5,.1))  
+  with row_5_col_1:
+    st.plotly_chart(bar_channel, use_container_width=False)
+  with row_5_col_2: 
     st.plotly_chart(bar_device, use_container_width=False)
     
 ############################ SECONDE PAGE ############################   
