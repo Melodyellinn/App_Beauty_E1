@@ -249,7 +249,7 @@ if page == 'Prédictions globales':
   with row_0_col_1:
     st.subheader("Prédictions par semaines (Count)")
   
-  row_1_margin_1, row_1_col_1,row_1_margin_2 = st.columns((2.5,1,5.))
+  row_1_margin_1, row_1_col_1,row_1_margin_2 = st.columns((1.5,1,5.))
   with row_1_col_1:
     st.plotly_chart(fig_kpi,use_container_width=False)
     
