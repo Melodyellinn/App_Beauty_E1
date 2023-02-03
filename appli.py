@@ -265,7 +265,7 @@ if page == 'Prédictions globales':
     st.subheader("PieCharts des Pays")
     st.plotly_chart(double_piechart,use_container_width=True)
     
-  row_4_margin_1,row_4_col_1,row_4_margin_2 = st.columns((2.,4.5,.1))
+  row_4_margin_1,row_4_col_1,row_4_margin_2 = st.columns((1.,3.5,.1))
   with row_4_col_1:
     st.plotly_chart(piechart_country,use_container_width=True)
     
