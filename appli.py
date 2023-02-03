@@ -132,7 +132,7 @@ df_us_vs_all = df_us_vs_all.groupby("country").count()['bounces']
 
 df_undifined['country']= df_undifined['country'].apply(lambda x : "No defined" if x == "(not set)" else "Country is defined")
 df_undifined = df_undifined.groupby("country").count()['bounces']
-df_undifined.rename({"bounces":"Nombre de connection"},inplace=True)
+df_undifined.rename({"bounces":"Nombre de connections"},inplace=True)
 
 df_top_10_country = df_top_10_country[(df_top_10_country['country'] != "(not set)") & (df_top_10_country['country']!= "United States")]
 list_of_top_country = list(df_top_10_country.groupby("country").count().sort_values("bounces",ascending=False).head(10).index)
@@ -149,7 +149,7 @@ fig1 = go.Figure(data=[go.Pie(labels=list(df_undifined.index),values=df_undifine
 fig1.update_layout(legend=dict(x=-2,y=0.2))
 fig2 =go.Figure(data=[go.Pie(labels=list(df_us_vs_all.index),values=df_us_vs_all.values,hole=0.55,legendgroup=2,
                             marker_colors=sun_colors)])
-title_1 = "              Nombre d'utilisateur dont le pays n'est pas définie"
+title_1 = "              Nombre d'utilisateurs dont le pays n'est pas défini"
 title_2 = "Part de la clientèle Américaine"
 
 double_piechart = make_subplots(rows = 1,cols=2,specs=[[{"type":"pie"},{"type":"pie"}]],
@@ -235,26 +235,26 @@ second_layout = go.Layout(title='Countplot of Device Category')
 
 ############## HEADER ##############
 st.set_page_config(layout = "wide")
-st.title("Behavior visitors on Vaccineshoppe website")
+st.title("Comportement des visiteurs sur Vaccineshoppe.com")
 st.markdown("<style>h1{text-align: center;}</style>", unsafe_allow_html=True)
-st.write("Date range between 1er september 2022 and 31 december 2022")
+st.write("Scope date entre le 1er september 2022 and 31 december 2022")
 
 ## SelectBOX ##
 page = st.sidebar.selectbox('Select page',
-  ['Country data','Other data'])
+  ['Prédictions globales','Prédictions sur le temps'])
 
 ## FIRST PAGE ##
-if page == 'Country data':
+if page == 'Prédictions globales':
   #row_col01,row_col02,row_col03,row_col04 = st.columns((.1,3.2,3.2,.1))    
   row_1_margin_1, row_1_col_1,row_1_margin_2 = st.columns((.1,1,7))
   with row_1_col_1:
-    st.subheader("Count predict by week")
+    st.subheader("Prédictions par semaines (Count)")
     st.plotly_chart(fig_kpi,use_container_width=False)
     
  ## PLOT MAP ##
   row_2_margin_1,row_2_col_1,row_2_margin_2 = st.columns((.1,7,.1))     
   with row_2_col_1:
-    st.subheader("World Map mean pageviews by country")     
+    st.subheader("World Map moyennes des pages visitées par pays")     
     st.plotly_chart(fig_map,use_container_width=True)
     
 #### PIE CHART ####
@@ -267,7 +267,7 @@ if page == 'Country data':
     st.plotly_chart(piechart_country,use_container_width=False)
     
  #### BAR PLOT ####   
-  row_5_margin_1,row_5_col_1, row_5_col_2, row_5_margin_2 = st.columns((.1,6.5,6.5,.1))  
+  row_5_margin_1,row_5_col_1,row_5_margin_2, row_5_col_2, row_5_margin_3 = st.columns((.1,6.5,.1,6.5,.1))  
   with row_5_col_1:
     st.plotly_chart(bar_channel, use_container_width=False)
   with row_5_col_2: 
@@ -281,6 +281,6 @@ else:
     fig_channel = go.Figure(data=data_bar, layout=layout)
     st.plotly_chart(fig_channel, use_container_width=False)
     
-    st.subheader("Type of Device")
+    st.subheader("Type d'appareil")
     fig_device = go.Figure(data=second_data_bar, layout=second_layout)
     st.plotly_chart(fig_device,use_container_width=False)
