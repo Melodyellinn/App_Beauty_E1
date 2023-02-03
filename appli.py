@@ -63,6 +63,32 @@ data_for_map_grouped = data_for_map.groupby("country").agg({"fullVisitorId": ["c
 # df_unique_user_country = df_unique_user_country.sort_values('fullVisitorId', ascending=False).head(10)
 # df_unique_user_country.groupby(['country']).count().reset_index()
 
+#### BAR PLOT DATA ####
+
+##BarPlotChannels##
+data_bar_ = df_kpi.copy()
+data_bar_gb = data_bar_.groupby(["channelGrouping","Predict"]).size().reset_index()
+
+data_bar_gb_full = data_bar_gb.groupby("channelGrouping").agg({0:"sum"}).reset_index()
+
+data_bar_join = data_bar_gb.merge(data_bar_gb_full,left_on="channelGrouping",right_on="channelGrouping",
+                                  left_index=False,right_index=False,how="left")
+
+data_bar_join['percentage']= data_bar_join['0_x'] / data_bar_join['0_y'] * 100
+data_bar_join= data_bar_join.drop("0_y",1)
+
+##BarPlotDevice##
+data_bar_2 = df_kpi.copy()
+data_bar_gb2 = data_bar_2.groupby(["deviceCategory","Predict"]).size().reset_index()
+
+data_bar_gb_full2 = data_bar_gb2.groupby("deviceCategory").agg({0:"sum"}).reset_index()
+
+data_bar_join2 = data_bar_gb2.merge(data_bar_gb_full2,left_on="deviceCategory",right_on="deviceCategory",
+                                  left_index=False,right_index=False,how="left")
+
+data_bar_join2['percentage']= data_bar_join2['0_x'] / data_bar_join2['0_y'] * 100
+data_bar_join2= data_bar_join2.drop("0_y",1)
+
 ############################### END DATA ###############################
 
 ############################ DEFINE ALL PLOT ############################
@@ -224,11 +250,26 @@ if page == 'Country data':
   row_4_margin_1,row_4_col_1,row_4_margin_2 = st.columns((.1,2.5,.1))
   with row_4_col_1:
     st.plotly_chart(piechart_country,use_container_width=False)
+    
+  row_5_margin_1,row_5_col_1,row_5_margin_2 = st.columns((.1,6.5,.1))  
+  with row_5_col_1:
+    data_bar_join.columns = ['channelGrouping', 'Predict', 'Counts', 'Percentage']
+    px.bar(data_bar_join, x='channelGrouping', y=['Percentage'], 
+       color='Predict',
+       title= "Predictions (channels)",
+       text=data_bar_join['Percentage'].apply(lambda x: '{0:1.2f}%'.format(x))) 
 
+    data_bar_join2.columns = ['deviceCategory', 'Predict', 'Counts', 'Percentage']
+    px.bar(data_bar_join2, x='deviceCategory', y=['Percentage'], 
+       color='Predict',
+       title= "Predictions (channels)",
+       text=data_bar_join2['Percentage'].apply(lambda x: '{0:1.2f}%'.format(x)))
+    
+    
 ############################ SECONDE PAGE ############################   
 else:
-  row_5_margin_1,row_5_col_1,row_5_margin_2 = st.columns((.1,2.5,.1))
-  with row_5_col_1:
+  row_6_margin_1,row_6_col_1,row_6_margin_2 = st.columns((.1,2.5,.1))
+  with row_6_col_1:
     st.subheader("Type de channel")
     fig_channel = go.Figure(data=data_bar, layout=layout)
     st.plotly_chart(fig_channel, use_container_width=False)
