@@ -274,7 +274,7 @@ if page == 'Prédictions globales':
   with row_5_col_1:
     st.subheader("Barplots prédictions des Channels & Appareils")   
   
-  row_6_margin_1,row_6_col_1,row_6_margin_2, row_6_col_2, row_6_margin_3 = st.columns((.1,2.5,1.5,4.5,.1))  
+  row_6_margin_1,row_6_col_1,row_6_margin_2, row_6_col_2, row_6_margin_3 = st.columns((.1,2.5,1.5,3.5,.1))  
   with row_6_col_1:
     st.plotly_chart(bar_channel, use_container_width=False)
   with row_6_col_2: 
