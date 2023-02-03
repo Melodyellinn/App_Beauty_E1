@@ -262,12 +262,12 @@ if page == 'Prédictions globales':
   with row_3_col_1:
     st.plotly_chart(double_piechart,use_container_width=False)
   with row_3_col_2:
-    st.plotly_chart(piechart_country,use_container_width=False)
+    st.plotly_chart(piechart_country,use_container_width=True)
     
  #### BAR PLOT ####   
   row_4_margin_1,row_4_col_1,row_4_margin_2, row_4_col_2, row_4_margin_3 = st.columns((.1,4.5, 1.5, 4.5,.1))  
   with row_4_col_1:
-    st.plotly_chart(bar_channel, use_container_width=False)
+    st.plotly_chart(bar_channel, use_container_width=True)
   with row_4_col_2: 
     st.plotly_chart(bar_device, use_container_width=False)
     
