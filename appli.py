@@ -267,7 +267,7 @@ if page == 'Prédictions globales':
     st.plotly_chart(piechart_country,use_container_width=False)
     
  #### BAR PLOT ####   
-  row_5_margin_1,row_5_col_1,row_5_margin_2, row_5_col_2, row_5_margin_3 = st.columns((.1,6.5, 1.5, 4.5,.1))  
+  row_5_margin_1,row_5_col_1,row_5_margin_2, row_5_col_2, row_5_margin_3 = st.columns((.1,6.5, 2.5, 4.5,.1))  
   with row_5_col_1:
     st.plotly_chart(bar_channel, use_container_width=False)
   with row_5_col_2: 
