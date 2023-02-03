@@ -280,14 +280,20 @@ if page == 'Prédictions globales':
   with row_6_col_2: 
     st.plotly_chart(bar_device, use_container_width=False)
     
-############################ SECONDE PAGE ############################   
-else:
-  row_6_margin_1,row_6_col_1,row_6_margin_2 = st.columns((.1,2.5,.1))
-  with row_6_col_1:
+  row_7_margin_1,row_7_col_1,row_7_margin_2, row_7_col_2, row_7_margin_3 = st.columns((.1,1.5,.2,1.5,.1))
+  with row_7_col_1:
     st.subheader("Type de channel")
     fig_channel = go.Figure(data=data_bar, layout=layout)
     st.plotly_chart(fig_channel, use_container_width=False)
-    
+  with row_7_col_2: 
     st.subheader("Type d'appareil")
     fig_device = go.Figure(data=second_data_bar, layout=second_layout)
     st.plotly_chart(fig_device,use_container_width=False)
+    
+############################ SECONDE PAGE ############################   
+else:
+  row_8_margin_1,row_8_col_1,row_8_margin_2, row_8_col_2, row_8_margin_3 = st.columns((.1,1.5,.2,1.5,.1))
+  with row_8_col_1:
+    st.subheader("Les préditions faites sur le temps")
+  with row_8_col_2: 
+    st.subheader("emplacement graph (WIP)")
