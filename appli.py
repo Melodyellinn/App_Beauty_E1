@@ -292,8 +292,9 @@ if page == 'Prédictions globales':
     
 ############################ SECONDE PAGE ############################   
 else:
-  row_8_margin_1,row_8_col_1,row_8_margin_2, row_8_col_2, row_8_margin_3 = st.columns((.1,1.5,.2,1.5,.1))
+  row_8_margin_1,row_8_col_1,row_8_margin_2 = st.columns((.1,1.5,.1))
   with row_8_col_1:
     st.subheader("Les préditions faites sur le temps")
-  with row_8_col_2: 
+  row_9_margin_1,row_9_col_1,row_9_margin_2 = st.columns((.1,1.5,.1))
+  with row_9_col_1: 
     st.subheader("emplacement graph (WIP)")
