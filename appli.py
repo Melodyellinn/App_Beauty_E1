@@ -90,7 +90,7 @@ data_bar_join2= data_bar_join2.drop("0_y",1)
 
 ### Data for Timeline ###
 
-df_for_time = df_kpi.groupby("date").agg({"pageviews":"sum",
+df_for_time = data.groupby("date").agg({"pageviews":"sum",
                                       "time_on_site":"sum",
                                       "medium":"count"})
 df_for_time = df_for_time.reset_index()
@@ -196,9 +196,11 @@ piechart_country.update_traces(textposition='inside',hoverinfo='label+value', te
                   textfont_size=12, marker=dict(line=dict(color='#000000', width=1)))
 piechart_country.update_layout(autosize=False,width=800,height=800,
                              title="Nombre de connections sur le site par Pays")
-##END##
+
+#################### END ####################
 
 #### DEFINE BAR PLOT PERCENTAGE MODEL PREDICTIONS ####
+
 ##CHANNEL##
 data_bar_join.columns = ['channelGrouping', 'Predict', 'Counts', 'Percentage']
 bar_channel= px.bar(data_bar_join, x='channelGrouping', y=['Percentage'], 
@@ -244,9 +246,10 @@ second_data_bar = [go.Bar(
 second_layout = go.Layout(title='Countplot of Device Category')
 
 
-#### END ####
+################ END ################
 
-#### PLOT FOR SECOND PAGE ####
+################ PLOT FOR SECOND PAGE ################
+
 trace1 = go.Scatter(x=df_for_time_now["date"],y= df_for_time_now['time_on_site'], mode='lines+markers',
                     name="Donnée de la semaine passée")
 trace2 = go.Scatter(x=df_for_time_yersterday["date"],y= df_for_time_yersterday['time_on_site'],
