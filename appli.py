@@ -199,21 +199,6 @@ piechart_country.update_layout(autosize=False,width=800,height=800,
 
 #################### END ####################
 
-#### DEFINE BAR PLOT PERCENTAGE MODEL PREDICTIONS ####
-
-##CHANNEL##
-data_bar_join.columns = ['channelGrouping', 'Predict', 'Counts', 'Percentage']
-bar_channel= px.bar(data_bar_join, x='channelGrouping', y=['Percentage'], 
-       color='Predict',
-       title= "Predictions (Channels)",
-       text=data_bar_join['Percentage'].apply(lambda x: '{0:1.2f}%'.format(x)))
-##DEVICE##
-data_bar_join2.columns = ['deviceCategory', 'Predict', 'Counts', 'Percentage']
-bar_device= px.bar(data_bar_join2, x='deviceCategory', y=['Percentage'], 
-       color='Predict',
-       title= "Predictions (Devices)",
-       text=data_bar_join2['Percentage'].apply(lambda x: '{0:1.2f}%'.format(x)))
-
 ### Bar plot classic ###
 rgb_colors = ['rgb(51,138,255)', #hightblue
                   'rgb(14,40,185)',
@@ -271,8 +256,24 @@ fig_2_timeline.update_layout(title='Page visitée sur le site par jour',
                    xaxis_title='Date',
                    yaxis_title='Nombre de page vue sur le site')
 
+#### DEFINE BAR PLOT PERCENTAGE MODEL PREDICTIONS ####
+
+##CHANNEL##
+data_bar_join.columns = ['channelGrouping', 'Predict', 'Counts', 'Percentage']
+bar_channel= px.bar(data_bar_join, x='channelGrouping', y=['Percentage'], 
+       color='Predict',
+       title= "Predictions (Channels)",
+       text=data_bar_join['Percentage'].apply(lambda x: '{0:1.2f}%'.format(x)))
+##DEVICE##
+data_bar_join2.columns = ['deviceCategory', 'Predict', 'Counts', 'Percentage']
+bar_device= px.bar(data_bar_join2, x='deviceCategory', y=['Percentage'], 
+       color='Predict',
+       title= "Predictions (Devices)",
+       text=data_bar_join2['Percentage'].apply(lambda x: '{0:1.2f}%'.format(x)))
+
 
 ###################################### END CODING ######################################
+
 
 ############################ DASHBOARD APPLICATION STREAMLIT ############################
 
@@ -284,7 +285,7 @@ st.write("Scope date entre le 1er september 2022 and 31 december 2022")
 
 ## SelectBOX ##
 page = st.sidebar.selectbox('Select page',
-  ['Prédictions globales','Prédictions sur le temps'])
+  ['Global','Prédictions'])
 
 ## FIRST PAGE ##
 if page == 'Prédictions globales':
@@ -313,28 +314,30 @@ if page == 'Prédictions globales':
     st.plotly_chart(piechart_country,use_container_width=True)
     
  #### BAR PLOT ####
-  row_5_margin_1,row_5_col_1,row_5_margin_2 = st.columns((.1,4.5,.1)) 
+  row_5_margin_1,row_5_col_1,row_5_margin_2, row_5_col_2, row_5_margin_3 = st.columns((.1,1.5,.2,1.5,.1))
   with row_5_col_1:
-    st.subheader("Barplots prédictions des Channels & Appareils")   
-  
-  row_6_margin_1,row_6_col_1,row_6_margin_2, row_6_col_2, row_6_margin_3 = st.columns((.1,3.5,.5,1.5,.5))  
-  with row_6_col_1:
-    st.plotly_chart(bar_channel, use_container_width=False)
-  with row_6_col_2: 
-    st.plotly_chart(bar_device, use_container_width=False)
-    
-  row_7_margin_1,row_7_col_1,row_7_margin_2, row_7_col_2, row_7_margin_3 = st.columns((.1,1.5,.2,1.5,.1))
-  with row_7_col_1:
     st.subheader("Type de channel")
     fig_channel = go.Figure(data=data_bar, layout=layout)
     st.plotly_chart(fig_channel, use_container_width=False)
-  with row_7_col_2: 
+  with row_5_col_2: 
     st.subheader("Type d'appareil")
     fig_device = go.Figure(data=second_data_bar, layout=second_layout)
     st.plotly_chart(fig_device,use_container_width=False)
     
 ############################ SECONDE PAGE ############################   
 else:
+## Barplot ##
+  row_6_margin_1,row_6_col_1,row_6_margin_2 = st.columns((.1,4.5,.1)) 
+  with row_6_col_1:
+    st.subheader("Barplots prédictions des Channels & Appareils")   
+  
+  row_7_margin_1,row_7_col_1,row_7_margin_2, row_7_col_2, row_7_margin_3 = st.columns((.1,3.5,.5,1.5,.5))  
+  with row_7_col_1:
+    st.plotly_chart(bar_channel, use_container_width=False)
+  with row_7_col_2: 
+    st.plotly_chart(bar_device, use_container_width=False)
+
+## Timeline ##
   row_8_margin_1,row_8_col_1,row_8_margin_2 = st.columns((.1,1.5,.1))
   with row_8_col_1:
     st.plotly_chart(fig_1_timeline, use_container_width=False)
