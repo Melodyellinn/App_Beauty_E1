@@ -288,7 +288,7 @@ page = st.sidebar.selectbox('Select page',
   ['Global','Prédictions'])
 
 ## FIRST PAGE ##
-if page == 'Prédictions globales':
+if page == 'Global':
   row_0_margin_1, row_0_col_1, row_0_margin_2 = st.columns((.1,4.5,.1))
   with row_0_col_1:
     st.subheader("Prédictions par semaines (Count)")
