@@ -63,9 +63,8 @@ data_for_map_grouped = data_for_map.groupby("country").agg({"fullVisitorId": ["c
 # df_unique_user_country = df_unique_user_country.sort_values('fullVisitorId', ascending=False).head(10)
 # df_unique_user_country.groupby(['country']).count().reset_index()
 
-#### BAR PLOT DATA ####
-
-##BarPlotChannels##
+### BAR PLOT DATA ###
+### BarPlot Channels ###
 data_bar_ = df_kpi.copy()
 data_bar_gb = data_bar_.groupby(["channelGrouping","Predict"]).size().reset_index()
 
@@ -77,7 +76,7 @@ data_bar_join = data_bar_gb.merge(data_bar_gb_full,left_on="channelGrouping",rig
 data_bar_join['percentage']= data_bar_join['0_x'] / data_bar_join['0_y'] * 100
 data_bar_join= data_bar_join.drop("0_y",1)
 
-##BarPlotDevice##
+### BarPlot Device ###
 data_bar_2 = df_kpi.copy()
 data_bar_gb2 = data_bar_2.groupby(["deviceCategory","Predict"]).size().reset_index()
 
@@ -89,9 +88,26 @@ data_bar_join2 = data_bar_gb2.merge(data_bar_gb_full2,left_on="deviceCategory",r
 data_bar_join2['percentage']= data_bar_join2['0_x'] / data_bar_join2['0_y'] * 100
 data_bar_join2= data_bar_join2.drop("0_y",1)
 
+### Data for Timeline ###
+
+df_for_time = df_kpi.groupby("date").agg({"pageviews":"sum",
+                                      "time_on_site":"sum",
+                                      "medium":"count"})
+df_for_time = df_for_time.reset_index()
+
+start_date_n1 = '2022-12-01'
+end_date_n1 = '2022-12-25'
+
+start_date_n = '2022-12-24'
+end_date_n = '2022-12-31'
+
+df_for_time_now = df_for_time[df_for_time["date"].between(start_date_n,end_date_n)]
+df_for_time_yersterday = df_for_time[df_for_time["date"].between(start_date_n1,end_date_n1)]
+
 ############################### END DATA ###############################
 
 ############################ DEFINE ALL PLOT ############################
+
 #### KPI ####
 fig_kpi = go.Figure()
 fig_kpi.add_trace(go.Indicator(mode = "number+delta",
@@ -195,10 +211,8 @@ bar_device= px.bar(data_bar_join2, x='deviceCategory', y=['Percentage'],
        color='Predict',
        title= "Predictions (Devices)",
        text=data_bar_join2['Percentage'].apply(lambda x: '{0:1.2f}%'.format(x)))
-##END##
 
-#### PLOT FOR SECOND PAGE ####
-
+### Bar plot classic ###
 rgb_colors = ['rgb(51,138,255)', #hightblue
                   'rgb(14,40,185)',
                   'rgb(23,238,208)', #veryhightblue
@@ -228,6 +242,32 @@ second_data_bar = [go.Bar(
             marker=dict(color=second_rgb_colors)
             )]
 second_layout = go.Layout(title='Countplot of Device Category')
+
+
+#### END ####
+
+#### PLOT FOR SECOND PAGE ####
+trace1 = go.Scatter(x=df_for_time_now["date"],y= df_for_time_now['time_on_site'], mode='lines+markers',
+                    name="Donnée de la semaine passée")
+trace2 = go.Scatter(x=df_for_time_yersterday["date"],y= df_for_time_yersterday['time_on_site'],
+                    mode='lines+markers',name = 'Historique du mois')
+
+fig_1_timeline = go.Figure([trace1,trace2])
+fig_1_timeline.update_layout(title='Temps passé sur le site par jour',
+                   xaxis_title='Date',
+                   yaxis_title='Temps passé sur le site (secondes)')
+
+
+trace3 = go.Scatter(x=df_for_time_now["date"],y= df_for_time_now['pageviews'],
+                    mode='lines+markers',name="Donnée de la semaine passée")
+trace4 = go.Scatter(x=df_for_time_yersterday["date"],y= df_for_time_yersterday['pageviews'],
+                    mode='lines+markers',name = 'Historique du mois')
+
+fig_2_timeline = go.Figure([trace3,trace4])
+fig_2_timeline.update_layout(title='Page visitée sur le site par jour',
+                   xaxis_title='Date',
+                   yaxis_title='Nombre de page vue sur le site')
+
 
 ###################################### END CODING ######################################
 
@@ -294,7 +334,10 @@ if page == 'Prédictions globales':
 else:
   row_8_margin_1,row_8_col_1,row_8_margin_2 = st.columns((.1,1.5,.1))
   with row_8_col_1:
-    st.subheader("Les préditions faites sur le temps")
+    st.plotly_chart(fig_1_timeline, use_container_width=False)
+    
   row_9_margin_1,row_9_col_1,row_9_margin_2 = st.columns((.1,1.5,.1))
   with row_9_col_1: 
-    st.subheader("emplacement graph (WIP)")
+    st.plotly_chart(fig_2_timeline, use_container_width=False)
+    
+    
