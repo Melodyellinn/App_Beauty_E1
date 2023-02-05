@@ -331,7 +331,7 @@ else:
   with row_6_col_1:
     st.subheader("Barplots prédictions des Channels & Appareils")   
   
-  row_7_margin_1,row_7_col_1,row_7_margin_2, row_7_col_2, row_7_margin_3 = st.columns((.1,3.5,.2,1.5,.5))  
+  row_7_margin_1,row_7_col_1,row_7_margin_2, row_7_col_2, row_7_margin_3 = st.columns((.1,1.5,.1,1.5,.5))  
   with row_7_col_1:
     st.plotly_chart(bar_channel, use_container_width=False)
   with row_7_col_2: 
