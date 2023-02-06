@@ -336,19 +336,6 @@ st.markdown(
     </style>
     """, unsafe_allow_html=True
 )
-## CSS FOR WRITE ##
-st.markdown(
-    """
-    <style>
-        [data-testid=stWrite]{
-            font-family: Arial;
-            font-size: 15px;
-            font-weight: bold;
-            padding:10px
-        }
-    </style>
-    """, unsafe_allow_html=True
-)
 ##### END #####
 
 ### TITLE AND LOGO ###
