@@ -26,7 +26,6 @@ data_new = d_.merge(p_)
 
 #### END IMPORT & MERGE DATA ####
 
-
 #### DATA FOR KPI ####
 top_predict_by_week = data_new.copy()
 top_predict_by_week["date"] = pd.to_datetime(top_predict_by_week["date"])
@@ -61,17 +60,23 @@ data_for_map_grouped = data_for_map.groupby("country").agg({"fullVisitorId": ["c
                                     "pageviews": ['mean','sum',"max","min"],
                                     "Latitude": ['first'],
                                     "Longitude": ['first']})
-#### DATA FOR PIECHART ####
 
-# df_pie_us_vs_all = data.copy()[data['country']!="(not set)"]
-# df_pie_us_vs_all['country'] = df_pie_us_vs_all["country"].apply(lambda x: "United States" if x == "United States" else "other")
-# df_pie_undifined_country = data.copy()
-# df_pie_undifined_country['country'] = df_pie_undifined_country["country"].apply(lambda x: "Non-définie" if x == "(not set)" else "Définie")
+#### DATA FOR PIECHART ####     
+df_us_vs_all = data_new.copy()
+df_undifined = data_new.copy()
+df_top_10_country = data_new.copy()
+df_us_vs_all["country"] = df_us_vs_all["country"].apply(lambda x : "United States" if x == "United States" else "Other Country or not defined")
+df_us_vs_all = df_us_vs_all.groupby("country").count()['bounces']
 
-# df_unique_user_country = data.copy().groupby(['country', 
-#       'fullVisitorId']).count().reset_index().groupby("country").count().reset_index()[["country","fullVisitorId"]]
-# df_unique_user_country = df_unique_user_country.sort_values('fullVisitorId', ascending=False).head(10)
-# df_unique_user_country.groupby(['country']).count().reset_index()
+df_undifined['country']= df_undifined['country'].apply(lambda x : "No defined" if x == "(not set)" else "Country is defined")
+df_undifined = df_undifined.groupby("country").count()['bounces']
+df_undifined.rename({"bounces":"Nombre de connections"},inplace=True)
+
+df_top_10_country = df_top_10_country[(df_top_10_country['country'] != "(not set)") & (df_top_10_country['country']!= "United States")]
+list_of_top_country = list(df_top_10_country.groupby("country").count().sort_values("bounces",ascending=False).head(10).index)
+df_top_10_country = df_top_10_country[df_top_10_country['country'].isin(list_of_top_country)]
+df_top_10_country = df_top_10_country.groupby("country").count()['bounces']
+## End data for pies ##
 
 ### BAR PLOT DATA ###
 ### BarPlot Channels ###
@@ -98,8 +103,7 @@ data_bar_join2 = data_bar_gb2.merge(data_bar_gb_full2,left_on="deviceCategory",r
 data_bar_join2['percentage']= data_bar_join2['0_x'] / data_bar_join2['0_y'] * 100
 data_bar_join2= data_bar_join2.drop("0_y",1)
 
-### Data for Timeline ###
-
+### DATA FOR TIMELINE ###
 df_for_time = data_new.groupby("date").agg({"pageviews":"sum",
                                       "time_on_site":"sum",
                                       "medium":"count"})
@@ -126,6 +130,7 @@ fig_kpi.add_trace(go.Indicator(mode = "number+delta",
                                    delta = {'reference': count_predict_last_week,
                                             'relative': True,
                                             'position' : "bottom",'valueformat':'.2%'}))
+
 #### MAP ####
 fig_map = px.scatter_mapbox(lat = data_for_map_grouped["Latitude"]['first'],
                                 lon = data_for_map_grouped["Longitude"]['first'],
@@ -135,38 +140,8 @@ fig_map = px.scatter_mapbox(lat = data_for_map_grouped["Latitude"]['first'],
                                 mapbox_style ='open-street-map',
                                 size_max=50,
                                 zoom=1)
-#### PIE ####
-      # fig = px.pie(df_pie_undifined_country, 
-      #              values='pageviews', 
-      #              names='country',
-      #              title='Top 10 Nombre pageviews par pays',
-      #              color_discrete_sequence=px.colors.sequential.Viridis)
       
-      # figure = px.pie(df_unique_user_country, 
-      #                 values='fullVisitorId', 
-      #                 names='country', 
-      #                 title='Top 10 des visiteurs uniques par pays',
-      #                 color_discrete_sequence= px.colors.sequential.Plasma_r)
-      
-
-## data for pies ##      
-df_us_vs_all = data_new.copy()
-df_undifined = data_new.copy()
-df_top_10_country = data_new.copy()
-df_us_vs_all["country"] = df_us_vs_all["country"].apply(lambda x : "United States" if x == "United States" else "Other Country or not defined")
-df_us_vs_all = df_us_vs_all.groupby("country").count()['bounces']
-
-df_undifined['country']= df_undifined['country'].apply(lambda x : "No defined" if x == "(not set)" else "Country is defined")
-df_undifined = df_undifined.groupby("country").count()['bounces']
-df_undifined.rename({"bounces":"Nombre de connections"},inplace=True)
-
-df_top_10_country = df_top_10_country[(df_top_10_country['country'] != "(not set)") & (df_top_10_country['country']!= "United States")]
-list_of_top_country = list(df_top_10_country.groupby("country").count().sort_values("bounces",ascending=False).head(10).index)
-df_top_10_country = df_top_10_country[df_top_10_country['country'].isin(list_of_top_country)]
-df_top_10_country = df_top_10_country.groupby("country").count()['bounces']
-## End data for pies ##
-
-## Figure ##      
+## PIECHART ##      
 night_colors = ['rgb(56, 75, 126)', 'rgb(18, 36, 37)']
 sun_colors = ['rgb(255,152,2)', 'rgb(254,244,36)']
 
@@ -184,9 +159,8 @@ double_piechart.update_layout(showlegend=True,legend = dict(y=0.6),legend_traceg
 
 double_piechart.add_trace(fig1['data'][0],row=1,col=1)
 double_piechart.add_trace(fig2['data'][0],row=1,col=2)
-## End figure ##
 
-## SECOND FIG PIE ##
+## SECOND FIG PIECHART ##
 country_colors = ['rgb(157,212,222)', #Canada
                   'rgb(111,168,216)', #China
                   'rgb(46,137,213)', #Finlande
@@ -206,8 +180,6 @@ piechart_country.update_traces(textposition='inside',hoverinfo='label+value', te
                   textfont_size=12, marker=dict(line=dict(color='#000000', width=1)))
 piechart_country.update_layout(autosize=False,width=800,height=800,
                              title="Nombre de connections sur le site par Pays")
-
-#################### END ####################
 
 ### Bar plot classic ###
 rgb_colors = ['rgb(51,138,255)', #hightblue
@@ -240,8 +212,8 @@ second_data_bar = [go.Bar(
             )]
 second_layout = go.Layout(title='Countplot of Device Category')
 
+#################### END ####################
 
-################ END ################
 
 ################ PLOT FOR SECOND PAGE ################
 
@@ -282,7 +254,7 @@ bar_device= px.bar(data_bar_join2, x='deviceCategory', y=['Percentage'],
        text=data_bar_join2['Percentage'].apply(lambda x: '{0:1.2f}%'.format(x)))
 
 
-###################################### END CODING ######################################
+###################################### END CODING PLOT ######################################
 
 
 ############################ DASHBOARD APPLICATION STREAMLIT ############################
@@ -334,9 +306,9 @@ if page == 'Global':
     fig_device = go.Figure(data=second_data_bar, layout=second_layout)
     st.plotly_chart(fig_device,use_container_width=False)
     
-############################ SECONDE PAGE ############################   
+############################ SECONDE PAGE ############################ 
 else:
-## Barplot ##
+## Barplots ##
   row_6_margin_1,row_6_col_1,row_6_margin_2 = st.columns((.1,4.5,.1)) 
   with row_6_col_1:
     st.subheader("Barplots prédictions des Channels & Appareils")   
@@ -347,7 +319,7 @@ else:
   with row_7_col_2: 
     st.plotly_chart(bar_device, use_container_width=False)
 
-## Timeline ##
+## Timelines ##
   row_8_margin_1,row_8_col_1,row_8_margin_2 = st.columns((.1,1.5,.1))
   with row_8_col_1:
     st.plotly_chart(fig_1_timeline, use_container_width=False)
