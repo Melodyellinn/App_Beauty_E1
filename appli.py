@@ -353,7 +353,7 @@ page = st.sidebar.selectbox('Select page',
 if page == 'Global':
   row_0_margin_1, row_0_col_1, row_0_margin_2 = st.columns((.1,4.5,.1))
   with row_0_col_1:
-    st.text('global')
+    st.text('global pres')
     
     #### BAR PLOT ####
   row_5_margin_1,row_5_col_1,row_5_margin_2, row_5_col_2, row_5_margin_3 = st.columns((.1,1.5,.2,1.5,.1))
@@ -368,7 +368,7 @@ if page == 'Global':
     
 ############################ SECONDE PAGE ############################
 if page == 'World':
-   ## PLOT MAP ##
+    ## PLOT MAP ##
   row_2_margin_1,row_2_col_1,row_2_margin_2 = st.columns((.1,7,.1))     
   with row_2_col_1:
     st.text('World Map moyennes des pages visitées par pays')
@@ -387,8 +387,8 @@ if page == 'World':
 ############################ THIRD PAGE ############################ 
 else:
 ## Barplots ##
-  row_0_margin_1, row_0_col_1, row_0_margin_2 = st.columns((.1,4.5,.1))
-  with row_0_col_1:
+  row_00_margin_1, row_00_col_1, row_00_margin_2 = st.columns((.1,4.5,.1))
+  with row_00_col_1:
     st.text('Prédictions par semaines (Count)')    
   row_1_margin_1, row_1_col_1,row_1_margin_2 = st.columns((1.5,1,5.))
   with row_1_col_1:
