@@ -356,12 +356,10 @@ else:
   with row_8_col_1:
     st.text('Prédictions en décembre (2022)')
   
-  row_9_margin_1,row_9_col_1,row_9_margin_2 = st.columns((.1,1.5,.1))
+  row_9_margin_1,row_9_col_1,row_9_margin_2, row_9_col_2, row_9_margin_3 = st.columns((.1,1.5,.5,1.5,.1)) 
   with row_9_col_1:
     st.plotly_chart(fig_1_timeline, use_container_width=False)
-    
-  row_10_margin_1,row_10_col_1,row_10_margin_2 = st.columns((.1,1.5,.1))
-  with row_10_col_1: 
+  with row_9_col_2: 
     st.plotly_chart(fig_2_timeline, use_container_width=False)
     
     
