@@ -4,14 +4,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import sqlite3 as sql
 from datetime import timedelta, datetime
-## Plotly ##
+#### Plotly ####
 import ipywidgets
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import plotly.express as px
 
 #### Import Data ####
-
 conn = sql.connect('Application_prod.db')
 data = pd.read_sql("""SELECT * 
                       FROM Raw_data""", conn)
@@ -56,7 +55,7 @@ list_of_country = [[37.09024,-95.712891,"United States"],
                     [52.132633,5.291266,"Netherlands"],
                     [56.130366,106.346771,"Canada"]]
 df3 = pd.DataFrame(list_of_country, columns = ["Latitude", 'Longitude', 'country'])
-data_with_coordonate = data.copy().merge(df3,on ="country",how = "left")
+data_with_coordonate = data_new.copy().merge(df3,on ="country",how = "left")
 data_for_map = data_with_coordonate[data_with_coordonate['country'] != "(not set)"]
 data_for_map_grouped = data_for_map.groupby("country").agg({"fullVisitorId": ["count","nunique"],
                                     "time_on_site": ["mean","sum","max","min"],
@@ -102,7 +101,7 @@ data_bar_join2= data_bar_join2.drop("0_y",1)
 
 ### Data for Timeline ###
 
-df_for_time = data.groupby("date").agg({"pageviews":"sum",
+df_for_time = data_new.groupby("date").agg({"pageviews":"sum",
                                       "time_on_site":"sum",
                                       "medium":"count"})
 df_for_time = df_for_time.reset_index()
@@ -152,9 +151,9 @@ fig_map = px.scatter_mapbox(lat = data_for_map_grouped["Latitude"]['first'],
       
 
 ## data for pies ##      
-df_us_vs_all = data.copy()
-df_undifined = data.copy()
-df_top_10_country = data.copy()
+df_us_vs_all = data_new.copy()
+df_undifined = data_new.copy()
+df_top_10_country = data_new.copy()
 df_us_vs_all["country"] = df_us_vs_all["country"].apply(lambda x : "United States" if x == "United States" else "Other Country or not defined")
 df_us_vs_all = df_us_vs_all.groupby("country").count()['bounces']
 
@@ -221,9 +220,9 @@ rgb_colors = ['rgb(51,138,255)', #hightblue
                   'rgb(19,124,1)',
                   'rgb(12,55,4)']
 data_bar = [go.Bar(
-            x=data['channelGrouping'].value_counts().index,
-            y=data['channelGrouping'].value_counts().values,
-            text=data['channelGrouping'].value_counts().values,
+            x=data_new['channelGrouping'].value_counts().index,
+            y=data_new['channelGrouping'].value_counts().values,
+            text=data_new['channelGrouping'].value_counts().values,
             textposition='auto',
             marker=dict(color=rgb_colors)
             )]
@@ -234,9 +233,9 @@ second_rgb_colors = ['rgb(255,216,51)',
                   'rgb(255,132,51)',
                   'rgb(248,18,18)']
 second_data_bar = [go.Bar(
-            x=data['deviceCategory'].value_counts().index,
-            y=data['deviceCategory'].value_counts().values,
-            text=data['deviceCategory'].value_counts().values,
+            x=data_new['deviceCategory'].value_counts().index,
+            y=data_new['deviceCategory'].value_counts().values,
+            text=data_new['deviceCategory'].value_counts().values,
             textposition='auto',
             marker=dict(color=second_rgb_colors)
             )]
