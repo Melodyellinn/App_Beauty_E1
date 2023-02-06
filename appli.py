@@ -214,8 +214,8 @@ rgb_colors = ['rgb(51,138,255)', #hightblue
                   'rgb(19,124,1)',
                   'rgb(12,55,4)']
 data_bar = [go.Bar(
-            y=data_new['channelGrouping'].value_counts().index,
-            x=data_new['channelGrouping'].value_counts().values,
+            y=data_new['channelGrouping'].value_counts().values,
+            x=data_new['channelGrouping'].value_counts().index,
             text=data_new['channelGrouping'].value_counts().values,
             textposition='auto',
             marker=dict(color=rgb_colors)
