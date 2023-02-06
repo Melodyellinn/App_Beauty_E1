@@ -282,10 +282,10 @@ st.markdown(
     """
     <style>
         [data-testid=stText]{
-            text-align: center;
             font-family: Arial;
             color: green;
             font-size: 20px;
+            font-weight: bold;
         }
     </style>
     """, unsafe_allow_html=True
@@ -315,15 +315,13 @@ if page == 'Global':
  ## PLOT MAP ##
   row_2_margin_1,row_2_col_1,row_2_margin_2 = st.columns((.1,7,.1))     
   with row_2_col_1:
-    sub_title2 = '<p style="font-family:Arial; color:green; font-size: 20px;">World Map moyennes des pages visitées par pays</p>'
-    st.markdown(sub_title2, unsafe_allow_html=True)
+    st.text('World Map moyennes des pages visitées par pays')
     st.plotly_chart(fig_map,use_container_width=True)
     
 #### PIE CHART ####
   row_3_margin_1,row_3_col_1,row_3_margin_2 = st.columns((.1,2.5,.1)) 
   with row_3_col_1:
-    sub_title3 = '<p style="font-family:Arial; color:green; font-size: 20px;">PieCharts des Pays</p>'
-    st.markdown(sub_title3, unsafe_allow_html=True)
+    st.text('PieCharts des Pays')
     st.plotly_chart(double_piechart,use_container_width=True)
     
   row_4_margin_1,row_4_col_1,row_4_margin_2 = st.columns((.5,3.5,.1))
@@ -333,13 +331,11 @@ if page == 'Global':
  #### BAR PLOT ####
   row_5_margin_1,row_5_col_1,row_5_margin_2, row_5_col_2, row_5_margin_3 = st.columns((.1,1.5,.2,1.5,.1))
   with row_5_col_1:
-    sub_title4 = '<p style="font-family:Arial; color:green; font-size: 20px;">Type de channel</p>'
-    st.markdown(sub_title4, unsafe_allow_html=True)
+    st.text('Type de channel')
     fig_channel = go.Figure(data=data_bar, layout=layout)
     st.plotly_chart(fig_channel, use_container_width=False)
   with row_5_col_2: 
-    sub_title5 = '<p style="font-family:Arial; color:green; font-size: 20px;">Type d\'appareil</p>'
-    st.markdown(sub_title5, unsafe_allow_html=True)
+    st.text("Type d'appareil")
     fig_device = go.Figure(data=second_data_bar, layout=second_layout)
     st.plotly_chart(fig_device,use_container_width=False)
     
@@ -348,9 +344,7 @@ else:
 ## Barplots ##
   row_6_margin_1,row_6_col_1,row_6_margin_2 = st.columns((.1,4.5,.1)) 
   with row_6_col_1:
-    sub_title6 = '<p style="font-family:Arial; color:green; font-size: 20px;">Barplots prédictions des Channels & Appareils</p>'
-    st.markdown(sub_title6, unsafe_allow_html=True)   
-  
+    st.text('Barplots prédictions des Channels & Appareils')  
   row_7_margin_1,row_7_col_1,row_7_margin_2, row_7_col_2, row_7_margin_3 = st.columns((.1,1.5,.5,1.5,.5))  
   with row_7_col_1:
     st.plotly_chart(bar_channel, use_container_width=False)
@@ -360,9 +354,8 @@ else:
 ## Timelines ##
   row_8_margin_1,row_8_col_1,row_8_margin_2 = st.columns((.1,1.5,.1))
   with row_8_col_1:
-    sub_title6 = '<p style="font-family:Arial; color:green; font-size: 20px;">Prédictions en décembre (2022)</p>'
-    st.markdown(sub_title6, unsafe_allow_html=True)
-    
+    st.text('Prédictions en décembre (2022)')
+  
   row_9_margin_1,row_9_col_1,row_9_margin_2 = st.columns((.1,1.5,.1))
   with row_9_col_1:
     st.plotly_chart(fig_1_timeline, use_container_width=False)
