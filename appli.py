@@ -351,7 +351,7 @@ page = st.sidebar.selectbox('Select page',
 
 ############################ FIRST PAGE ############################
 if page == 'Global':
-  row_0_margin_1, row_0_col_1, row_0_margin_2 = st.columns((.1,4.5,.1))
+  row_0_margin_1, row_0_col_1, row_0_margin_2 = st.columns((.1,1.5,.1))
   with row_0_col_1:
     st.text('global pres')
     
@@ -361,14 +361,15 @@ if page == 'Global':
     st.text('Type de channel')
     fig_channel = go.Figure(data=data_bar, layout=layout)
     st.plotly_chart(fig_channel, use_container_width=False)
+    
   with row_5_col_2: 
     st.text("Type d'appareil")
     fig_device = go.Figure(data=second_data_bar, layout=second_layout)
     st.plotly_chart(fig_device,use_container_width=False)
     
 ############################ SECONDE PAGE ############################
-if page == 'World':
-    ## PLOT MAP ##
+elif page == 'World':
+  ## PLOT MAP ##
   row_2_margin_1,row_2_col_1,row_2_margin_2 = st.columns((.1,7,.1))     
   with row_2_col_1:
     st.text('World Map moyennes des pages visitées par pays')
@@ -387,7 +388,7 @@ if page == 'World':
 ############################ THIRD PAGE ############################ 
 else:
 ## Barplots ##
-  row_00_margin_1, row_00_col_1, row_00_margin_2 = st.columns((.1,4.5,.1))
+  row_00_margin_1, row_00_col_1, row_00_margin_2 = st.columns((.1,1.5,.1))
   with row_00_col_1:
     st.text('Prédictions par semaines (Count)')    
   row_1_margin_1, row_1_col_1,row_1_margin_2 = st.columns((1.5,1,5.))
