@@ -140,13 +140,19 @@ df_for_time_yersterday_2 = df_for_time2[df_for_time2["date"].between(start_date_
 ############################ DEFINE ALL PLOT ############################
 
 #### KPI ####
-fig_kpi = go.Figure()
+update_layout = go.Layout(
+  width=100,
+  height=100
+)
+fig_kpi = go.Figure(layout= update_layout)
+
 fig_kpi.add_trace(go.Indicator(mode = "number+delta",
                                    value = count_predict_this_week,
                                    domain = {'x': [0, 0], 'y': [0, 0]},
                                    delta = {'reference': count_predict_last_week,
                                             'relative': True,
-                                            'position' : "bottom",'valueformat':'.2%'}))
+                                            'position' : "bottom",'valueformat':'.2%'},
+                                   number = {"font":{"size": 50}}))
 
 #### MAP ####
 fig_map = px.scatter_mapbox(lat = data_for_map_grouped["Latitude"]['first'],
