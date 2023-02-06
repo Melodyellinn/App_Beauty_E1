@@ -360,14 +360,14 @@ if page == 'Global':
     st.text('global pres')
     
     #### BAR PLOT ####
-  row_5_margin_1,row_5_col_1,row_5_margin_2, row_5_col_2, row_5_margin_3 = st.columns((.1,1.5,.2,1.5,.1))
-  with row_5_col_1:
+  row_1_margin_1,row_1_col_1,row_1_margin_2, row_1_col_2, row_1_margin_3 = st.columns((.1,1.5,.2,1.5,.1))
+  with row_1_col_1:
     st.text('Type de channel')
     fig_channel = go.Figure(data=data_bar, layout=layout)
     st.plotly_chart(fig_channel, use_container_width=False)
     
-  with row_5_col_2: 
-    st.text("Type d'appareil :computer:")
+  with row_1_col_2: 
+    st.text("Type d'appareil")
     fig_device = go.Figure(data=second_data_bar, layout=second_layout)
     st.plotly_chart(fig_device,use_container_width=False)
     
@@ -392,39 +392,39 @@ elif page == 'World':
 ############################ THIRD PAGE ############################ 
 else:
 ## Barplots ##
-  row_00_margin_1, row_00_col_1, row_00_margin_2 = st.columns((.1,1.5,.1))
-  with row_00_col_1:
+  row_5_margin_1, row_5_col_1, row_5_margin_2 = st.columns((.1,1.5,.1))
+  with row_5_col_1:
     st.text('Prédictions par semaines (Count)')    
-  row_1_margin_1, row_1_col_1,row_1_margin_2 = st.columns((1.5,1,5.))
-  with row_1_col_1:
+  row_6_margin_1, row_6_col_1,row_6_margin_2 = st.columns((1.5,1,5.))
+  with row_6_col_1:
     st.plotly_chart(fig_kpi,use_container_width=False)
 
-  row_6_margin_1,row_6_col_1,row_6_margin_2 = st.columns((.1,4.5,.1)) 
+  row_7_margin_1,row_7_col_1,row_7_margin_2 = st.columns((.1,4.5,.1)) 
   with row_6_col_1:
     st.text('Barplots prédictions des Channels & Appareils (sur trois mois)')  
-  row_7_margin_1,row_7_col_1,row_7_margin_2, row_7_col_2, row_7_margin_3 = st.columns((.1,1.5,.5,1.5,.3))  
-  with row_7_col_1:
+  row_8_margin_1,row_8_col_1,row_8_margin_2, row_8_col_2, row_8_margin_3 = st.columns((.1,1.5,.5,1.5,.3))  
+  with row_8_col_1:
     st.plotly_chart(bar_channel, use_container_width=False)
-  with row_7_col_2: 
+  with row_8_col_2: 
     st.plotly_chart(bar_device, use_container_width=False)
 
 ## Timelines ##
-  row_8_margin_1,row_8_col_1,row_8_margin_2 = st.columns((.1,1.5,.1))
-  with row_8_col_1:
-    st.text('Prédictions sur novembre (2022)')
-  row_9_margin_1,row_9_col_1,row_9_margin_2, row_9_col_2, row_9_margin_3 = st.columns((.1,1.5,.5,1.5,.3)) 
+  row_9_margin_1,row_9_col_1,row_9_margin_2 = st.columns((.1,1.5,.1))
   with row_9_col_1:
+    st.text('Prédictions sur novembre (2022)')
+  row_10_margin_1,row_10_col_1,row_10_margin_2, row_10_col_2, row_10_margin_3 = st.columns((.1,1.5,.5,1.5,.3)) 
+  with row_10_col_1:
     st.plotly_chart(fig_1_timeline, use_container_width=False)
-  with row_9_col_2: 
+  with row_10_col_2: 
     st.plotly_chart(fig_2_timeline, use_container_width=False)
   
-  row_10_margin_1,row_10_col_1,row_10_margin_2 = st.columns((.1,1.5,.1))
-  with row_10_col_1:
-    st.text('Prédictions sur décembre (2022)')
-  row_11_margin_1,row_11_col_1,row_11_margin_2, row_11_col_2, row_11_margin_3 = st.columns((.1,1.5,.5,1.5,.3)) 
+  row_11_margin_1,row_11_col_1,row_11_margin_2 = st.columns((.1,1.5,.1))
   with row_11_col_1:
+    st.text('Prédictions sur décembre (2022)')
+  row_12_margin_1,row_12_col_1,row_12_margin_2, row_12_col_2, row_12_margin_3 = st.columns((.1,1.5,.5,1.5,.3)) 
+  with row_12_col_1:
     st.plotly_chart(fig_3_timeline, use_container_width=False)
-  with row_11_col_2: 
+  with row_12_col_2: 
     st.plotly_chart(fig_4_timeline, use_container_width=False)
     
     
