@@ -104,6 +104,7 @@ data_bar_join2['percentage']= data_bar_join2['0_x'] / data_bar_join2['0_y'] * 10
 data_bar_join2= data_bar_join2.drop("0_y",1)
 
 ### DATA FOR TIMELINE ###
+## NOVEMBER ##
 df_for_time = data_new.groupby("date").agg({"pageviews":"sum",
                                       "time_on_site":"sum",
                                       "medium":"count"})
@@ -117,6 +118,22 @@ end_date_n = '2022-12-31'
 
 df_for_time_now = df_for_time[df_for_time["date"].between(start_date_n,end_date_n)]
 df_for_time_yersterday = df_for_time[df_for_time["date"].between(start_date_n1,end_date_n1)]
+
+## DECEMBER ##
+
+df_for_time2 = data_new.groupby("date").agg({"pageviews":"sum",
+                                      "time_on_site":"sum",
+                                      "medium":"count"})
+df_for_time2 = df_for_time2.reset_index()
+
+start_date_n1_ = '2022-12-01'
+end_date_n1_ = '2022-12-25'
+
+start_date_n_ = '2022-12-25'
+end_date_n_ = '2022-12-30'
+
+df_for_time_now_ = df_for_time2[df_for_time2["date"].between(start_date_n_,end_date_n_)]
+df_for_time_yersterday_ = df_for_time2[df_for_time2["date"].between(start_date_n1_,end_date_n1_)]
 
 ############################### END DATA ###############################
 
@@ -217,9 +234,10 @@ second_layout = go.Layout(title='Countplot of Device Category')
 
 ################ PLOT FOR SECOND PAGE ################
 
-trace1 = go.Scatter(x=df_for_time_now["date"],y= df_for_time_now['time_on_site'], mode='lines+markers',
+## NOVEMBER ##
+trace1 = go.Scatter(x=df_for_time_now_["date"],y= df_for_time_now_['time_on_site'], mode='lines+markers',
                     name="Donnée de la semaine passée")
-trace2 = go.Scatter(x=df_for_time_yersterday["date"],y= df_for_time_yersterday['time_on_site'],
+trace2 = go.Scatter(x=df_for_time_yersterday_["date"],y= df_for_time_yersterday_['time_on_site'],
                     mode='lines+markers',name = 'Historique du mois')
 
 fig_1_timeline = go.Figure([trace1,trace2])
@@ -228,13 +246,35 @@ fig_1_timeline.update_layout(title='Temps passé sur le site par jour',
                    yaxis_title='Temps passé sur le site (secondes)')
 
 
-trace3 = go.Scatter(x=df_for_time_now["date"],y= df_for_time_now['pageviews'],
+trace3 = go.Scatter(x=df_for_time_now_["date"],y= df_for_time_now_['pageviews'],
                     mode='lines+markers',name="Donnée de la semaine passée")
-trace4 = go.Scatter(x=df_for_time_yersterday["date"],y= df_for_time_yersterday['pageviews'],
+trace4 = go.Scatter(x=df_for_time_yersterday_["date"],y= df_for_time_yersterday_['pageviews'],
                     mode='lines+markers',name = 'Historique du mois')
 
 fig_2_timeline = go.Figure([trace3,trace4])
 fig_2_timeline.update_layout(title='Page visitée sur le site par jour',
+                   xaxis_title='Date',
+                   yaxis_title='Nombre de page vue sur le site')
+
+## DECEMBER ##
+trace4 = go.Scatter(x=df_for_time_now["date"],y= df_for_time_now['time_on_site'], mode='lines+markers',
+                    name="Donnée de la semaine passée")
+trace5 = go.Scatter(x=df_for_time_yersterday["date"],y= df_for_time_yersterday['time_on_site'],
+                    mode='lines+markers',name = 'Historique du mois')
+
+fig_3_timeline = go.Figure([trace1,trace2])
+fig_3_timeline.update_layout(title='Temps passé sur le site par jour',
+                   xaxis_title='Date',
+                   yaxis_title='Temps passé sur le site (secondes)')
+
+
+trace6 = go.Scatter(x=df_for_time_now["date"],y= df_for_time_now['pageviews'],
+                    mode='lines+markers',name="Donnée de la semaine passée")
+trace7 = go.Scatter(x=df_for_time_yersterday["date"],y= df_for_time_yersterday['pageviews'],
+                    mode='lines+markers',name = 'Historique du mois')
+
+fig_4_timeline = go.Figure([trace3,trace4])
+fig_4_timeline.update_layout(title='Page visitée sur le site par jour',
                    xaxis_title='Date',
                    yaxis_title='Nombre de page vue sur le site')
 
@@ -344,7 +384,7 @@ else:
 ## Barplots ##
   row_6_margin_1,row_6_col_1,row_6_margin_2 = st.columns((.1,4.5,.1)) 
   with row_6_col_1:
-    st.text('Barplots prédictions des Channels & Appareils')  
+    st.text('Barplots prédictions des Channels & Appareils (sur trois mois)')  
   row_7_margin_1,row_7_col_1,row_7_margin_2, row_7_col_2, row_7_margin_3 = st.columns((.1,1.5,.5,1.5,.3))  
   with row_7_col_1:
     st.plotly_chart(bar_channel, use_container_width=False)
@@ -354,12 +394,20 @@ else:
 ## Timelines ##
   row_8_margin_1,row_8_col_1,row_8_margin_2 = st.columns((.1,1.5,.1))
   with row_8_col_1:
-    st.text('Prédictions en décembre (2022)')
-  
+    st.text('Prédictions sur novembre (2022)')
   row_9_margin_1,row_9_col_1,row_9_margin_2, row_9_col_2, row_9_margin_3 = st.columns((.1,1.5,.5,1.5,.3)) 
   with row_9_col_1:
     st.plotly_chart(fig_1_timeline, use_container_width=False)
   with row_9_col_2: 
     st.plotly_chart(fig_2_timeline, use_container_width=False)
+  
+  row_10_margin_1,row_10_col_1,row_10_margin_2 = st.columns((.1,1.5,.1))
+  with row_10_col_1:
+    st.text('Prédictions sur décembre (2022)')
+  row_11_margin_1,row_11_col_1,row_11_margin_2, row_11_col_2, row_11_margin_3 = st.columns((.1,1.5,.5,1.5,.3)) 
+  with row_11_col_1:
+    st.plotly_chart(fig_3_timeline, use_container_width=False)
+  with row_11_col_2: 
+    st.plotly_chart(fig_4_timeline, use_container_width=False)
     
     
