@@ -141,8 +141,8 @@ df_for_time_yersterday_2 = df_for_time2[df_for_time2["date"].between(start_date_
 
 #### KPI ####
 update_layout = go.Layout(
-  width=120,
-  height=100
+  width=130,
+  height=110
 )
 fig_kpi = go.Figure(layout= update_layout)
 
