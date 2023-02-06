@@ -336,6 +336,19 @@ st.markdown(
     </style>
     """, unsafe_allow_html=True
 )
+## CSS FOR WRITE ##
+st.markdown(
+    """
+    <style>
+        [data-testid=stWrite]{
+            font-family: Arial;
+            font-size: 15px;
+            font-weight: bold;
+            padding:10px
+        }
+    </style>
+    """, unsafe_allow_html=True
+)
 ##### END #####
 
 ### TITLE AND LOGO ###
@@ -344,6 +357,8 @@ st.title("Comportement des visiteurs sur Vaccineshoppe.com")
 st.markdown("<style>h1{font-family: Georgia; color: rgb(22, 108, 250); font-size: 42px; text-align: center;}</style>",
             unsafe_allow_html=True)
 st.write("**Scope date entre le 1er september 2022 and 31 december 2022** :date:")
+
+
 
 ## SelectBOX ##
 page = st.sidebar.selectbox('Select page',
