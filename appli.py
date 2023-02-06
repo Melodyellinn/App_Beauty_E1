@@ -214,8 +214,8 @@ rgb_colors = ['rgb(51,138,255)', #hightblue
                   'rgb(19,124,1)',
                   'rgb(12,55,4)']
 data_bar = [go.Bar(
-            x=data_new['channelGrouping'].value_counts().index,
-            y=data_new['channelGrouping'].value_counts().values,
+            y=data_new['channelGrouping'].value_counts().index,
+            x=data_new['channelGrouping'].value_counts().values,
             text=data_new['channelGrouping'].value_counts().values,
             textposition='auto',
             marker=dict(color=rgb_colors)
@@ -235,11 +235,7 @@ second_data_bar = [go.Bar(
             )]
 second_layout = go.Layout(title='Countplot of Device Category')
 
-#################### END ####################
-
-
-################ PLOT FOR SECOND PAGE ################
-
+#### TIMELINE PLOTS ####
 ## NOVEMBER ##
 trace1 = go.Scatter(x=df_for_time_now["date"],y= df_for_time_now['time_on_site'], mode='lines+markers',
                     name="Donnée de la semaine passée")
