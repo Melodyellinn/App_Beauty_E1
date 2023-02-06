@@ -367,7 +367,7 @@ if page == 'Global':
     st.plotly_chart(fig_channel, use_container_width=False)
     
   with row_5_col_2: 
-    st.text("Type d'appareil")
+    st.text("Type d'appareil :computer:")
     fig_device = go.Figure(data=second_data_bar, layout=second_layout)
     st.plotly_chart(fig_device,use_container_width=False)
     
