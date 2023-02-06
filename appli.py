@@ -307,7 +307,7 @@ st.set_page_config(layout = "wide")
 st.markdown(
     """
     <style>
-        [data-testid=stSidebar] [data-testid=stImage]{
+        [data-testid=stImage]{
             text-align: center;
             display: block;
             margin-left: auto;
@@ -342,7 +342,6 @@ st.write("**Scope date entre le 1er september 2022 and 31 december 2022** :date:
 ## SelectBOX ##
 page = st.sidebar.selectbox('Select page',
   ['Global','Prédictions'])
-st.image('https://i23.servimg.com/u/f23/20/13/98/23/fin38f10.png')
 
 ## FIRST PAGE ##
 if page == 'Global':
