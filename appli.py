@@ -286,10 +286,8 @@ page = st.sidebar.selectbox('Select page',
 if page == 'Global':
   row_0_margin_1, row_0_col_1, row_0_margin_2 = st.columns((.1,4.5,.1))
   with row_0_col_1:
-    st.title("Test")
-    st.markdown("<style>h2{font-family: Georgia; color: green; font-size: 15px;}</style>",
-                unsafe_allow_html=False)
-    
+    sub_title1 = '<p style="font-family:Courier; color:green; font-size: 15px;">Prédictions par semaines (Count)</p>'
+    st.markdown(sub_title1, unsafe_allow_html=True)
     #st.subheader(":green[Prédictions par semaines (Count)]:1234:")
   row_1_margin_1, row_1_col_1,row_1_margin_2 = st.columns((1.5,1,5.))
   with row_1_col_1:
