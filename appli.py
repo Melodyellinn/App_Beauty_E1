@@ -418,7 +418,7 @@ else:
   row_9_margin_1,row_9_col_1,row_9_margin_2 = st.columns((.1,1.5,.1))
   with row_9_col_1:
     st.text('Prédictions sur novembre (2022)')
-  row_10_margin_1,row_10_col_1,row_10_margin_2, row_10_col_2, row_10_margin_3 = st.columns((.1,.5,.3,.5,.3)) 
+  row_10_margin_1,row_10_col_1,row_10_margin_2, row_10_col_2, row_10_margin_3 = st.columns((.1,.5,.6,.5,.3)) 
   with row_10_col_1:
     st.plotly_chart(fig_1_timeline, use_container_width=False)
   with row_10_col_2: 
@@ -427,7 +427,7 @@ else:
   row_11_margin_1,row_11_col_1,row_11_margin_2 = st.columns((.1,1.5,.1))
   with row_11_col_1:
     st.text('Prédictions sur décembre (2022)')
-  row_12_margin_1,row_12_col_1,row_12_margin_2, row_12_col_2, row_12_margin_3 = st.columns((.1,.5,.3,.5,.3)) 
+  row_12_margin_1,row_12_col_1,row_12_margin_2, row_12_col_2, row_12_margin_3 = st.columns((.1,.5,.6,.5,.3)) 
   with row_12_col_1:
     st.plotly_chart(fig_3_timeline, use_container_width=False)
   with row_12_col_2: 
