@@ -288,7 +288,7 @@ if page == 'Global':
   with row_0_col_1:
     st.title("Test")
     st.markdown("<style>h2{font-family: Georgia; color: green; font-size: 15px;}</style>",
-                unsafe_allow_html=True)
+                unsafe_allow_html=False)
     
     #st.subheader(":green[Prédictions par semaines (Count)]:1234:")
   row_1_margin_1, row_1_col_1,row_1_margin_2 = st.columns((1.5,1,5.))
