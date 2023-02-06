@@ -282,10 +282,6 @@ st.markdown(
     <style>
         [data-testid=stSubheader]{
             text-align: center;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            width: 100%;
             color:yellow;
         }
     </style>
