@@ -26,7 +26,6 @@ data_new = d_.merge(p_)
 
 #### END IMPORT & MERGE DATA ####
 
-df_kpi = pd.read_csv('data/data_app.csv')
 
 #### DATA FOR KPI ####
 top_predict_by_week = data_new.copy()
