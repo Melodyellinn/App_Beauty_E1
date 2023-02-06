@@ -394,7 +394,7 @@ else:
 ## Timelines ##
   row_8_margin_1,row_8_col_1,row_8_margin_2 = st.columns((.1,1.5,.1))
   with row_8_col_1:
-    st.text('Prédictions sur novembre (2022)')
+    st.text('Prédictions sur novembre (2022)eeee')
   row_9_margin_1,row_9_col_1,row_9_margin_2, row_9_col_2, row_9_margin_3 = st.columns((.1,1.5,.5,1.5,.3)) 
   with row_9_col_1:
     st.plotly_chart(fig_1_timeline, use_container_width=False)
