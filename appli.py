@@ -11,9 +11,25 @@ from plotly.subplots import make_subplots
 import plotly.express as px
 
 #### Import Data ####
+
 conn = sql.connect('Application_prod.db')
 data = pd.read_sql("""SELECT * 
                       FROM Raw_data""", conn)
+predict_data = pd.read_sql("""SELECT * 
+                      FROM Result_data""", conn)
+
+data["id"]= data['index']
+predict_data['id'] = predict_data["index"]
+
+d = data.set_index("index")
+p = predict_data.set_index("index")
+data_new = d.merge(p)
+
+#### END IMPORT & MERGE DATA ####
+
+
+st.dataframe(data_new)
+
 
 df_kpi = pd.read_csv('data/data_app.csv')
 
