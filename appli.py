@@ -119,8 +119,8 @@ end_date_n = '2022-11-31'
 df_for_time_now = df_for_time[df_for_time["date"].between(start_date_n,end_date_n)]
 df_for_time_yersterday = df_for_time[df_for_time["date"].between(start_date_n1,end_date_n1)]
 
-## DECEMBER ##
 
+## DECEMBER ##
 df_for_time2 = data_new.groupby("date").agg({"pageviews":"sum",
                                       "time_on_site":"sum",
                                       "medium":"count"})
@@ -262,7 +262,7 @@ trace4 = go.Scatter(x=df_for_time_now_["date"],y= df_for_time_now_['time_on_site
 trace5 = go.Scatter(x=df_for_time_yersterday_["date"],y= df_for_time_yersterday_['time_on_site'],
                     mode='lines+markers',name = 'Historique du mois')
 
-fig_3_timeline = go.Figure([trace1,trace2])
+fig_3_timeline = go.Figure([trace4,trace5])
 fig_3_timeline.update_layout(title='Temps passé sur le site par jour',
                    xaxis_title='Date',
                    yaxis_title='Temps passé sur le site (secondes)')
@@ -273,7 +273,7 @@ trace6 = go.Scatter(x=df_for_time_now_["date"],y= df_for_time_now_['pageviews'],
 trace7 = go.Scatter(x=df_for_time_yersterday_["date"],y= df_for_time_yersterday_['pageviews'],
                     mode='lines+markers',name = 'Historique du mois')
 
-fig_4_timeline = go.Figure([trace3,trace4])
+fig_4_timeline = go.Figure([trace6,trace7])
 fig_4_timeline.update_layout(title='Page visitée sur le site par jour',
                    xaxis_title='Date',
                    yaxis_title='Nombre de page vue sur le site')
