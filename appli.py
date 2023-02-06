@@ -265,7 +265,7 @@ st.set_page_config(layout = "wide")
 st.markdown(
     """
     <style>
-        button[title^=Exit]+div [data-testid=stImage]{
+        [data-testid=stImage]{
             text-align: center;
             display: block;
             margin-left: auto;
