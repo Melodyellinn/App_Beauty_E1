@@ -347,7 +347,7 @@ st.write("**Scope date entre le 1er september 2022 and 31 december 2022** :date:
 
 ## SelectBOX ##
 page = st.sidebar.selectbox('Select page',
-  ['Global','Prédictions'])
+  ['Global','Test', 'Prédictions'])
 
 ## FIRST PAGE ##
 if page == 'Global':
@@ -374,6 +374,7 @@ if page == 'Global':
   with row_4_col_1:
     st.plotly_chart(piechart_country,use_container_width=True)
     
+if page == 'Test':
  #### BAR PLOT ####
   row_5_margin_1,row_5_col_1,row_5_margin_2, row_5_col_2, row_5_margin_3 = st.columns((.1,1.5,.2,1.5,.1))
   with row_5_col_1:
