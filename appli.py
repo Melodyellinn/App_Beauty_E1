@@ -357,8 +357,14 @@ page = st.sidebar.selectbox('Select page',
 if page == 'Global':
   row_0_margin_1, row_0_col_1, row_0_margin_2 = st.columns((.1,1.5,.1))
   with row_0_col_1:
-    st.text('global pres')
+    st.text('Dashboard démonstratif : le première page présente la donnée globale. \
+      La seconde page se concentre sur les données mondiaux et la dernière sur les prédictions du modèle')
     
+  st.markdown('##')
+  st.markdown('##')
+  st.markdown('##')
+  st.markdown('##')    
+
     #### BAR PLOT ####
   row_1_margin_1,row_1_col_1,row_1_margin_2, row_1_col_2, row_1_margin_3 = st.columns((.1,1.5,.2,1.5,.1))
   with row_1_col_1:
