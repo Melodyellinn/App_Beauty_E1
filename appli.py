@@ -365,7 +365,7 @@ if page == 'Global':
   st.markdown('##')    
 
     #### BAR PLOT ####
-  row_1_margin_1,row_1_col_1,row_1_margin_2, row_1_col_2, row_1_margin_3 = st.columns((.1,1.5,.8,1.5,.7))
+  row_1_margin_1,row_1_col_1,row_1_margin_2, row_1_col_2, row_1_margin_3 = st.columns((.1,1.5,.8,.5,.1))
   with row_1_col_1:
     st.text('Type de channel')
     fig_channel = go.Figure(data=data_bar, layout=layout)
