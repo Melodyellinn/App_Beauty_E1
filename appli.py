@@ -345,7 +345,7 @@ else:
   row_6_margin_1,row_6_col_1,row_6_margin_2 = st.columns((.1,4.5,.1)) 
   with row_6_col_1:
     st.text('Barplots prédictions des Channels & Appareils')  
-  row_7_margin_1,row_7_col_1,row_7_margin_2, row_7_col_2, row_7_margin_3 = st.columns((.1,1.7,.5,1.5,.5))  
+  row_7_margin_1,row_7_col_1,row_7_margin_2, row_7_col_2, row_7_margin_3 = st.columns((.1,1.7,.5,1.5,.1))  
   with row_7_col_1:
     st.plotly_chart(bar_channel, use_container_width=False)
   with row_7_col_2: 
@@ -356,7 +356,7 @@ else:
   with row_8_col_1:
     st.text('Prédictions en décembre (2022)')
   
-  row_9_margin_1,row_9_col_1,row_9_margin_2, row_9_col_2, row_9_margin_3 = st.columns((.1,1.5,.2,1.5,.5)) 
+  row_9_margin_1,row_9_col_1,row_9_margin_2, row_9_col_2, row_9_margin_3 = st.columns((.1,1.5,.5,1.5,.1)) 
   with row_9_col_1:
     st.plotly_chart(fig_1_timeline, use_container_width=False)
   with row_9_col_2: 
