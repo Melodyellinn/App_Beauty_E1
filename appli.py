@@ -126,14 +126,14 @@ df_for_time2 = data_new.groupby("date").agg({"pageviews":"sum",
                                       "medium":"count"})
 df_for_time2 = df_for_time2.reset_index()
 
-start_date_n1_ = '2022-12-01'
-end_date_n1_ = '2022-12-25'
+start_date_n1_2 = '2022-12-01'
+end_date_n1_2 = '2022-12-25'
 
-start_date_n_ = '2022-12-24'
-end_date_n_ = '2022-12-30'
+start_date_n_2 = '2022-12-24'
+end_date_n_2 = '2022-12-30'
 
-df_for_time_now_ = df_for_time2[df_for_time2["date"].between(start_date_n_,end_date_n_)]
-df_for_time_yersterday_ = df_for_time2[df_for_time2["date"].between(start_date_n1_,end_date_n1_)]
+df_for_time_now_2 = df_for_time2[df_for_time2["date"].between(start_date_n_2,end_date_n_2)]
+df_for_time_yersterday_2 = df_for_time2[df_for_time2["date"].between(start_date_n1_2,end_date_n1_2)]
 
 ############################### END DATA ###############################
 
@@ -257,9 +257,9 @@ fig_2_timeline.update_layout(title='Page visitée sur le site par jour',
                    yaxis_title='Nombre de page vue sur le site')
 
 ## DECEMBER ##
-trace4 = go.Scatter(x=df_for_time_now_["date"],y= df_for_time_now_['time_on_site'], mode='lines+markers',
+trace4 = go.Scatter(x=df_for_time_now_2["date"],y= df_for_time_now_2['time_on_site'], mode='lines+markers',
                     name="Donnée de la semaine passée")
-trace5 = go.Scatter(x=df_for_time_yersterday_["date"],y= df_for_time_yersterday_['time_on_site'],
+trace5 = go.Scatter(x=df_for_time_yersterday_2["date"],y= df_for_time_yersterday_2['time_on_site'],
                     mode='lines+markers',name = 'Historique du mois')
 
 fig_3_timeline = go.Figure([trace4,trace5])
@@ -268,9 +268,9 @@ fig_3_timeline.update_layout(title='Temps passé sur le site par jour',
                    yaxis_title='Temps passé sur le site (secondes)')
 
 
-trace6 = go.Scatter(x=df_for_time_now_["date"],y= df_for_time_now_['pageviews'],
+trace6 = go.Scatter(x=df_for_time_now_2["date"],y= df_for_time_now_2['pageviews'],
                     mode='lines+markers',name="Donnée de la semaine passée")
-trace7 = go.Scatter(x=df_for_time_yersterday_["date"],y= df_for_time_yersterday_['pageviews'],
+trace7 = go.Scatter(x=df_for_time_yersterday_2["date"],y= df_for_time_yersterday_2['pageviews'],
                     mode='lines+markers',name = 'Historique du mois')
 
 fig_4_timeline = go.Figure([trace6,trace7])
@@ -394,7 +394,7 @@ else:
 ## Timelines ##
   row_8_margin_1,row_8_col_1,row_8_margin_2 = st.columns((.1,1.5,.1))
   with row_8_col_1:
-    st.text('Prédictions sur novembre (2022)eeee')
+    st.text('Prédictions sur novembre (2022)')
   row_9_margin_1,row_9_col_1,row_9_margin_2, row_9_col_2, row_9_margin_3 = st.columns((.1,1.5,.5,1.5,.3)) 
   with row_9_col_1:
     st.plotly_chart(fig_1_timeline, use_container_width=False)
