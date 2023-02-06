@@ -265,8 +265,7 @@ col1, col2, col3 = st.columns(3)
 with col1:
   st.write(' ')
 with col2:
-  st.image("https://uploads-ssl.webflow.com/5e078c0ced2a27efc66f1263/6081aa3ac9bc20daeef97084_vaccine-shoppe-logo.png",
-    caption="Vaccineshoppe.com logo", 
+  st.image("https://uploads-ssl.webflow.com/5e078c0ced2a27efc66f1263/6081aa3ac9bc20daeef97084_vaccine-shoppe-logo.png", 
     width=100, 
     use_column_width='auto',
     channels="RGB",
@@ -282,6 +281,10 @@ st.write("Scope date entre le 1er september 2022 and 31 december 2022")
 ## SelectBOX ##
 page = st.sidebar.selectbox('Select page',
   ['Global','Prédictions'])
+
+st.write(' ')
+st.write(' ')
+st.write(' ')
 
 ## FIRST PAGE ##
 if page == 'Global':
