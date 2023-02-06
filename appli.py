@@ -111,7 +111,7 @@ df_for_time = data_new.groupby("date").agg({"pageviews":"sum",
 df_for_time = df_for_time.reset_index()
 
 start_date_n1 = '2022-11-01'
-end_date_n1 = '2022-11-25'
+end_date_n1 = '2022-11-24'
 
 start_date_n = '2022-11-25'
 end_date_n = '2022-11-31'
@@ -127,7 +127,7 @@ df_for_time2 = data_new.groupby("date").agg({"pageviews":"sum",
 df_for_time2 = df_for_time2.reset_index()
 
 start_date_n1_ = '2022-12-01'
-end_date_n1_ = '2022-12-25'
+end_date_n1_ = '2022-12-24'
 
 start_date_n_ = '2022-12-25'
 end_date_n_ = '2022-12-30'
