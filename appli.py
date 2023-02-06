@@ -268,7 +268,7 @@ with col2:
   st.image("https://uploads-ssl.webflow.com/5e078c0ced2a27efc66f1263/6081aa3ac9bc20daeef97084_vaccine-shoppe-logo.png", 
     width=100, 
     use_column_width='auto',
-    channels="RGB",
+    channels="BGR",
     output_format="auto")
 with col3:
     st.write(' ')
