@@ -361,13 +361,13 @@ if page == 'Global':
   st.markdown('##')    
 
     #### BAR PLOT ####
-  row_1_margin_1,row_1_col_1,row_1_margin_2, row_1_col_2, row_1_margin_3 = st.columns((.1,1.5,.1,.5,.1))
-  with row_1_col_1:
+  row_01_margin_1, row_01_col_1, row_01_margin_2 = st.columns((.1,3.5,.1))
+  with row_01_col_1:
     st.text('Type de channel')
     fig_channel = go.Figure(data=data_bar, layout=layout)
     st.plotly_chart(fig_channel, use_container_width=False)
-    
-  with row_1_col_2: 
+  row_1_margin_1, row_1_col_1, row_1_margin_2 = st.columns((.1,3.5,.1))  
+  with row_1_col_1: 
     st.text("Type d'appareil")
     fig_device = go.Figure(data=second_data_bar, layout=second_layout)
     st.plotly_chart(fig_device,use_container_width=False)
