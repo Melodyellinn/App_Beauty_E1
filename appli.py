@@ -357,8 +357,10 @@ st.title("Comportement des visiteurs sur Vaccineshoppe.com")
 st.markdown("<style>h1{font-family: Georgia; color: rgb(22, 108, 250); font-size: 42px; text-align: center;}</style>",
             unsafe_allow_html=True)
 st.write("**Scope date entre le 1er september 2022 and 31 december 2022** :date:")
-
-
+st.markdown('##')
+st.markdown('##')
+st.markdown('##')
+st.markdown('##')
 
 ## SelectBOX ##
 page = st.sidebar.selectbox('Select page',
