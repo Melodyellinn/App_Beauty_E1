@@ -347,35 +347,15 @@ st.write("**Scope date entre le 1er september 2022 and 31 december 2022** :date:
 
 ## SelectBOX ##
 page = st.sidebar.selectbox('Select page',
-  ['Global','Test', 'Prédictions'])
+  ['Global','World', 'Prédictions'])
 
-## FIRST PAGE ##
+############################ FIRST PAGE ############################
 if page == 'Global':
   row_0_margin_1, row_0_col_1, row_0_margin_2 = st.columns((.1,4.5,.1))
   with row_0_col_1:
-    st.text('Prédictions par semaines (Count)')    
-  row_1_margin_1, row_1_col_1,row_1_margin_2 = st.columns((1.5,1,5.))
-  with row_1_col_1:
-    st.plotly_chart(fig_kpi,use_container_width=False)
+    st.text('global')
     
- ## PLOT MAP ##
-  row_2_margin_1,row_2_col_1,row_2_margin_2 = st.columns((.1,7,.1))     
-  with row_2_col_1:
-    st.text('World Map moyennes des pages visitées par pays')
-    st.plotly_chart(fig_map,use_container_width=True)
-    
-#### PIE CHART ####
-  row_3_margin_1,row_3_col_1,row_3_margin_2 = st.columns((.1,2.5,.1)) 
-  with row_3_col_1:
-    st.text('PieCharts des Pays')
-    st.plotly_chart(double_piechart,use_container_width=True)
-    
-  row_4_margin_1,row_4_col_1,row_4_margin_2 = st.columns((.5,3.5,.1))
-  with row_4_col_1:
-    st.plotly_chart(piechart_country,use_container_width=True)
-    
-if page == 'Test':
- #### BAR PLOT ####
+    #### BAR PLOT ####
   row_5_margin_1,row_5_col_1,row_5_margin_2, row_5_col_2, row_5_margin_3 = st.columns((.1,1.5,.2,1.5,.1))
   with row_5_col_1:
     st.text('Type de channel')
@@ -386,9 +366,34 @@ if page == 'Test':
     fig_device = go.Figure(data=second_data_bar, layout=second_layout)
     st.plotly_chart(fig_device,use_container_width=False)
     
-############################ SECONDE PAGE ############################ 
+############################ SECONDE PAGE ############################
+if page == 'World':
+   ## PLOT MAP ##
+  row_2_margin_1,row_2_col_1,row_2_margin_2 = st.columns((.1,7,.1))     
+  with row_2_col_1:
+    st.text('World Map moyennes des pages visitées par pays')
+    st.plotly_chart(fig_map,use_container_width=True)
+    
+    #### PIE CHART ####
+  row_3_margin_1,row_3_col_1,row_3_margin_2 = st.columns((.1,2.5,.1)) 
+  with row_3_col_1:
+    st.text('PieCharts des Pays')
+    st.plotly_chart(double_piechart,use_container_width=True)
+    
+  row_4_margin_1,row_4_col_1,row_4_margin_2 = st.columns((.5,3.5,.1))
+  with row_4_col_1:
+    st.plotly_chart(piechart_country,use_container_width=True)
+    
+############################ THIRD PAGE ############################ 
 else:
 ## Barplots ##
+  row_0_margin_1, row_0_col_1, row_0_margin_2 = st.columns((.1,4.5,.1))
+  with row_0_col_1:
+    st.text('Prédictions par semaines (Count)')    
+  row_1_margin_1, row_1_col_1,row_1_margin_2 = st.columns((1.5,1,5.))
+  with row_1_col_1:
+    st.plotly_chart(fig_kpi,use_container_width=False)
+
   row_6_margin_1,row_6_col_1,row_6_margin_2 = st.columns((.1,4.5,.1)) 
   with row_6_col_1:
     st.text('Barplots prédictions des Channels & Appareils (sur trois mois)')  
