@@ -110,11 +110,11 @@ df_for_time = data_new.groupby("date").agg({"pageviews":"sum",
                                       "medium":"count"})
 df_for_time = df_for_time.reset_index()
 
-start_date_n1 = '2022-12-01'
-end_date_n1 = '2022-12-25'
+start_date_n1 = '2022-11-01'
+end_date_n1 = '2022-11-25'
 
-start_date_n = '2022-12-24'
-end_date_n = '2022-12-31'
+start_date_n = '2022-11-25'
+end_date_n = '2022-11-31'
 
 df_for_time_now = df_for_time[df_for_time["date"].between(start_date_n,end_date_n)]
 df_for_time_yersterday = df_for_time[df_for_time["date"].between(start_date_n1,end_date_n1)]
