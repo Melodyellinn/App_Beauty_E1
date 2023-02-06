@@ -282,13 +282,18 @@ st.write("**Scope date entre le 1er september 2022 and 31 december 2022** :date:
 page = st.sidebar.selectbox('Select page',
   ['Global','Prédictions'])
 
+col4, col5 = st.columns(2)
+with col4:
+  st.write(' ')
+with col5:
+    st.write(' ')
+
 ## FIRST PAGE ##
 if page == 'Global':
   row_0_margin_1, row_0_col_1, row_0_margin_2 = st.columns((.1,4.5,.1))
   with row_0_col_1:
-    sub_title1 = '<p style="font-family:Courier; color:green; font-size: 15px;">Prédictions par semaines (Count)</p>'
+    sub_title1 = '<p style="font-family:Arial; color:green; font-size: 20px;">Prédictions par semaines (Count)</p>'
     st.markdown(sub_title1, unsafe_allow_html=True)
-    #st.subheader(":green[Prédictions par semaines (Count)]:1234:")
   row_1_margin_1, row_1_col_1,row_1_margin_2 = st.columns((1.5,1,5.))
   with row_1_col_1:
     st.plotly_chart(fig_kpi,use_container_width=False)
@@ -296,13 +301,15 @@ if page == 'Global':
  ## PLOT MAP ##
   row_2_margin_1,row_2_col_1,row_2_margin_2 = st.columns((.1,7,.1))     
   with row_2_col_1:
-    st.subheader("World Map moyennes des pages visitées par pays")     
+    sub_title2 = '<p style="font-family:Arial; color:green; font-size: 20px;">World Map moyennes des pages visitées par pays</p>'
+    st.markdown(sub_title2, unsafe_allow_html=True)
     st.plotly_chart(fig_map,use_container_width=True)
     
 #### PIE CHART ####
   row_3_margin_1,row_3_col_1,row_3_margin_2 = st.columns((.1,2.5,.1)) 
   with row_3_col_1:
-    st.subheader("PieCharts des Pays")
+    sub_title3 = '<p style="font-family:Arial; color:green; font-size: 20px;">PieCharts des Pays</p>'
+    st.markdown(sub_title3, unsafe_allow_html=True)
     st.plotly_chart(double_piechart,use_container_width=True)
     
   row_4_margin_1,row_4_col_1,row_4_margin_2 = st.columns((.5,3.5,.1))
@@ -312,11 +319,13 @@ if page == 'Global':
  #### BAR PLOT ####
   row_5_margin_1,row_5_col_1,row_5_margin_2, row_5_col_2, row_5_margin_3 = st.columns((.1,1.5,.2,1.5,.1))
   with row_5_col_1:
-    st.subheader("Type de channel")
+    sub_title4 = '<p style="font-family:Arial; color:green; font-size: 20px;">Type de channel</p>'
+    st.markdown(sub_title4, unsafe_allow_html=True)
     fig_channel = go.Figure(data=data_bar, layout=layout)
     st.plotly_chart(fig_channel, use_container_width=False)
   with row_5_col_2: 
-    st.subheader("Type d'appareil")
+    sub_title5 = '<p style="font-family:Arial; color:green; font-size: 20px;">Type d\'appareil</p>'
+    st.markdown(sub_title5, unsafe_allow_html=True)
     fig_device = go.Figure(data=second_data_bar, layout=second_layout)
     st.plotly_chart(fig_device,use_container_width=False)
     
