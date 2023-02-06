@@ -261,9 +261,18 @@ bar_device= px.bar(data_bar_join2, x='deviceCategory', y=['Percentage'],
 
 ############## HEADER ##############
 st.set_page_config(layout = "wide")
-
-st.image("https://uploads-ssl.webflow.com/5e078c0ced2a27efc66f1263/6081aa3ac9bc20daeef97084_vaccine-shoppe-logo.png",
-         caption=None, width=100, use_column_width='auto', clamp=False, channels="RGB", output_format="auto")
+col1, col2, col3 = st.columns(3)
+with col1:
+  st.write(' ')
+with col2:
+  st.image("https://uploads-ssl.webflow.com/5e078c0ced2a27efc66f1263/6081aa3ac9bc20daeef97084_vaccine-shoppe-logo.png",
+    caption="Vaccineshoppe.com logo", 
+    width=100, 
+    use_column_width='auto',
+    channels="RGB",
+    output_format="auto")
+with col3:
+    st.write(' ')
 
 st.title("Comportement des visiteurs sur Vaccineshoppe.com")
 st.markdown("<style>h1{font-family: Georgia; color: rgb(22, 108, 250); font-size: 42px; text-align: center;}</style>",
