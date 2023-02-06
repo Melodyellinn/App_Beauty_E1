@@ -21,20 +21,16 @@ predict_data = pd.read_sql("""SELECT *
 data["id"]= data['index']
 predict_data['id'] = predict_data["index"]
 
-d = data.set_index("index")
-p = predict_data.set_index("index")
-data_new = d.merge(p)
+d_ = data.set_index("index")
+p_ = predict_data.set_index("index")
+data_new = d_.merge(p_)
 
 #### END IMPORT & MERGE DATA ####
-
-
-st.dataframe(data_new)
-
 
 df_kpi = pd.read_csv('data/data_app.csv')
 
 #### DATA FOR KPI ####
-top_predict_by_week = df_kpi.copy()
+top_predict_by_week = data_new.copy()
 top_predict_by_week["date"] = pd.to_datetime(top_predict_by_week["date"])
 top_predict_by_week = top_predict_by_week[['date', 'Predict']]
 date1 = "20220917"
@@ -81,7 +77,7 @@ data_for_map_grouped = data_for_map.groupby("country").agg({"fullVisitorId": ["c
 
 ### BAR PLOT DATA ###
 ### BarPlot Channels ###
-data_bar_ = df_kpi.copy()
+data_bar_ = data_new.copy()
 data_bar_gb = data_bar_.groupby(["channelGrouping","Predict"]).size().reset_index()
 
 data_bar_gb_full = data_bar_gb.groupby("channelGrouping").agg({0:"sum"}).reset_index()
@@ -93,7 +89,7 @@ data_bar_join['percentage']= data_bar_join['0_x'] / data_bar_join['0_y'] * 100
 data_bar_join= data_bar_join.drop("0_y",1)
 
 ### BarPlot Device ###
-data_bar_2 = df_kpi.copy()
+data_bar_2 = data_new.copy()
 data_bar_gb2 = data_bar_2.groupby(["deviceCategory","Predict"]).size().reset_index()
 
 data_bar_gb_full2 = data_bar_gb2.groupby("deviceCategory").agg({0:"sum"}).reset_index()
