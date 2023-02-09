@@ -411,9 +411,10 @@ else:
 ## Barplots ##
   row_5_margin_1, row_5_col_1, row_5_margin_2 = st.columns((.1,1.5,.1))
   with row_5_col_1:
-    st.text('Prédictions par semaines (Count)')    
+    st.text('KPI')    
   row_6_margin_1, row_6_col_1,row_6_margin_2, row_6_col_2, row_6_margin_3 = st.columns((.1, 1.5, 5.5 ,1.5, 5.))
   with row_6_col_1:
+    st.text('Prédictions par semaines (Count)') 
     st.plotly_chart(fig_kpi,use_container_width=False)
     
 ################### WIP ######################
