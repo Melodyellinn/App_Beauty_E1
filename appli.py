@@ -142,10 +142,25 @@ df_for_time_yersterday_2 = df_for_time2[df_for_time2["date"].between(start_date_
 ################### KPI ###################
 update_layout = go.Layout(
   width=130,
-  height=110
+  height=110,
+  title = "Prédictions par semaines (Count)"
 )
-fig_kpi = go.Figure(layout= update_layout)
 
+update_layout2 = go.Layout(
+  width=130,
+  height=110,
+  title = "Second KPI"
+)
+
+update_layout3 = go.Layout(
+  width=130,
+  height=110,
+  title = "Troisième KPI"
+)
+
+
+
+fig_kpi = go.Figure(layout= update_layout)
 fig_kpi.add_trace(go.Indicator(mode = "number+delta",
                                    value = count_predict_this_week,
                                    domain = {'x': [0, 0], 'y': [0, 0]},
@@ -155,8 +170,18 @@ fig_kpi.add_trace(go.Indicator(mode = "number+delta",
                                    number = {"font":{"size": 50}}))
 
 
-second_fig_kpi = go.Figure(layout= update_layout)
+second_fig_kpi = go.Figure(layout= update_layout2)
 second_fig_kpi.add_trace(go.Indicator(mode = "number+delta",
+                                   value = count_predict_this_week,
+                                   domain = {'x': [0, 0], 'y': [0, 0]},
+                                   delta = {'reference': count_predict_last_week,
+                                            'relative': True,
+                                            'position' : "bottom",'valueformat':'.2%'},
+                                   number = {"font":{"size": 50}}))
+
+
+third_fig_kpi = go.Figure(layout= update_layout3)
+third_fig_kpi.add_trace(go.Indicator(mode = "number+delta",
                                    value = count_predict_this_week,
                                    domain = {'x': [0, 0], 'y': [0, 0]},
                                    delta = {'reference': count_predict_last_week,
@@ -412,14 +437,16 @@ else:
   row_5_margin_1, row_5_col_1, row_5_margin_2 = st.columns((.1,1.5,.1))
   with row_5_col_1:
     st.text('KPI')    
-  row_6_margin_1, row_6_col_1,row_6_margin_2, row_6_col_2, row_6_margin_3 = st.columns((.1, 1.5, 5.5 ,1.5, 5.))
+  row_6_margin_1, row_6_col_1,row_6_margin_2, row_6_col_2,\
+  row_6_margin_3, row_6_col_3, row_6_margin_4 = st.columns((.1, 1.5, 5.5 ,1.5, 5.5, 1.5, 5.))
+  
   with row_6_col_1:
-    st.text('Prédictions par semaines (Count)') 
     st.plotly_chart(fig_kpi,use_container_width=False)
-    
 ################### WIP ######################
   with row_6_col_2:
     st.plotly_chart(second_fig_kpi,use_container_width=False)
+  with row_6_col_3:
+    st.plotly_chart(third_fig_kpi,use_container_width=False)
 
   st.markdown('##')
   st.markdown('##')
