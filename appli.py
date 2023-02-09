@@ -438,7 +438,7 @@ else:
   with row_5_col_1:
     st.text('KPI')    
   row_6_margin_1, row_6_col_1,row_6_margin_2, row_6_col_2,\
-  row_6_margin_3, row_6_col_3, row_6_margin_4 = st.columns((.1, 1.5, 3.5 ,1.5, 3.5, 1.5, .1))
+  row_6_margin_3, row_6_col_3, row_6_margin_4 = st.columns((.1, 1., 2.5 ,1., 2.5, 1., .1))
   
   with row_6_col_1:
     st.plotly_chart(fig_kpi,use_container_width=False)
