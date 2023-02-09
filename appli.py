@@ -139,7 +139,7 @@ df_for_time_yersterday_2 = df_for_time2[df_for_time2["date"].between(start_date_
 
 ############################ DEFINE ALL PLOT ############################
 
-#### KPI ####
+################### KPI ###################
 update_layout = go.Layout(
   width=130,
   height=110
@@ -153,6 +153,22 @@ fig_kpi.add_trace(go.Indicator(mode = "number+delta",
                                             'relative': True,
                                             'position' : "bottom",'valueformat':'.2%'},
                                    number = {"font":{"size": 50}}))
+
+
+second_fig_kpi = go.Figure(layout= update_layout)
+second_fig_kpi.add_trace(go.Indicator(mode = "number+delta",
+                                   value = count_predict_this_week,
+                                   domain = {'x': [0, 0], 'y': [0, 0]},
+                                   delta = {'reference': count_predict_last_week,
+                                            'relative': True,
+                                            'position' : "bottom",'valueformat':'.2%'},
+                                   number = {"font":{"size": 50}}))
+
+
+
+################### END KPI ###################
+
+
 
 #### MAP ####
 fig_map = px.scatter_mapbox(lat = data_for_map_grouped["Latitude"]['first'],
@@ -399,7 +415,12 @@ else:
   row_6_margin_1, row_6_col_1,row_6_margin_2 = st.columns((1.5,1,5.))
   with row_6_col_1:
     st.plotly_chart(fig_kpi,use_container_width=False)
-    
+
+################### WIP ######################
+  row_05_margin_1, row_05_col_1, row_05_margin_2 = st.columns((.1,1,5.))
+  with row_05_col_1:
+    st.plotly_chart(second_fig_kpi,use_container_width=False)
+
   st.markdown('##')
   st.markdown('##')
   st.markdown('##')
