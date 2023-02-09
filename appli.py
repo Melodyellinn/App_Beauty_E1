@@ -139,7 +139,61 @@ df_for_time_yersterday_2 = df_for_time2[df_for_time2["date"].between(start_date_
 
 ############################ DEFINE ALL PLOT ############################
 
-################### KPI ###################
+################### KPI PAGE UNE ###################
+update_layout01 = go.Layout(
+  width=250,
+  height=250,
+  title = "Premier KPI"
+)
+
+update_layout02 = go.Layout(
+  width=250,
+  height=250,
+  title = "Second KPI"
+)
+
+update_layout03 = go.Layout(
+  width=250,
+  height=250,
+  title = "Troisième KPI"
+)
+
+
+
+kpi_classic = go.Figure(layout= update_layout01)
+kpi_classic.add_trace(go.Indicator(mode = "number+delta",
+                                   value = count_predict_this_week,
+                                   domain = {'x': [0, 0], 'y': [0, 0]},
+                                   delta = {'reference': count_predict_last_week,
+                                            'relative': True,
+                                            'position' : "bottom",'valueformat':'.2%'},
+                                   number = {"font":{"size": 50}}))
+
+
+second_kpi_classic = go.Figure(layout= update_layout02)
+second_kpi_classic.add_trace(go.Indicator(mode = "number+delta",
+                                   value = count_predict_this_week,
+                                   domain = {'x': [0, 0], 'y': [0, 0]},
+                                   delta = {'reference': count_predict_last_week,
+                                            'relative': True,
+                                            'position' : "bottom",'valueformat':'.2%'},
+                                   number = {"font":{"size": 50}}))
+
+
+third_kpi_classic = go.Figure(layout= update_layout03)
+third_kpi_classic.add_trace(go.Indicator(mode = "number+delta",
+                                   value = count_predict_this_week,
+                                   domain = {'x': [0, 0], 'y': [0, 0]},
+                                   delta = {'reference': count_predict_last_week,
+                                            'relative': True,
+                                            'position' : "bottom",'valueformat':'.2%'},
+                                   number = {"font":{"size": 50}}))
+
+
+################### END KPI ###################
+
+
+################### KPI PAGE TROIS ###################
 update_layout = go.Layout(
   width=250,
   height=250,
@@ -192,7 +246,6 @@ third_fig_kpi.add_trace(go.Indicator(mode = "number+delta",
 
 
 ################### END KPI ###################
-
 
 
 #### MAP ####
@@ -391,15 +444,17 @@ page = st.sidebar.selectbox('Select page',
   ['Global','World', 'Prédictions'])
 
 ############################ FIRST PAGE ############################
-if page == 'Global':
-  row_0_margin_1, row_0_col_1, row_0_margin_2 = st.columns((.1,1.5,.1))
+if page == 'Global': 
+############ KPI ############    
+  row_0_margin_1, row_0_col_1,row_0_margin_2, row_0_col_2,\
+  row_0_margin_3, row_0_col_3, row_0_margin_4 = st.columns((.1, 1., 2.5 ,1., 2.5, 1., .1))
   with row_0_col_1:
-    st.text('/')
-    
-  st.markdown('##')
-  st.markdown('##')
-  st.markdown('##')
-  st.markdown('##')    
+    st.plotly_chart(kpi_classic ,use_container_width=False)
+################### WIP ######################
+  with row_0_col_2:
+    st.plotly_chart(second_kpi_classic ,use_container_width=False)
+  with row_0_col_3:
+    st.plotly_chart(third_kpi_classic ,use_container_width=False)
 
     #### BAR PLOT ####
   row_01_margin_1, row_01_col_1, row_01_margin_2 = st.columns((.1,3.5,.1))
@@ -433,13 +488,9 @@ elif page == 'World':
     
 ############################ THIRD PAGE ############################ 
 else:
-############ KPI ############
-  row_5_margin_1, row_5_col_1, row_5_margin_2 = st.columns((.1,1.5,.1))
-  with row_5_col_1:
-    st.text('KPI')    
+############ KPI ############    
   row_6_margin_1, row_6_col_1,row_6_margin_2, row_6_col_2,\
   row_6_margin_3, row_6_col_3, row_6_margin_4 = st.columns((.1, 1., 2.5 ,1., 2.5, 1., .1))
-  
   with row_6_col_1:
     st.plotly_chart(fig_kpi,use_container_width=False)
 ################### WIP ######################
