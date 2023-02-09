@@ -141,7 +141,7 @@ df_for_time_yersterday_2 = df_for_time2[df_for_time2["date"].between(start_date_
 
 ################### KPI ###################
 update_layout = go.Layout(
-  width=230,
+  width=250,
   height=250,
   title = "Prédictions par semaines (Count)"
 )
