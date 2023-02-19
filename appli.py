@@ -23,23 +23,38 @@ predict_data['id'] = predict_data["index"]
 d_ = data.set_index("index")
 p_ = predict_data.set_index("index")
 data_new = d_.merge(p_)
+data_new["date"] = pd.to_datetime(data_new["date"])
+data_untouch = data_new.copy()
+
+#Fixate date for the last data recieved
+start_date_n = data_new.date.max()
+end_date_n = start_date_n - timedelta(days=7)
+start_date_n1 = end_date_n - timedelta(days=1)
+end_date_n1 = start_date_n1 - timedelta(days=7)
+
+#filter
+data_new = data_new[data_new["date"].between(end_date_n,start_date_n)]
+data_last_week = data_untouch[data_untouch['date'].between(end_date_n1,start_date_n1)]
+#df_for_time_yersterday = data_new[data_new["date"].between(end_date_n1,start_date_n1)]
+
+
 
 #### END IMPORT & MERGE DATA ####
 
 #### DATA FOR KPI ####
 top_predict_by_week = data_new.copy()
-top_predict_by_week["date"] = pd.to_datetime(top_predict_by_week["date"])
+#top_predict_by_week["date"] = pd.to_datetime(top_predict_by_week["date"])
 top_predict_by_week = top_predict_by_week[['date', 'Predict']]
-date1 = "20220917"
-today_date = datetime.strptime(date1,"%Y%m%d")
-last_date = today_date - timedelta(days=7)
-top_predict_this_week = top_predict_by_week.copy()[top_predict_by_week['date'].between(last_date,today_date)]
-date2 = "20220909"
-today_date = datetime.strptime(date2,"%Y%m%d")
-last_date = today_date - timedelta(days=7)
-top_predict_last_week = top_predict_by_week.copy()[top_predict_by_week['date'].between(last_date,today_date)]
-count_predict_this_week = top_predict_this_week.count()[0]
-count_predict_last_week = top_predict_last_week.count()[0]
+#date1 = "20220917"
+#today_date = datetime.strptime(date1,"%Y%m%d")
+#last_date = today_date - timedelta(days=7)
+#top_predict_this_week = top_predict_by_week.copy()[top_predict_by_week['date'].between(last_date,today_date)]
+#date2 = "20220909"
+#today_date = datetime.strptime(date2,"%Y%m%d")
+#last_date = today_date - timedelta(days=7)
+#top_predict_last_week = top_predict_by_week.copy()[top_predict_by_week['date'].between(last_date,today_date)]
+count_predict_this_week = top_predict_by_week.count()[0]
+count_predict_last_week = data_last_week.count()[0]
 
 #### DATA FOR MAP ####
 list_of_country = [[37.09024,-95.712891,"United States"],
