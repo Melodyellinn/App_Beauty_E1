@@ -125,30 +125,30 @@ df_for_time = data_new.groupby("date").agg({"pageviews":"sum",
                                       "medium":"count"})
 df_for_time = df_for_time.reset_index()
 
-start_date_n1 = '2022-11-01'
-end_date_n1 = '2022-11-25'
+#start_date_n1 = '2022-11-01'
+#end_date_n1 = '2022-11-25'
 
-start_date_n = '2022-11-24'
-end_date_n = '2022-11-31'
+#start_date_n = '2022-11-24'
+#end_date_n = '2022-11-31'
 
-df_for_time_now = df_for_time[df_for_time["date"].between(start_date_n,end_date_n)]
-df_for_time_yersterday = df_for_time[df_for_time["date"].between(start_date_n1,end_date_n1)]
+#df_for_time_now = df_for_time[df_for_time["date"].between(start_date_n,end_date_n)]
+#df_for_time_yersterday = df_for_time[df_for_time["date"].between(start_date_n1,end_date_n1)]
 
 
 ## DECEMBER ##
-df_for_time2 = data_new.groupby("date").agg({"pageviews":"sum",
-                                      "time_on_site":"sum",
-                                      "medium":"count"})
-df_for_time2 = df_for_time2.reset_index()
+# df_for_time2 = data_new.groupby("date").agg({"pageviews":"sum",
+#                                       "time_on_site":"sum",
+#                                       "medium":"count"})
+# df_for_time2 = df_for_time2.reset_index()
 
-start_date_n1_2 = '2022-12-01'
-end_date_n1_2 = '2022-12-25'
+# start_date_n1_2 = '2022-12-01'
+# end_date_n1_2 = '2022-12-25'
 
-start_date_n_2 = '2022-12-24'
-end_date_n_2 = '2022-12-30'
+# start_date_n_2 = '2022-12-24'
+# end_date_n_2 = '2022-12-30'
 
-df_for_time_now_2 = df_for_time2[df_for_time2["date"].between(start_date_n_2,end_date_n_2)]
-df_for_time_yersterday_2 = df_for_time2[df_for_time2["date"].between(start_date_n1_2,end_date_n1_2)]
+# df_for_time_now_2 = df_for_time2[df_for_time2["date"].between(start_date_n_2,end_date_n_2)]
+# df_for_time_yersterday_2 = df_for_time2[df_for_time2["date"].between(start_date_n1_2,end_date_n1_2)]
 
 ############################### END DATA ###############################
 
@@ -346,48 +346,48 @@ second_layout = go.Layout(title='Countplot of Device Category')
 
 #### TIMELINE PLOTS ####
 ## NOVEMBER ##
-trace1 = go.Scatter(x=df_for_time_now["date"],y= df_for_time_now['time_on_site'], mode='lines+markers',
-                    name="Donnée de la semaine passée")
-trace2 = go.Scatter(x=df_for_time_yersterday["date"],y= df_for_time_yersterday['time_on_site'],
-                    mode='lines+markers',name = 'Historique du mois')
+# trace1 = go.Scatter(x=df_for_time_now["date"],y= df_for_time_now['time_on_site'], mode='lines+markers',
+#                     name="Donnée de la semaine passée")
+# trace2 = go.Scatter(x=df_for_time_yersterday["date"],y= df_for_time_yersterday['time_on_site'],
+#                     mode='lines+markers',name = 'Historique du mois')
 
-fig_1_timeline = go.Figure([trace1,trace2])
-fig_1_timeline.update_layout(title='Temps passé sur le site par jour',
-                   xaxis_title='Date',
-                   yaxis_title='Temps passé sur le site (secondes)')
-
-
-trace3 = go.Scatter(x=df_for_time_now["date"],y= df_for_time_now['pageviews'],
-                    mode='lines+markers',name="Donnée de la semaine passée")
-trace4 = go.Scatter(x=df_for_time_yersterday["date"],y= df_for_time_yersterday['pageviews'],
-                    mode='lines+markers',name = 'Historique du mois')
-
-fig_2_timeline = go.Figure([trace3,trace4])
-fig_2_timeline.update_layout(title='Page visitée sur le site par jour',
-                   xaxis_title='Date',
-                   yaxis_title='Nombre de page vue sur le site')
-
-## DECEMBER ##
-trace4 = go.Scatter(x=df_for_time_now_2["date"],y= df_for_time_now_2['time_on_site'], mode='lines+markers',
-                    name="Donnée de la semaine passée")
-trace5 = go.Scatter(x=df_for_time_yersterday_2["date"],y= df_for_time_yersterday_2['time_on_site'],
-                    mode='lines+markers',name = 'Historique du mois')
-
-fig_3_timeline = go.Figure([trace4,trace5])
-fig_3_timeline.update_layout(title='Temps passé sur le site par jour',
-                   xaxis_title='Date',
-                   yaxis_title='Temps passé sur le site (secondes)')
+# fig_1_timeline = go.Figure([trace1,trace2])
+# fig_1_timeline.update_layout(title='Temps passé sur le site par jour',
+#                    xaxis_title='Date',
+#                    yaxis_title='Temps passé sur le site (secondes)')
 
 
-trace6 = go.Scatter(x=df_for_time_now_2["date"],y= df_for_time_now_2['pageviews'],
-                    mode='lines+markers',name="Donnée de la semaine passée")
-trace7 = go.Scatter(x=df_for_time_yersterday_2["date"],y= df_for_time_yersterday_2['pageviews'],
-                    mode='lines+markers',name = 'Historique du mois')
+# trace3 = go.Scatter(x=df_for_time_now["date"],y= df_for_time_now['pageviews'],
+#                     mode='lines+markers',name="Donnée de la semaine passée")
+# trace4 = go.Scatter(x=df_for_time_yersterday["date"],y= df_for_time_yersterday['pageviews'],
+#                     mode='lines+markers',name = 'Historique du mois')
 
-fig_4_timeline = go.Figure([trace6,trace7])
-fig_4_timeline.update_layout(title='Page visitée sur le site par jour',
-                   xaxis_title='Date',
-                   yaxis_title='Nombre de page vue sur le site')
+# fig_2_timeline = go.Figure([trace3,trace4])
+# fig_2_timeline.update_layout(title='Page visitée sur le site par jour',
+#                    xaxis_title='Date',
+#                    yaxis_title='Nombre de page vue sur le site')
+
+# ## DECEMBER ##
+# trace4 = go.Scatter(x=df_for_time_now_2["date"],y= df_for_time_now_2['time_on_site'], mode='lines+markers',
+#                     name="Donnée de la semaine passée")
+# trace5 = go.Scatter(x=df_for_time_yersterday_2["date"],y= df_for_time_yersterday_2['time_on_site'],
+#                     mode='lines+markers',name = 'Historique du mois')
+
+# fig_3_timeline = go.Figure([trace4,trace5])
+# fig_3_timeline.update_layout(title='Temps passé sur le site par jour',
+#                    xaxis_title='Date',
+#                    yaxis_title='Temps passé sur le site (secondes)')
+
+
+# trace6 = go.Scatter(x=df_for_time_now_2["date"],y= df_for_time_now_2['pageviews'],
+#                     mode='lines+markers',name="Donnée de la semaine passée")
+# trace7 = go.Scatter(x=df_for_time_yersterday_2["date"],y= df_for_time_yersterday_2['pageviews'],
+#                     mode='lines+markers',name = 'Historique du mois')
+
+# fig_4_timeline = go.Figure([trace6,trace7])
+# fig_4_timeline.update_layout(title='Page visitée sur le site par jour',
+#                    xaxis_title='Date',
+#                    yaxis_title='Nombre de page vue sur le site')
 
 #### DEFINE BAR PLOT PERCENTAGE MODEL PREDICTIONS ####
 
@@ -528,19 +528,19 @@ else:
   row_9_margin_1,row_9_col_1,row_9_margin_2 = st.columns((.1,1.5,.1))
   with row_9_col_1:
     st.text('Prédictions sur novembre (2022)')
-  row_10_margin_1,row_10_col_1,row_10_margin_2, row_10_col_2, row_10_margin_3 = st.columns((.1,2.5,.1,2.5,.1)) 
-  with row_10_col_1:
-    st.plotly_chart(fig_1_timeline, use_container_width=False)
-  with row_10_col_2: 
-    st.plotly_chart(fig_2_timeline, use_container_width=False)
+  # row_10_margin_1,row_10_col_1,row_10_margin_2, row_10_col_2, row_10_margin_3 = st.columns((.1,2.5,.1,2.5,.1)) 
+  # with row_10_col_1:
+  #   st.plotly_chart(fig_1_timeline, use_container_width=False)
+  # with row_10_col_2: 
+  #   st.plotly_chart(fig_2_timeline, use_container_width=False)
   
   row_11_margin_1,row_11_col_1,row_11_margin_2 = st.columns((.1,1.5,.1))
   with row_11_col_1:
     st.text('Prédictions sur décembre (2022)')
-  row_12_margin_1,row_12_col_1,row_12_margin_2, row_12_col_2, row_12_margin_3 = st.columns((.1,2.5,.1,2.5,.1)) 
-  with row_12_col_1:
-    st.plotly_chart(fig_3_timeline, use_container_width=False)
-  with row_12_col_2: 
-    st.plotly_chart(fig_4_timeline, use_container_width=False)
+  # row_12_margin_1,row_12_col_1,row_12_margin_2, row_12_col_2, row_12_margin_3 = st.columns((.1,2.5,.1,2.5,.1)) 
+  # with row_12_col_1:
+  #   st.plotly_chart(fig_3_timeline, use_container_width=False)
+  # with row_12_col_2: 
+  #   st.plotly_chart(fig_4_timeline, use_container_width=False)
     
     
