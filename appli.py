@@ -165,7 +165,7 @@ kpi_classic.add_trace(go.Indicator(mode = "number+delta",
 update_layout02 = go.Layout(
   width=250,
   height=250,
-  title = "Pourcentage des acheteurs présumés"
+  title = "% des acheteurs présumés"
 )
 second_kpi_classic = go.Figure(layout= update_layout02)
 second_kpi_classic.add_trace(go.Indicator(mode = "number+delta",
@@ -190,38 +190,6 @@ third_kpi_classic.add_trace(go.Indicator(mode = "number+delta",
                                             'relative': True,
                                             'position' : "bottom",'valueformat':'.2%'},
                                    number = {"font":{"size": 50},"suffix": " min"}))
-
-################### END KPI ###################
-
-################### KPI PAGE TROIS ###################
-update_layout = go.Layout(
-  width=250,
-  height=250,
-  title = "Prédictions par semaines (Count)"
-)
-
-update_layout2 = go.Layout(
-  width=250,
-  height=250,
-  title = "Second KPI"
-)
-
-update_layout3 = go.Layout(
-  width=250,
-  height=250,
-  title = "Troisième KPI"
-)
-
-
-
-fig_kpi = go.Figure(layout= update_layout)
-fig_kpi.add_trace(go.Indicator(mode = "number+delta",
-                                   value = count_predict_this_week,
-                                   domain = {'x': [0, 0], 'y': [0, 0]},
-                                   delta = {'reference': count_predict_last_week,
-                                            'relative': True,
-                                            'position' : "bottom",'valueformat':'.2%'},
-                                   number = {"font":{"size": 50}}))
 
 ################### END KPI ###################
 
@@ -387,7 +355,7 @@ page = st.sidebar.selectbox('Select page',
 if page == 'Global': 
 ############ KPI ############    
   row_0_margin_1, row_0_col_1,row_0_margin_2, row_0_col_2,\
-  row_0_margin_3, row_0_col_3, row_0_margin_4 = st.columns((.1, 1.,3.,1., 3., 1.,.1))
+  row_0_margin_3, row_0_col_3, row_0_margin_4 = st.columns((.1, 1.,1.5 ,1., 1.5, 1.,.1))
   with row_0_col_1:
     st.plotly_chart(kpi_classic ,use_container_width=False)
   with row_0_col_2:
