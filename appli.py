@@ -71,8 +71,11 @@ percent_of_buyer_this_week = np.round(percent_of_buyer_this_week[0],4)*100
 percent_of_buyer_last_week = data_last_week[data_last_week.Predict == 1].count() / data_last_week.count()
 percent_of_buyer_last_week = np.round(percent_of_buyer_last_week[0],4)*100
 
+mean_time_on_site_this_week = data_new.time_on_site.mean()/60 
+mean_time_on_site_this_week =round(mean_time_on_site_this_week,2)
 
-
+mean_time_on_site_last_week = data_last_week.time_on_site.mean()/60 
+mean_time_on_site_last_week = round(mean_time_on_site_last_week,2)
 
 
 #### DATA FOR MAP ####
@@ -183,7 +186,7 @@ df_for_time_2 = pd.concat([df_for_time,df_two])
 update_layout01 = go.Layout(
   width=250,
   height=250,
-  title = "Premier KPI"
+  title = "Visiteurs uniques"
 )
 kpi_classic = go.Figure(layout= update_layout01)
 kpi_classic.add_trace(go.Indicator(mode = "number+delta",
@@ -198,7 +201,7 @@ kpi_classic.add_trace(go.Indicator(mode = "number+delta",
 update_layout02 = go.Layout(
   width=250,
   height=250,
-  title = "Second KPI"
+  title = "% \achetaurs présumés"
 )
 second_kpi_classic = go.Figure(layout= update_layout02)
 second_kpi_classic.add_trace(go.Indicator(mode = "number+delta",
@@ -213,17 +216,16 @@ second_kpi_classic.add_trace(go.Indicator(mode = "number+delta",
 update_layout03 = go.Layout(
   width=250,
   height=250,
-  title = "Troisième KPI"
+  title = "Temps moyen passé sur le site"
 )
 third_kpi_classic = go.Figure(layout= update_layout03)
 third_kpi_classic.add_trace(go.Indicator(mode = "number+delta",
-                                   value = count_predict_this_week,
+                                   value = mean_time_on_site_this_week,
                                    domain = {'x': [0, 0], 'y': [0, 0]},
-                                   delta = {'reference': count_predict_last_week,
+                                   delta = {'reference': mean_time_on_site_last_week,
                                             'relative': True,
                                             'position' : "bottom",'valueformat':'.2%'},
-                                   number = {"font":{"size": 50}}))
-
+                                   number = {"font":{"size": 50},"suffix": " min"}))
 
 ################### END KPI ###################
 
