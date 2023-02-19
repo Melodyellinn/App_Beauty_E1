@@ -201,7 +201,7 @@ kpi_classic.add_trace(go.Indicator(mode = "number+delta",
 update_layout02 = go.Layout(
   width=250,
   height=250,
-  title = "% \achetaurs présumés"
+  title = "% achetaurs présumés"
 )
 second_kpi_classic = go.Figure(layout= update_layout02)
 second_kpi_classic.add_trace(go.Indicator(mode = "number+delta",
