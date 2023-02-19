@@ -497,12 +497,12 @@ elif page == 'World':
 ############################ THIRD PAGE ############################ 
 else:
 ############ KPI ############    
-  row_6_margin_1, row_6_col_1,row_6_margin_2 = st.columns((.1,2.5,.1))
+  row_6_margin_1, row_6_col_1,row_6_margin_2 = st.columns((.8,2.5,.1))
   with row_6_col_1:
     st.plotly_chart(fig_kpi,use_container_width=False)
     
 ############ BARPLOT ############
-  row_7_margin_1,row_7_col_1,row_7_margin_2 = st.columns((.7,1.5,.1)) 
+  row_7_margin_1,row_7_col_1,row_7_margin_2 = st.columns((.1,1.5,.1)) 
   with row_7_col_1:
     st.text('Barplots prédictions des Channels & Appareils')  
   row_8_margin_1,row_8_col_1,row_8_margin_2, row_8_col_2, row_8_margin_3 = st.columns((.1,2.,.1,1.5,.1))  
