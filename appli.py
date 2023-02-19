@@ -36,24 +36,13 @@ end_date_n1 = start_date_n1 - timedelta(days=7)
 #filter
 data_new = data_new[data_new["date"].between(end_date_n,start_date_n)]
 data_last_week = data_untouch[data_untouch['date'].between(end_date_n1,start_date_n1)]
-#df_for_time_yersterday = data_new[data_new["date"].between(end_date_n1,start_date_n1)]
-
 
 
 #### END IMPORT & MERGE DATA ####
 
 #### DATA FOR KPI ####
 top_predict_by_week = data_new.copy()
-#top_predict_by_week["date"] = pd.to_datetime(top_predict_by_week["date"])
 top_predict_by_week = top_predict_by_week[['date', 'Predict']]
-#date1 = "20220917"
-#today_date = datetime.strptime(date1,"%Y%m%d")
-#last_date = today_date - timedelta(days=7)
-#top_predict_this_week = top_predict_by_week.copy()[top_predict_by_week['date'].between(last_date,today_date)]
-#date2 = "20220909"
-#today_date = datetime.strptime(date2,"%Y%m%d")
-#last_date = today_date - timedelta(days=7)
-#top_predict_last_week = top_predict_by_week.copy()[top_predict_by_week['date'].between(last_date,today_date)]
 count_predict_this_week = top_predict_by_week.count()[0]
 count_predict_last_week = data_last_week.count()[0]
 
@@ -153,31 +142,6 @@ df_two = df_for_time[df_for_time["date"]==minimum_last]
 df_two["last_week"]= "Historique"
 df_for_time_2 = pd.concat([df_for_time,df_two])
 
-#start_date_n1 = '2022-11-01'
-#end_date_n1 = '2022-11-25'
-
-#start_date_n = '2022-11-24'
-#end_date_n = '2022-11-31'
-
-#df_for_time_now = df_for_time[df_for_time["date"].between(start_date_n,end_date_n)]
-#df_for_time_yersterday = df_for_time[df_for_time["date"].between(start_date_n1,end_date_n1)]
-
-
-## DECEMBER ##
-# df_for_time2 = data_new.groupby("date").agg({"pageviews":"sum",
-#                                       "time_on_site":"sum",
-#                                       "medium":"count"})
-# df_for_time2 = df_for_time2.reset_index()
-
-# start_date_n1_2 = '2022-12-01'
-# end_date_n1_2 = '2022-12-25'
-
-# start_date_n_2 = '2022-12-24'
-# end_date_n_2 = '2022-12-30'
-
-# df_for_time_now_2 = df_for_time2[df_for_time2["date"].between(start_date_n_2,end_date_n_2)]
-# df_for_time_yersterday_2 = df_for_time2[df_for_time2["date"].between(start_date_n1_2,end_date_n1_2)]
-
 ############################### END DATA ###############################
 
 ############################ DEFINE ALL PLOT ############################
@@ -229,7 +193,6 @@ third_kpi_classic.add_trace(go.Indicator(mode = "number+delta",
 
 ################### END KPI ###################
 
-
 ################### KPI PAGE TROIS ###################
 update_layout = go.Layout(
   width=250,
@@ -261,7 +224,6 @@ fig_kpi.add_trace(go.Indicator(mode = "number+delta",
                                    number = {"font":{"size": 50}}))
 
 ################### END KPI ###################
-
 
 #### MAP ####
 fig_map = px.scatter_mapbox(lat = data_for_map_grouped["Latitude"]['first'],
@@ -344,8 +306,6 @@ second_data_bar = [go.Bar(
             )]
 second_layout = go.Layout(title='Countplot of Device Category')
 
-
-
 #### TIMELINE PLOTS ####
 ## Pageviews ##
 time_figure_pageviews = px.line(df_for_time_2, x='date', y='pageviews', 
@@ -355,50 +315,6 @@ time_figure_pageviews.update_xaxes(rangeslider_visible=True)
 time_figure_timeOnSite = px.line(df_for_time_2, x='date', y='time_on_site',
                                  color ="last_week",title='Time Series with Rangeslider')
 time_figure_timeOnSite.update_xaxes(rangeslider_visible=True)
-
-
-# trace1 = go.Scatter(x=df_for_time_now["date"],y= df_for_time_now['time_on_site'], mode='lines+markers',
-#                     name="Donnée de la semaine passée")
-# trace2 = go.Scatter(x=df_for_time_yersterday["date"],y= df_for_time_yersterday['time_on_site'],
-#                     mode='lines+markers',name = 'Historique du mois')
-
-# fig_1_timeline = go.Figure([trace1,trace2])
-# fig_1_timeline.update_layout(title='Temps passé sur le site par jour',
-#                    xaxis_title='Date',
-#                    yaxis_title='Temps passé sur le site (secondes)')
-
-
-# trace3 = go.Scatter(x=df_for_time_now["date"],y= df_for_time_now['pageviews'],
-#                     mode='lines+markers',name="Donnée de la semaine passée")
-# trace4 = go.Scatter(x=df_for_time_yersterday["date"],y= df_for_time_yersterday['pageviews'],
-#                     mode='lines+markers',name = 'Historique du mois')
-
-# fig_2_timeline = go.Figure([trace3,trace4])
-# fig_2_timeline.update_layout(title='Page visitée sur le site par jour',
-#                    xaxis_title='Date',
-#                    yaxis_title='Nombre de page vue sur le site')
-
-# ## DECEMBER ##
-# trace4 = go.Scatter(x=df_for_time_now_2["date"],y= df_for_time_now_2['time_on_site'], mode='lines+markers',
-#                     name="Donnée de la semaine passée")
-# trace5 = go.Scatter(x=df_for_time_yersterday_2["date"],y= df_for_time_yersterday_2['time_on_site'],
-#                     mode='lines+markers',name = 'Historique du mois')
-
-# fig_3_timeline = go.Figure([trace4,trace5])
-# fig_3_timeline.update_layout(title='Temps passé sur le site par jour',
-#                    xaxis_title='Date',
-#                    yaxis_title='Temps passé sur le site (secondes)')
-
-
-# trace6 = go.Scatter(x=df_for_time_now_2["date"],y= df_for_time_now_2['pageviews'],
-#                     mode='lines+markers',name="Donnée de la semaine passée")
-# trace7 = go.Scatter(x=df_for_time_yersterday_2["date"],y= df_for_time_yersterday_2['pageviews'],
-#                     mode='lines+markers',name = 'Historique du mois')
-
-# fig_4_timeline = go.Figure([trace6,trace7])
-# fig_4_timeline.update_layout(title='Page visitée sur le site par jour',
-#                    xaxis_title='Date',
-#                    yaxis_title='Nombre de page vue sur le site')
 
 #### DEFINE BAR PLOT PERCENTAGE MODEL PREDICTIONS ####
 
@@ -471,10 +387,9 @@ page = st.sidebar.selectbox('Select page',
 if page == 'Global': 
 ############ KPI ############    
   row_0_margin_1, row_0_col_1,row_0_margin_2, row_0_col_2,\
-  row_0_margin_3, row_0_col_3, row_0_margin_4 = st.columns((.1, 1., 2.5 ,1., 2.5, 1., .1))
+  row_0_margin_3, row_0_col_3, row_0_margin_4 = st.columns((.1, 1., 2.5 ,1.5, 2.5, 1.,.1))
   with row_0_col_1:
     st.plotly_chart(kpi_classic ,use_container_width=False)
-################### WIP ######################
   with row_0_col_2:
     st.plotly_chart(second_kpi_classic ,use_container_width=False)
   with row_0_col_3:
