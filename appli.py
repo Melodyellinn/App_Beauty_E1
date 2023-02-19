@@ -545,10 +545,9 @@ else:
     st.text('TimeSeries sur les quatre derniers mois (Sept 2022 - Janv 2023)')
   row_10_margin_1,row_10_col_1, row_10_margin_2 = st.columns((.1,2.5,.1)) 
   with row_10_col_1:
-    st.plotly_chart(time_figure_pageviews, use_container_width=False)
-  
+    st.plotly_chart(time_figure_pageviews, use_container_width=True)
   row_11_margin_1,row_11_col_1,row_11_margin_2 = st.columns((.1,1.5,.1))
   with row_11_col_1:
-    st.plotly_chart(time_figure_timeOnSite, use_container_width=False)
+    st.plotly_chart(time_figure_timeOnSite, use_container_width=True)
     
     
