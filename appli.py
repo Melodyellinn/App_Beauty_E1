@@ -387,7 +387,7 @@ page = st.sidebar.selectbox('Select page',
 if page == 'Global': 
 ############ KPI ############    
   row_0_margin_1, row_0_col_1,row_0_margin_2, row_0_col_2,\
-  row_0_margin_3, row_0_col_3, row_0_margin_4 = st.columns((.1, 1., 2.5 ,1.5, 2.5, 1.,.1))
+  row_0_margin_3, row_0_col_3, row_0_margin_4 = st.columns((.1, 1.,3.,1., 3., 1.,.1))
   with row_0_col_1:
     st.plotly_chart(kpi_classic ,use_container_width=False)
   with row_0_col_2:
