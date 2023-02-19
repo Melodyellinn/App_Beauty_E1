@@ -119,11 +119,17 @@ data_bar_join2['percentage']= data_bar_join2['0_x'] / data_bar_join2['0_y'] * 10
 data_bar_join2= data_bar_join2.drop("0_y",1)
 
 ### DATA FOR TIMELINE ###
-## NOVEMBER ##
-df_for_time = data_new.groupby("date").agg({"pageviews":"sum",
+
+df_for_time = data_untouch.copy().groupby("date").agg({"pageviews":"sum",
                                       "time_on_site":"sum",
                                       "medium":"count"})
 df_for_time = df_for_time.reset_index()
+
+df_for_time['last_week']= df_for_time['date'].apply(lambda x : "Dernière semaine" if end_date_n <= x <= start_date_n else  "Historique")
+minimum_last = df_for_time[df_for_time['last_week']=="Dernière semaine"]["date"].min()
+df_two = df_for_time[df_for_time["date"]==minimum_last]
+df_two["last_week"]= "Historique"
+df = pd.concat([df_for_time,df_two])
 
 #start_date_n1 = '2022-11-01'
 #end_date_n1 = '2022-11-25'
@@ -344,8 +350,19 @@ second_data_bar = [go.Bar(
             )]
 second_layout = go.Layout(title='Countplot of Device Category')
 
+
+
 #### TIMELINE PLOTS ####
-## NOVEMBER ##
+## Pageviews ##
+time_figure_pageviews = px.line(df_for_time, x='date', y='pageviews', 
+                                color ="last_week",title='Time Series with Rangeslider')
+time_figure_pageviews.update_xaxes(rangeslider_visible=True)
+## Time of Site ##
+time_figure_timeOnSite = px.line(df_for_time, x='date', y='time_on_site',
+                                 color ="last_week",title='Time Series with Rangeslider')
+time_figure_timeOnSite.update_xaxes(rangeslider_visible=True)
+
+
 # trace1 = go.Scatter(x=df_for_time_now["date"],y= df_for_time_now['time_on_site'], mode='lines+markers',
 #                     name="Donnée de la semaine passée")
 # trace2 = go.Scatter(x=df_for_time_yersterday["date"],y= df_for_time_yersterday['time_on_site'],
@@ -448,9 +465,7 @@ st.image("https://uploads-ssl.webflow.com/5e078c0ced2a27efc66f1263/6081aa3ac9bc2
 st.title("Comportement des visiteurs sur Vaccineshoppe.com")
 st.markdown("<style>h1{font-family: Georgia; color: rgb(22, 108, 250); font-size: 42px; text-align: center;}</style>",
             unsafe_allow_html=True)
-st.write("**Scope date entre le 1er september 2022 and 31 december 2022** :date:")
-st.markdown('##')
-st.markdown('##')
+st.write("**Scope date Janvier 2023** :date:")
 st.markdown('##')
 st.markdown('##')
 
@@ -474,12 +489,12 @@ if page == 'Global':
     #### BAR PLOT ####
   row_01_margin_1, row_01_col_1, row_01_margin_2 = st.columns((.1,3.5,.1))
   with row_01_col_1:
-    st.text('Type de channel')
+    st.text('Count type de channel')
     fig_channel = go.Figure(data=data_bar, layout=layout)
     st.plotly_chart(fig_channel, use_container_width=False)
   row_1_margin_1, row_1_col_1, row_1_margin_2 = st.columns((.1,3.5,.1))  
   with row_1_col_1: 
-    st.text("Type d'appareil")
+    st.text("Count type d'appareil")
     fig_device = go.Figure(data=second_data_bar, layout=second_layout)
     st.plotly_chart(fig_device,use_container_width=False)
     
@@ -494,7 +509,7 @@ elif page == 'World':
     #### PIE CHART ####
   row_3_margin_1,row_3_col_1,row_3_margin_2 = st.columns((.1,2.5,.1)) 
   with row_3_col_1:
-    st.text('PieCharts des Pays')
+    st.text('Répartitions des Pays')
     st.plotly_chart(double_piechart,use_container_width=True)
     
   row_4_margin_1,row_4_col_1,row_4_margin_2 = st.columns((.5,3.5,.1))
@@ -527,12 +542,12 @@ else:
 ## Timelines ##
   row_9_margin_1,row_9_col_1,row_9_margin_2 = st.columns((.1,1.5,.1))
   with row_9_col_1:
-    st.text('Prédictions sur novembre (2022)')
-  # row_10_margin_1,row_10_col_1,row_10_margin_2, row_10_col_2, row_10_margin_3 = st.columns((.1,2.5,.1,2.5,.1)) 
-  # with row_10_col_1:
-  #   st.plotly_chart(fig_1_timeline, use_container_width=False)
-  # with row_10_col_2: 
-  #   st.plotly_chart(fig_2_timeline, use_container_width=False)
+    st.text('TimeSeries sur les quatre derniers mois (Sept 2022 - Janv 2023)')
+  row_10_margin_1,row_10_col_1,row_10_margin_2, row_10_col_2, row_10_margin_3 = st.columns((.1,2.5,.1,2.5,.1)) 
+  with row_10_col_1:
+    st.plotly_chart(time_figure_pageviews, use_container_width=False)
+  with row_10_col_2: 
+    st.plotly_chart(time_figure_timeOnSite, use_container_width=False)
   
   row_11_margin_1,row_11_col_1,row_11_margin_2 = st.columns((.1,1.5,.1))
   with row_11_col_1:
