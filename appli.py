@@ -244,28 +244,6 @@ fig_kpi.add_trace(go.Indicator(mode = "number+delta",
                                             'position' : "bottom",'valueformat':'.2%'},
                                    number = {"font":{"size": 50}}))
 
-
-second_fig_kpi = go.Figure(layout= update_layout2)
-second_fig_kpi.add_trace(go.Indicator(mode = "number+delta",
-                                   value = count_predict_this_week,
-                                   domain = {'x': [0, 0], 'y': [0, 0]},
-                                   delta = {'reference': count_predict_last_week,
-                                            'relative': True,
-                                            'position' : "bottom",'valueformat':'.2%'},
-                                   number = {"font":{"size": 50}}))
-
-
-third_fig_kpi = go.Figure(layout= update_layout3)
-third_fig_kpi.add_trace(go.Indicator(mode = "number+delta",
-                                   value = count_predict_this_week,
-                                   domain = {'x': [0, 0], 'y': [0, 0]},
-                                   delta = {'reference': count_predict_last_week,
-                                            'relative': True,
-                                            'position' : "bottom",'valueformat':'.2%'},
-                                   number = {"font":{"size": 50}}))
-
-
-
 ################### END KPI ###################
 
 
@@ -519,15 +497,9 @@ elif page == 'World':
 ############################ THIRD PAGE ############################ 
 else:
 ############ KPI ############    
-  row_6_margin_1, row_6_col_1,row_6_margin_2, row_6_col_2,\
-  row_6_margin_3, row_6_col_3, row_6_margin_4 = st.columns((.1, 1., 2.5 ,1., 2.5, 1., .1))
+  row_6_margin_1, row_6_col_1,row_6_margin_2 = st.columns((.1,2.5,.1))
   with row_6_col_1:
     st.plotly_chart(fig_kpi,use_container_width=False)
-################### WIP ######################
-  with row_6_col_2:
-    st.plotly_chart(second_fig_kpi,use_container_width=False)
-  with row_6_col_3:
-    st.plotly_chart(third_fig_kpi,use_container_width=False)
     
 ############ BARPLOT ############
   row_7_margin_1,row_7_col_1,row_7_margin_2 = st.columns((.1,1.5,.1)) 
