@@ -1,6 +1,7 @@
 #### LIBRARIES ####
 import streamlit as st
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 import sqlite3 as sql
 from datetime import timedelta, datetime
@@ -55,6 +56,24 @@ top_predict_by_week = top_predict_by_week[['date', 'Predict']]
 #top_predict_last_week = top_predict_by_week.copy()[top_predict_by_week['date'].between(last_date,today_date)]
 count_predict_this_week = top_predict_by_week.count()[0]
 count_predict_last_week = data_last_week.count()[0]
+
+
+start_date_n = data_new.date.max()
+end_date_n = start_date_n - timedelta(days=7)
+start_date_n1 = end_date_n - timedelta(days=1)
+end_date_n1 = start_date_n1 - timedelta(days=7)
+#filter
+data_new = data_new[data_new["date"].between(end_date_n,start_date_n)]
+data_last_week = data_untouch[data_untouch['date'].between(end_date_n1,start_date_n1)]
+
+percent_of_buyer_this_week = data_new[data_new.Predict == 1].count() / data_new.count()
+percent_of_buyer_this_week = np.round(percent_of_buyer_this_week[0],4)*100
+percent_of_buyer_last_week = data_last_week[data_last_week.Predict == 1].count() / data_last_week.count()
+percent_of_buyer_last_week = np.round(percent_of_buyer_last_week[0],4)*100
+
+
+
+
 
 #### DATA FOR MAP ####
 list_of_country = [[37.09024,-95.712891,"United States"],
@@ -166,21 +185,6 @@ update_layout01 = go.Layout(
   height=250,
   title = "Premier KPI"
 )
-
-update_layout02 = go.Layout(
-  width=250,
-  height=250,
-  title = "Second KPI"
-)
-
-update_layout03 = go.Layout(
-  width=250,
-  height=250,
-  title = "Troisième KPI"
-)
-
-
-
 kpi_classic = go.Figure(layout= update_layout01)
 kpi_classic.add_trace(go.Indicator(mode = "number+delta",
                                    value = count_predict_this_week,
@@ -191,16 +195,26 @@ kpi_classic.add_trace(go.Indicator(mode = "number+delta",
                                    number = {"font":{"size": 50}}))
 
 
+update_layout02 = go.Layout(
+  width=250,
+  height=250,
+  title = "Second KPI"
+)
 second_kpi_classic = go.Figure(layout= update_layout02)
 second_kpi_classic.add_trace(go.Indicator(mode = "number+delta",
-                                   value = count_predict_this_week,
+                                   value = percent_of_buyer_this_week,
                                    domain = {'x': [0, 0], 'y': [0, 0]},
-                                   delta = {'reference': count_predict_last_week,
+                                   delta = {'reference': percent_of_buyer_last_week,
                                             'relative': True,
                                             'position' : "bottom",'valueformat':'.2%'},
-                                   number = {"font":{"size": 50}}))
+                                   number = {"font":{"size": 50},"suffix": "%"}))
 
 
+update_layout03 = go.Layout(
+  width=250,
+  height=250,
+  title = "Troisième KPI"
+)
 third_kpi_classic = go.Figure(layout= update_layout03)
 third_kpi_classic.add_trace(go.Indicator(mode = "number+delta",
                                    value = count_predict_this_week,
@@ -495,12 +509,7 @@ elif page == 'World':
     st.plotly_chart(piechart_country,use_container_width=True)
     
 ############################ THIRD PAGE ############################ 
-else:
-############ KPI ############    
-  row_6_margin_1, row_6_col_1,row_6_margin_2 = st.columns((.8,2.5,.1))
-  with row_6_col_1:
-    st.plotly_chart(fig_kpi,use_container_width=False)
-    
+else:  
 ############ BARPLOT ############
   row_7_margin_1,row_7_col_1,row_7_margin_2 = st.columns((.1,1.5,.1)) 
   with row_7_col_1:
