@@ -129,7 +129,7 @@ df_for_time['last_week']= df_for_time['date'].apply(lambda x : "Dernière semain
 minimum_last = df_for_time[df_for_time['last_week']=="Dernière semaine"]["date"].min()
 df_two = df_for_time[df_for_time["date"]==minimum_last]
 df_two["last_week"]= "Historique"
-df = pd.concat([df_for_time,df_two])
+df_for_time_2 = pd.concat([df_for_time,df_two])
 
 #start_date_n1 = '2022-11-01'
 #end_date_n1 = '2022-11-25'
@@ -354,11 +354,11 @@ second_layout = go.Layout(title='Countplot of Device Category')
 
 #### TIMELINE PLOTS ####
 ## Pageviews ##
-time_figure_pageviews = px.line(df_for_time, x='date', y='pageviews', 
+time_figure_pageviews = px.line(df_for_time_2, x='date', y='pageviews', 
                                 color ="last_week",title='Time Series with Rangeslider')
 time_figure_pageviews.update_xaxes(rangeslider_visible=True)
 ## Time of Site ##
-time_figure_timeOnSite = px.line(df_for_time, x='date', y='time_on_site',
+time_figure_timeOnSite = px.line(df_for_time_2, x='date', y='time_on_site',
                                  color ="last_week",title='Time Series with Rangeslider')
 time_figure_timeOnSite.update_xaxes(rangeslider_visible=True)
 
@@ -543,19 +543,12 @@ else:
   row_9_margin_1,row_9_col_1,row_9_margin_2 = st.columns((.1,1.5,.1))
   with row_9_col_1:
     st.text('TimeSeries sur les quatre derniers mois (Sept 2022 - Janv 2023)')
-  row_10_margin_1,row_10_col_1,row_10_margin_2, row_10_col_2, row_10_margin_3 = st.columns((.1,2.5,.1,2.5,.1)) 
+  row_10_margin_1,row_10_col_1, row_10_margin_2 = st.columns((.1,2.5,.1)) 
   with row_10_col_1:
     st.plotly_chart(time_figure_pageviews, use_container_width=False)
-  with row_10_col_2: 
-    st.plotly_chart(time_figure_timeOnSite, use_container_width=False)
   
   row_11_margin_1,row_11_col_1,row_11_margin_2 = st.columns((.1,1.5,.1))
   with row_11_col_1:
-    st.text('Prédictions sur décembre (2022)')
-  # row_12_margin_1,row_12_col_1,row_12_margin_2, row_12_col_2, row_12_margin_3 = st.columns((.1,2.5,.1,2.5,.1)) 
-  # with row_12_col_1:
-  #   st.plotly_chart(fig_3_timeline, use_container_width=False)
-  # with row_12_col_2: 
-  #   st.plotly_chart(fig_4_timeline, use_container_width=False)
+    st.plotly_chart(time_figure_timeOnSite, use_container_width=False)
     
     
